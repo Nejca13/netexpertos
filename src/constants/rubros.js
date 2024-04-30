@@ -1,0 +1,25 @@
+const rubros = [
+  'Tecnología',
+  'Salud',
+  'Educación',
+  'Gastronomía',
+  'Diseño',
+  'Arte',
+  'Deporte',
+  'Moda',
+  'Construcción',
+  'Automoción',
+  'Finanzas',
+  'Medio Ambiente',
+  'Turismo',
+  'Cine y TV',
+  'Música',
+  'Marketing',
+  'Consultoría',
+  'Recursos Humanos',
+  'Servicios Legales',
+  'Investigación',
+  'Otro',
+]
+
+export default rubros

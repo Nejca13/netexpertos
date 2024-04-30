@@ -1,0 +1,135 @@
+.container {
+  position: relative;
+  backdrop-filter: blur(3px);
+  height: 70vh;
+  width: 90vw;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgba(128, 128, 128, 0.719);
+  border: 5px solid var(--color-amarillo);
+  border-radius: 10px;
+  gap: 20px;
+  .containerImage {
+    position: absolute;
+    transform: translateY(-50%);
+    z-index: 100;
+    .image {
+      border-radius: 100%;
+      border: 5px solid var(--color-amarillo);
+      object-fit: cover;
+      object-position: center 0px;
+    }
+  }
+  .containerInfo {
+    width: 100%;
+    height: auto;
+    text-align: center;
+    color: var(--color-blanco);
+    font-family: var(--font-roboto-bold);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 80px;
+    .pNombre {
+      font-size: 24px;
+    }
+    .pProfesion {
+      font-size: 18px;
+    }
+    .spanExperiencia {
+      font-family: var(--font-helvetica-italic);
+    }
+  }
+  .ulValoracion {
+    display: flex;
+    gap: 10px;
+    font-size: 22px;
+    color: var(--color-gris-medio);
+    background-color: var(--color-silver);
+    list-style: none;
+    width: 90%;
+    border-radius: 14px;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 3px 10px rgb(94, 94, 94);
+    height: 50px;
+    font-family: var(--font-roboto-bold);
+    .li {
+      width: 33%;
+      height: 90%;
+      align-content: center;
+      .buttonAgregarFavoritos {
+        background-color: transparent;
+        border: none;
+        font-family: inherit;
+        color: inherit;
+      }
+    }
+  }
+  .ulValoracion .li:nth-child(1) {
+    font-size: 30px;
+  }
+  .ulValoracion .li:nth-child(2) {
+    border-left: 5px solid white;
+    border-right: 5px solid white;
+    align-content: center;
+    font-size: 30px;
+  }
+  .buttonMasInfo {
+    background-color: var(--color-amarillo);
+    padding: 3px 10px;
+    border-radius: 14px;
+    font-family: var(--font-roboto-bold);
+    font-size: 16px;
+    max-width: 250px;
+    border: none;
+    box-shadow: 0 3px 10px rgb(94, 94, 94);
+    color: white;
+  }
+  .pTrabajosRealizados {
+    width: 100%;
+    background-color: var(--color-amarillo);
+    font-family: var(--font-cooper-black);
+    color: white;
+    text-shadow: 0 3px 10px rgb(94, 94, 94);
+    text-align: center;
+    align-content: center;
+    font-size: 28px;
+    line-height: 40px;
+    padding: 3px 0;
+  }
+  .ulTrabajosRealizados {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+    max-width: 85%;
+    overflow: scroll;
+    scrollbar-width: none;
+    .li {
+      padding: 0 10px;
+      border-right: 1px solid var(--color-amarillo);
+      text-align: center;
+      .image {
+        border-radius: 100%;
+        object-fit: cover;
+        border: 3px solid var(--color-amarillo);
+      }
+    }
+  }
+  .buttonContactar {
+    background-color: var(--color-amarillo);
+    padding: 3px 10px;
+    border-radius: 14px;
+    font-family: var(--font-roboto-bold);
+    font-size: 16px;
+    max-width: 250px;
+    border: none;
+    box-shadow: 0 3px 10px rgb(94, 94, 94);
+    color: var(--color-gris-medio);
+  }
+}
+
+.container p {
+  margin: 0;
+}

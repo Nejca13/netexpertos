@@ -1,0 +1,34 @@
+#map {
+  height: 200px;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.menu {
+  position: absolute;
+  right: 0;
+  top: 50px;
+  z-index: 1000;
+}
+
+.button {
+  background-color: var(--color-amarillo);
+  z-index: 1000;
+  width: 120px;
+  position: absolute;
+  bottom: 20px;
+  padding: 8px 10px;
+  box-shadow: var(--box-shadow);
+  font-family: var(--font-roboto-bold);
+  color: var(--color-gris-medio);
+  font-size: 18px;
+  border: none;
+  border-radius: 32px;
+  right: calc(50% - 75px);
+  text-align: center;
+  text-decoration: none;
+}

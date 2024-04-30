@@ -1,0 +1,81 @@
+.main {
+  font-family: var(--roboto);
+  background-image: url('../assets/images/FondoAmarillo.jpg');
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .title {
+    padding-top: 100px;
+    text-align: center;
+    margin-bottom: 23px;
+  }
+
+  .inputs {
+    width: 100%;
+    .label {
+      font-weight: 700;
+      margin-left: 14px;
+      font-size: 17px;
+      color: var(--color-gris-medio);
+    }
+    .input {
+      margin-top: 1px;
+      width: 100%;
+      height: 46px;
+      border: 1.5px solid var(--color-gris);
+      border-radius: 4px;
+    }
+  }
+}
+.resetPassword {
+  font-size: 14px;
+  border-bottom: 1px solid var(--color-gris-medio);
+  font-style: italic;
+  padding-bottom: 23px;
+  .p {
+    color: var(--color-gris-medio);
+    .link {
+      color: var(--color-naranja);
+      text-decoration: none;
+    }
+  }
+}
+
+.register {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 24px;
+  .p {
+    font-size: 28px;
+    font-family: var(--font-cooper-black);
+    color: var(--color-gris);
+  }
+  .span {
+    color: var(--color-gris-medio);
+    font-family: var(--font-roboto-bold);
+    font-size: 20px;
+  }
+  .containerButtons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 41px;
+    .registerButtons {
+      cursor: pointer;
+      font-family: var(--font-roboto-bold);
+      background-color: var(--color-blanco);
+      color: var(--color-naranja);
+      padding: 13px 34px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-size: 21px;
+      font-weight: bold;
+      box-shadow: 0px 4px 10px black;
+    }
+  }
+}

@@ -1,0 +1,30 @@
+.main {
+  min-height: 100vh;
+  width: 100%;
+  background-image: url('../../assets/images/FondoAmarillo.jpg');
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 52.75px;
+  padding-bottom: 52.75px;
+  gap: 50px;
+}
+
+.mainFondoBlanco {
+  min-height: 100vh;
+  width: 100%;
+  background-image: url('../../assets/images/FondoBlanco.png');
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 52.75px;
+  padding-bottom: 52.75px;
+  gap: 35px;
+}

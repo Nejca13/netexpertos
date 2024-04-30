@@ -1,0 +1,116 @@
+.divNavBar {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 30px;
+  align-items: center;
+  width: 100%;
+}
+.divBuscador {
+  width: 100%;
+  max-width: 380px;
+  height: 37px;
+  background-color: var(--color-amarillo);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
+  overflow: hidden;
+  .logoLupa {
+    background-color: var(--color-gris-medio);
+    width: 53px;
+    height: 37px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .searchInput {
+    height: 25px;
+    width: 100%;
+    max-width: 273px;
+    margin: auto;
+    border-radius: 5px;
+    border: none;
+  }
+  .searchInput:focus {
+    border: none;
+  }
+}
+
+.divCategorias {
+  height: 402px;
+  width: 100%;
+  max-width: 380px;
+  overflow: scroll;
+  border-radius: 10px;
+  background-image: url('../../assets//images/FondoAmarillo.jpg');
+  padding: 13px 30px;
+  .ul {
+    list-style: none;
+    .li {
+      border-bottom: 1px solid var(--color-gris);
+      font-family: var(--font-roboto-bold);
+      color: var(--color-gris-medio);
+      height: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      align-content: center;
+      padding-left: 10px;
+      padding-right: 10px;
+      cursor: pointer;
+      .link {
+        color: var(--color-gris-medio);
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+.destacados {
+  width: 100%;
+  border-radius: 10px;
+  max-width: 380px;
+  background-color: var(--color-gris);
+  .title {
+    background-color: var(--color-amarillo);
+    text-align: center;
+    font-family: var(--font-roboto-bold);
+    font-size: 18px;
+    height: 31px;
+    align-content: center;
+    color: var(--color-gris-medio);
+    border-radius: 10px;
+    width: 100%;
+  }
+  .destacadosUl {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    padding: 9px;
+    .destacadosLi {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      .image {
+        border-radius: 100%;
+        border: 3px solid var(--color-amarillo);
+        object-fit: cover;
+      }
+      .pName {
+        color: var(--color-blanco);
+        font-family: var(--font-roboto-bold);
+        font-size: 12px;
+      }
+      .pDescripcion {
+        color: var(--color-amarillo);
+        font-family: var(--font-helvetica-italic);
+        font-size: 11px;
+        .spanCalificacion {
+          color: var(--color-blanco);
+          font-family: var(--font-roboto-bold);
+        }
+      }
+    }
+  }
+}
