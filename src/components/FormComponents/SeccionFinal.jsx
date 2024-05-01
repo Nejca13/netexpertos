@@ -8,6 +8,7 @@ import useGeolocation from '@/hooks/useGeolocation'
 import checkIcon from '../../assets/images/checkIcon.svg'
 import { useState } from 'react'
 import defaultUserImage from '../../assets/images/userImage.png'
+import { saveCompressedImageToLocalStorage } from '@/utils/minificadorDeImagenes'
 
 const SeccionFinal = ({ onNext }) => {
   const { location, error } = useGeolocation()
@@ -58,7 +59,7 @@ const SeccionFinal = ({ onNext }) => {
         type={'hidden'}
         name={'ubicacion'}
         id={'ubicacion'}
-        value={location && { lat: location.latitude, long: location.longitude }}
+        value={location && `${location.latitude}, ${location.longitude}`}
       />
       <span className={styles.ubicacionSpan}>
         Ubicación:{' '}

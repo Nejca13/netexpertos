@@ -11,6 +11,7 @@ import HambMenu from '@/components/ui/HambMenu/HambMenu'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import HambIcon from '@/components/ui/HambIcon/HambIcon'
+import isAuth from '@/components/Auth/IsAuth'
 
 const Page = () => {
   const [showMenu, setShowMenu] = useState(false)
@@ -98,4 +99,4 @@ const Page = () => {
   )
 }
 
-export default Page
+export default isAuth(Page)

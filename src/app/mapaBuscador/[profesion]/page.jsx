@@ -10,6 +10,7 @@ import HambMenu from '@/components/ui/HambMenu/HambMenu'
 import HambIcon from '@/components/ui/HambIcon/HambIcon'
 import { useParams } from 'next/navigation'
 import { getFilteredAndSortedProfessionalsByDistance } from '@/services/api/profesionales'
+import isAuth from '@/components/Auth/IsAuth'
 
 const Map = () => {
   const { profesion } = useParams()
@@ -28,7 +29,7 @@ const Map = () => {
         profesion: decodeURIComponent(profesion),
         latitud: location.latitude,
         longitud: location.longitude,
-      }).then((res) => setProfessionalsNearby(profesionalesFiltrados))
+      }).then((res) => setProfessionalsNearby(res))
     }
   }, [location])
 
@@ -48,4 +49,4 @@ const Map = () => {
   )
 }
 
-export default Map
+export default isAuth(Map)

@@ -3,6 +3,7 @@
   width: 30px !important;
   height: 30px !important;
   object-fit: cover;
+  transform: rotate(45deg);
 }
 
 .online {

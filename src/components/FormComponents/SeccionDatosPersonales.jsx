@@ -15,7 +15,7 @@ const SeccionDatosPersonales = ({ onNext }) => {
       />
       <Inputs
         id={'apellido'}
-        placeholder={'apellido'}
+        placeholder={'Apellido'}
         name={'apellido'}
         type={'text'}
         text={'Apellido'}
@@ -33,7 +33,7 @@ const SeccionDatosPersonales = ({ onNext }) => {
         id={'telefono'}
         name={'numero'}
         type={'tel'}
-        placeholder={'12311223344'}
+        placeholder={'2984 565522'}
         text={'Numero de telefono'}
         errorMessage={'Debe ingresar un numero de telefono valido.'}
         minLength={'10'}

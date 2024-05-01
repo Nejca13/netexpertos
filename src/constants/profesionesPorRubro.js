@@ -1,5 +1,5 @@
 const profesionesPorRubro = {
-  Tecnología: [
+  Tecnologia: [
     'Desarrollador de software',
     'Ingeniero de sistemas',
     'Analista de datos',

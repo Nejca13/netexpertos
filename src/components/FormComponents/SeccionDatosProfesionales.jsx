@@ -19,7 +19,7 @@ const SeccionDatosProfesionales = ({ onNext, onBack }) => {
       <Select
         data={rubros}
         id={'rubro'}
-        name={'rubro'}
+        name={'rubro_nombre'}
         text={'Selecciona tu rubro'}
         func={(e) => setRubroSeleccionado(e.target.value)}
       />
