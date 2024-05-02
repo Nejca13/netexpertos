@@ -10,13 +10,13 @@
   gap: 16px;
   flex-direction: column;
   background-color: var(--color-gris);
-  .image {
-    padding-left: 14px;
-  }
-  .p {
-    font-size: 36px;
-    padding-left: 30px;
-    font-weight: light;
-    font-family: var(--font-roboto-bold);
-  }
+}
+.nav .image {
+  padding-left: 14px;
+}
+.nav .p {
+  font-size: 36px;
+  padding-left: 30px;
+  font-weight: light;
+  font-family: var(--font-roboto-bold);
 }

@@ -21,7 +21,6 @@ const Page = () => {
   const { location, error } = useGeolocation()
   const [userImage, setUserImage] = useState(defaultUserImage)
   const handleSubmit = (e) => {
-    e.preventDefault()
     const formDataValues = Object.fromEntries(new FormData(e.target))
     formDataValues.edad = parseInt(formDataValues.edad)
     createUser(formDataValues)
@@ -37,7 +36,18 @@ const Page = () => {
   return (
     <Container>
       <NavBar title={'Crear cuenta de usuario'} />
-      <FormContainer onSubmit={(e) => handleSubmit(e)} method={'POST'}>
+      <FormContainer
+        onSubmit={(e) => {
+          e.preventDefault()
+          const data = Object.fromEntries(new FormData(e.target))
+          if (data.password === data.password2) {
+            handleSubmit(e)
+          } else {
+            alert('Las contraseñas deben ser identicas')
+          }
+        }}
+        method={'POST'}
+      >
         <Image
           className={styles.userImage}
           src={userImage}
@@ -59,6 +69,7 @@ const Page = () => {
           placeholder={'Nombre'}
           text={'Nombre'}
           id={'nombre'}
+          errorMessage={'El nombre ingresado tiene un formato no valido.'}
         />
         <Inputs
           type={'text'}
@@ -66,46 +77,54 @@ const Page = () => {
           placeholder={'Apellido'}
           text={'Apellido'}
           id={'apellido'}
+          errorMessage={'El apellido ingresado tiene un formato no valido.'}
         />
-        <Inputs
+        {/* <Inputs
           type={'number'}
           name={'edad'}
           placeholder={'Edad'}
           text={'Edad'}
           id={'edad'}
-        />
+        /> */}
         <Inputs
           id={'correo'}
           placeholder={'Email'}
           name={'correo'}
           type={'email'}
           text={'Email'}
+          errorMessage={'Ingrese un correo valido. EJ: nombre@email.com'}
         />
-        <Inputs
+        {/*  <Inputs
           type={'date'}
           text={'Fecha de nacimiento'}
           id={'birthdate'}
           name={'birthdate'}
           placeholder={'dd/mm/aa'}
-        />
-        <Inputs
+        /> */}
+        {/* <Inputs
           id={'phone'}
           name={'phone'}
           type={'tel'}
           placeholder={'2994595681'}
           text={'Numero de telefono'}
-        />
+        /> */}
         <Inputs
           id={'password'}
           name={'password'}
           type={'password'}
           text={'Contraseña'}
+          errorMessage={
+            'Fomato de contraseña incorrectaLa contraseña debe tener al menos 8 caracteres e incluir al menos una letra minúscula, una letra mayúscula, un número y un símbolo especial.'
+          }
         />
         <Inputs
           id={'password2'}
           name={'password2'}
           type={'password'}
           text={'Vuelva a repetir la contraseña'}
+          errorMessage={
+            'Fomato de contraseña incorrectaLa contraseña debe tener al menos 8 caracteres e incluir al menos una letra minúscula, una letra mayúscula, un número y un símbolo especial.'
+          }
         />
         <Inputs
           type={'hidden'}
@@ -136,6 +155,7 @@ const Page = () => {
           <li className={styles.li}>Una minúscula</li>
           <li className={styles.li}>Una mayúscula</li>
           <li className={styles.li}>Un número</li>
+          <li className={styles.li}>Un simbolo</li>
         </ul>
         <p className={styles.p}>
           Al crear una cuenta, aceptas nuestras políticas de privacidad

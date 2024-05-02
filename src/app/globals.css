@@ -32,6 +32,7 @@
   --color-gris: #666666; /* Gris */
   --color-naranja: #ff8000; /* Naranja */
   --color-negro-transparente2: #00000059; /* Negro Transparente */
+  --color-danger: rgb(245, 48, 48);
   --font-florida: 'Florida';
   --font-cooper-black: 'Cooper-Black';
   --font-roboto-regular: 'Roboto-regular';

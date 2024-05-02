@@ -62,3 +62,11 @@
   box-shadow: var(--box-shadow);
   cursor: pointer;
 }
+
+.errorMessage {
+  color: var(--color-blanco);
+  background-color: var(--color-danger);
+  padding: 5px 20px;
+  border-radius: 10px;
+  font-family: var(--font-roboto-bold);
+}

@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import styles from './FormComponents.module.css'
 
 export const Inputs = ({
@@ -94,17 +95,29 @@ export const Select = ({ text, data, id, name, func }) => {
 }
 
 export const InputTypeFile = ({ handleFileChange }) => {
+  const [error, setError] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
+
   return (
-    <label htmlFor='profilePhoto' className={styles.inputFileLabel}>
-      Subir foto de perfil
-      <input
-        className={styles.inputFile}
-        type='file'
-        accept='image/*'
-        onChange={handleFileChange}
-        name='profilePhoto'
-        id='profilePhoto'
-      />
-    </label>
+    <>
+      <label htmlFor='profilePhoto' className={styles.inputFileLabel}>
+        Subir foto de perfil
+        <input
+          className={styles.inputFile}
+          type='file'
+          accept='image/*'
+          onChange={handleFileChange}
+          name='profilePhoto'
+          id='profilePhoto'
+          required
+          onInvalid={(e) => {
+            setError(true)
+            setErrorMessage(e.target.validationMessage)
+          }}
+          onInput={(e) => setError(false)}
+        />
+      </label>
+      {error ? <p className={styles.errorMessage}>{errorMessage}</p> : <p></p>}
+    </>
   )
 }

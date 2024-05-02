@@ -48,12 +48,18 @@ const SeccionFinal = ({ onNext }) => {
         name={'password'}
         type={'password'}
         text={'Contraseña'}
+        errorMessage={
+          'Fomato de contraseña incorrectaLa contraseña debe tener al menos 8 caracteres e incluir al menos una letra minúscula, una letra mayúscula, un número y un símbolo especial.'
+        }
       />
       <Inputs
         id={'password2'}
         name={'password2'}
         type={'password'}
         text={'Vuelva a repetir la contraseña'}
+        errorMessage={
+          'Fomato de contraseña incorrectaLa contraseña debe tener al menos 8 caracteres e incluir al menos una letra minúscula, una letra mayúscula, un número y un símbolo especial.'
+        }
       />
       <Inputs
         type={'hidden'}

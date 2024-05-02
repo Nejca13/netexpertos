@@ -9,9 +9,9 @@
   font-family: var(--font-helvetica-regular);
   font-size: 14px;
   color: var(--color-gris);
-  .li {
-    min-width: 120px;
-  }
+}
+.ul .li {
+  min-width: 120px;
 }
 .p {
   font-family: var(--font-helvetica-regular);
