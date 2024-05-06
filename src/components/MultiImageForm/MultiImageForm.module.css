@@ -51,12 +51,15 @@
   max-height: 89px;
   max-width: 137px;
   border-radius: 6px;
-  align-content: center;
   text-align: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .defaultContainer .p {
   color: white;
-  font-size: 12px;
+  font-size: 11px;
   font-family: var(--font-roboto-regular);
 }

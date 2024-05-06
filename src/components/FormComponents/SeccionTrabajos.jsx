@@ -16,9 +16,7 @@ const SeccionTrabajos = ({ onNext, onBack }) => {
         onNext(e)
       }}
     >
-      <h2 style={{ textAlign: 'center' }}>
-        Carga fotos de tus ultimos trabajos
-      </h2>
+      <p className={styles.title}>Carga fotos de tus ultimos trabajos</p>
       <div className={styles.carrusel}>
         {arr.length > 0 &&
           arr.map((item, index) => (

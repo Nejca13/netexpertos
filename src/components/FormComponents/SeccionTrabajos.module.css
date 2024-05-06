@@ -1,6 +1,9 @@
 .jobsImage {
   border-radius: 100%;
 }
+.title {
+  text-align: center;
+}
 .carrusel {
   margin-top: 30px;
   position: relative;

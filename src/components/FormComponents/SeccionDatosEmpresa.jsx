@@ -47,15 +47,7 @@ const SeccionDatosEmpresa = ({ onNext, onBack }) => {
         type={'text'}
         placeholder={'Security and System'}
       />
-      <Inputs
-        id={'experiencia'}
-        name={'experiencia_laboral_años'}
-        placeholder={0}
-        value={0}
-        type={'number'}
-        text={'Experiencia Laboral'}
-        errorMessage={'Debe ingresar los años de experiencia laboral. EJ: 1'}
-      />
+
       <Select
         data={rubros}
         id={'rubro'}

@@ -2,12 +2,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 }
 .containerTyC {
   background-color: white;
   padding: 20px;
   text-align: justify;
-  max-height: 500px;
+  height: 65vh;
   overflow: scroll;
 }
 

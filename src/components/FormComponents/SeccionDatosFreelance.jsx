@@ -47,15 +47,7 @@ const SeccionDatosFreelance = ({ onNext, onBack }) => {
         type={'text'}
         placeholder={'Juan Perez'}
       />
-      <Inputs
-        id={'experiencia'}
-        name={'experiencia_laboral_años'}
-        placeholder={'5'}
-        value={0}
-        type={'number'}
-        text={'Experiencia Laboral'}
-        errorMessage={'Debe ingresar los años de experiencia laboral. EJ: 1'}
-      />
+
       <Inputs
         type={'date'}
         text={'Fecha de nacimiento'}
