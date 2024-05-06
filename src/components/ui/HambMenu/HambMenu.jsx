@@ -6,7 +6,6 @@ import defaultImage from '@/assets/images/userImage.png'
 import { userLogout } from '@/services/api/authUsuarios'
 
 const HambMenu = ({ show, userApp }) => {
-  const fotoDePerfil = localStorage.getItem('imagen_perfil')
   return (
     <div className={styles.container}>
       <div className={styles.personalMenu}>
@@ -16,7 +15,7 @@ const HambMenu = ({ show, userApp }) => {
         <div className={styles.div}>
           <Image
             className={styles.image}
-            src={fotoDePerfil ? fotoDePerfil : defaultImage.src}
+            src={userApp.foto_base64 ? userApp.foto_base64 : defaultImage.src}
             width={80}
             height={80}
             alt='Imagen de perfil del usuario'

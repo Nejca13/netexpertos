@@ -16,8 +16,11 @@ export default function Home() {
     const formDataValues = Object.fromEntries(new FormData(e.target))
     try {
       const user = await userLogin(formDataValues)
+      console.log(user)
       sessionStorage.setItem('user', JSON.stringify(user))
-      window.location.href = '/profile'
+      if (user) {
+        window.location.href = '/profile'
+      }
     } catch (error) {
       console.error('Error:', error.message)
       throw error

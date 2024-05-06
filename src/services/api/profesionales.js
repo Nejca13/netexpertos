@@ -15,19 +15,43 @@ export const getAllProfesionales = async () => {
 
 // Función para crear un nuevo profesional
 export const createProfesional = async (data) => {
+  const [nombre, apellido] = data.nombre_apellido.split(' ')
+  const newData = {
+    rol: 'Profesional',
+    nombre: nombre, // Puedes asignar el nombre y apellido según sea necesario
+    apellido: apellido,
+    numero: data.telefono,
+    correo: data.correo,
+    password: data.password,
+    ubicacion: data.ubicacion,
+    calificacion: 0,
+    experiencia_laboral_años: data.experiencia_laboral_años
+      ? parseInt(data.experiencia_laboral_años)
+      : 0,
+    recomendaciones: 0,
+    fotos_trabajos: data.fotos_trabajos,
+    foto_perfil: data.foto_perfil,
+    horarios_atencion: `de ${data.horario_apertura} - a ${data.horario_cierre}`,
+    nacimiento: data.nacimiento,
+    rubro_nombre: data.rubro_nombre,
+    profesion_nombre: data.profesion_nombre,
+    acerca_de_mi: data.acerca_de_mi,
+    fecha_registro: new Date().toISOString(), // Obtener la fecha actual en formato ISO
+  }
   try {
     const options = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(newData),
     }
 
     const response = await fetch(API_URL, options)
 
     if (response.ok) {
       console.log('Usuario creado exitosamente')
+      return true
     } else {
       const errorData = await response.json() // Captura el cuerpo de la respuesta si hay error
 

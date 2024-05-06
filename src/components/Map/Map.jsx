@@ -42,9 +42,7 @@ const MapComponent = ({ coord, destacados }) => {
           }
           position={coord}
         >
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
+          <Popup>Este eres tu!</Popup>
         </Marker>
         {destacados &&
           destacados.map((item, index) => (
@@ -54,11 +52,7 @@ const MapComponent = ({ coord, destacados }) => {
                 new L.divIcon({
                   className: 'marker',
                   html: ReactDOMServer.renderToString(
-                    <ExpertMapMarker
-                      status={item.status}
-                      imgSrc={item.photo ? item.photo.src : defaultUserImage}
-                      calificacion={item.calificacion}
-                    />
+                    <ExpertMapMarker profesional={item} />
                   ),
                 })
               }
@@ -68,15 +62,7 @@ const MapComponent = ({ coord, destacados }) => {
               ]}
             >
               <Popup className={styles.popup}>
-                <ProfesionalCard
-                  imgSrc={item.photo ? item.photo.src : defaultUserImage}
-                  nombre={item.nombre}
-                  valoracion={item.calificacion}
-                  profesion={item.profesion_nombre}
-                  experiencia={item.experiencia_laboral_años}
-                  recomendaciones={item.recomendaciones}
-                  trabajosRealizados={item.trabajosRealizados}
-                />
+                <ProfesionalCard profesional={item} />
               </Popup>
             </Marker>
           ))}

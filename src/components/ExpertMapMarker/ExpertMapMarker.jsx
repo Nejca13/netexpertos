@@ -1,7 +1,22 @@
 import Image from 'next/image'
 import styles from './ExpertMapMarker.module.css'
 
-const ExpertMapMarker = ({ imgSrc, name, profesion, calificacion, status }) => {
+const ExpertMapMarker = ({ profesional }) => {
+  const {
+    calificacion,
+    acerca_de_mi,
+    apellido,
+    correo,
+    experiencia_laboral_años,
+    nombre,
+    fotos_trabajos,
+    rubro_nombre,
+    profesion_nombre,
+    nacimiento,
+    numero,
+    foto_perfil,
+    horarios_de_atencion,
+  } = profesional
   return (
     <div className={styles.pin1}>
       <div className={[status === true && styles.online]}></div>
@@ -10,7 +25,7 @@ const ExpertMapMarker = ({ imgSrc, name, profesion, calificacion, status }) => {
       </div>
       <Image
         className={styles.image}
-        src={imgSrc}
+        src={foto_perfil}
         width={40}
         height={40}
         alt='imagen experto'

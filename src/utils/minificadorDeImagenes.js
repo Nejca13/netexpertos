@@ -1,5 +1,6 @@
 // Función para comprimir y guardar una imagen en el localStorage
-export const saveCompressedImageToLocalStorage = (file) => {
+export const saveCompressedImageToLocalStorage = (file, callback) => {
+  let imgData
   const reader = new FileReader()
   reader.onload = (event) => {
     const img = new Image()
@@ -34,7 +35,7 @@ export const saveCompressedImageToLocalStorage = (file) => {
       ctx.drawImage(img, 0, 0, width, height)
 
       // Obtener la imagen comprimida en formato base64
-      const compressedImageData = canvas.toDataURL('image/jpeg', 0.6) // Calidad de compresión (0.6 es una buena opción para imágenes web)
+      const compressedImageData = canvas.toDataURL('image/webp', 0.6) // Calidad de compresión (0.6 es una buena opción para imágenes web)
 
       // Calcular el tamaño del archivo original
       const originalSizeKB = Math.ceil(file.size / 1024)
@@ -51,6 +52,7 @@ export const saveCompressedImageToLocalStorage = (file) => {
 
       // Guardar la imagen comprimida en el localStorage
       localStorage.setItem(`imagen_perfil`, compressedImageData)
+      callback(compressedImageData)
     }
   }
   reader.readAsDataURL(file)

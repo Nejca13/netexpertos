@@ -1,0 +1,64 @@
+.container {
+  display: flex;
+  justify-content: space-around;
+}
+.inputContainer {
+  padding-left: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.input {
+  border: none;
+  color: var(--color-gris-medio);
+  font-family: var(--font-roboto-bold);
+  padding: 3px;
+  max-width: 80%;
+}
+.input::placeholder {
+  color: var(--color-gris-medio);
+}
+.input:focus-visible {
+  border: none;
+  outline: none;
+  border-bottom: 1px solid var(--color-gris-medio);
+}
+
+.imagen {
+  object-fit: cover;
+  object-position: center;
+}
+.inputFile {
+  display: none;
+}
+
+.inputFileLabel {
+  cursor: pointer;
+  padding-right: 10px;
+}
+
+.errorMessage {
+  position: absolute;
+  transform: translateY(50%);
+  color: var(--color-blanco);
+  background-color: var(--color-danger);
+  padding: 5px 20px;
+  border-radius: 10px;
+  font-family: var(--font-roboto-bold);
+}
+
+.defaultContainer {
+  background-color: var(--color-gris-medio);
+  height: 89px;
+  width: 137px;
+  border-radius: 6px;
+  align-content: center;
+  text-align: center;
+}
+
+.defaultContainer .p {
+  color: white;
+  font-size: 12px;
+  font-family: var(--font-roboto-regular);
+}

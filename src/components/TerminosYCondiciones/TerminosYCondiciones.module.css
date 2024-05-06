@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.containerTyC {
+  background-color: white;
+  padding: 20px;
+  text-align: justify;
+  max-height: 500px;
+  overflow: scroll;
+}
+
+.title {
+  margin: 10px 0;
+}
+
+.labelCheckbox {
+  font-family: var(--font-roboto-regular);
+  margin: 20px 0;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  display: flex;
+}
+
+.inputCheckbox {
+  width: 30px;
+  height: 30px;
+}

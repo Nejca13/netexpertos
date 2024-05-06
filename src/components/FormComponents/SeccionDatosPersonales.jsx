@@ -7,36 +7,37 @@ const SeccionDatosPersonales = ({ onNext }) => {
     <FormContainer onSubmit={(e) => onNext(e)}>
       <Inputs
         type={'text'}
-        name={'nombre'}
-        placeholder={'Nombre'}
-        text={'Nombre'}
-        id={'nombre'}
+        placeholder={'Nombre y apellido'}
+        text={'Nombre y apellido'}
+        name={'nombre_apellido'}
+        id={'nombre_apellido'}
         errorMessage={'El nombre ingresado tiene un formato no valido.'}
       />
       <Inputs
-        id={'apellido'}
-        placeholder={'Apellido'}
-        name={'apellido'}
-        type={'text'}
-        text={'Apellido'}
-        errorMessage={'El apellido ingresado tiene un formato no valido.'}
+        text={'Correo electronico'}
+        name={'correo'}
+        id={'correo'}
+        placeholder={'correo@empresa.com'}
+        type={'email'}
+        errorMessage={'Ingrese un correo valido. EJ: nombre@email.com'}
       />
       <Inputs
-        type={'date'}
-        text={'Fecha de nacimiento'}
-        id={'nacimiento'}
-        name={'nacimiento'}
-        placeholder={'dd/mm/aa'}
-        errorMessage={'Fecha incorrecta'}
+        id={'password'}
+        name={'password'}
+        type={'password'}
+        text={'Contraseña'}
+        errorMessage={
+          'Fomato de contraseña incorrectaLa contraseña debe tener al menos 8 caracteres e incluir al menos una letra minúscula, una letra mayúscula, un número y un símbolo especial.'
+        }
       />
       <Inputs
-        id={'telefono'}
-        name={'numero'}
-        type={'tel'}
-        placeholder={'2984 565522'}
-        text={'Numero de telefono'}
-        errorMessage={'Debe ingresar un numero de telefono valido.'}
-        minLength={'10'}
+        id={'password2'}
+        name={'password2'}
+        type={'password'}
+        text={'Confirmar contraseña'}
+        errorMessage={
+          'Fomato de contraseña incorrectaLa contraseña debe tener al menos 8 caracteres e incluir al menos una letra minúscula, una letra mayúscula, un número y un símbolo especial.'
+        }
       />
       <ButtonSubmit text={'SIGUIENTE'} />
     </FormContainer>

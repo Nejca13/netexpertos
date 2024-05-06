@@ -16,7 +16,6 @@ const InformacionDelUsuario = ({ data }) => {
         text={'Confirmar datos y enviar'}
         func={(e) => {
           e.preventDefault()
-          console.log(data)
           createProfesional(data)
         }}
       />

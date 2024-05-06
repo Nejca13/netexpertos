@@ -6,10 +6,11 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  background-color: rgba(128, 128, 128, 0.719);
+  background-image: url('../../assets/images/FondoBlanco.png');
   border: 5px solid var(--color-amarillo);
   border-radius: 10px;
-  gap: 20px;
+  color: var(--color-gris-medio);
+  justify-content: space-between;
 }
 
 .containerImage {
@@ -39,14 +40,17 @@
 
 .containerInfo .pNombre {
   font-size: 24px;
+  color: var(--color-gris-medio);
 }
 .containerInfo .pProfesion {
   font-size: 18px;
+  color: var(--color-gris-medio);
 }
 .containerInfo .spanExperiencia {
   font-family: var(--font-helvetica-italic);
+  color: var(--color-gris-medio);
 }
-.containerInfo .ulValoracion {
+.ulValoracion {
   display: flex;
   gap: 10px;
   font-size: 22px;
@@ -58,13 +62,12 @@
   align-items: center;
   text-align: center;
   box-shadow: 0 3px 10px rgb(94, 94, 94);
-  height: 50px;
+  height: 35px;
   font-family: var(--font-roboto-bold);
 }
 
-.containerInfo .ulValoracion .li {
+.ulValoracion .li {
   width: 33%;
-  height: 90%;
   align-content: center;
   .buttonAgregarFavoritos {
     background-color: transparent;
@@ -73,14 +76,19 @@
     color: inherit;
   }
 }
+
+.ulValoracion li button {
+  font-size: 12px;
+}
+
 .ulValoracion .li:nth-child(1) {
-  font-size: 30px;
+  font-size: 22px;
 }
 .ulValoracion .li:nth-child(2) {
   border-left: 5px solid white;
   border-right: 5px solid white;
   align-content: center;
-  font-size: 30px;
+  font-size: 22px;
 }
 .buttonMasInfo {
   background-color: var(--color-amarillo);
@@ -101,8 +109,7 @@
   text-shadow: 0 3px 10px rgb(94, 94, 94);
   text-align: center;
   align-content: center;
-  font-size: 28px;
-  line-height: 40px;
+  font-size: 22px;
   padding: 3px 0;
 }
 .ulTrabajosRealizados {

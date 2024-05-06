@@ -99,7 +99,7 @@ const profesionesPorRubro = {
     'Analista de mercado',
     'Director/a de marketing',
   ],
-  Consultoría: [
+  Consultoria: [
     'Consultor/a de negocios',
     'Consultor/a de gestión',
     'Consultor/a de tecnología',

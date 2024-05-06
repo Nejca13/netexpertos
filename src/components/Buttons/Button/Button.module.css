@@ -1,13 +1,16 @@
 .button {
   border-radius: 25px;
   background-color: var(--color-amarillo);
-  width: 100%;
+  width: max-content;
   border-color: transparent;
   box-shadow: none;
-  padding: 9px 0;
+  padding: 9px 20px;
   color: var(--color-blanco);
   font-weight: 700;
   font-size: 20px;
-  box-shadow: 0 3px 6px black;
+  box-shadow: var(--box-shadow);
   cursor: pointer;
+}
+.button:disabled {
+  background-color: #c5b356;
 }

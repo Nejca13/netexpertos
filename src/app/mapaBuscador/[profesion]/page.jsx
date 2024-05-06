@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react'
 import useGeolocation from '@/hooks/useGeolocation'
-import profesionalesFiltrados from '@/constants/profesionalsNearby.json'
 import MapComponent from '@/components/Map'
 import styles from './page.module.css'
 import Link from 'next/link'

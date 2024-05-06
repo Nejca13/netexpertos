@@ -20,18 +20,24 @@ import { saveCompressedImageToLocalStorage } from '@/utils/minificadorDeImagenes
 const Page = () => {
   const { location, error } = useGeolocation()
   const [userImage, setUserImage] = useState(defaultUserImage)
+  const [profilePhoto, setProfilePhoto] = useState('')
+
   const handleSubmit = (e) => {
-    const formDataValues = Object.fromEntries(new FormData(e.target))
+    const formData = new FormData(e.target)
+    formData.append('foto_base64', profilePhoto)
+    const formDataValues = Object.fromEntries(formData)
     formDataValues.edad = parseInt(formDataValues.edad)
+    formDataValues.nombre = formDataValues.nombre_apellido.split(' ')[0]
+    formDataValues.apellido = formDataValues.nombre_apellido.split(' ')[0]
+    console.log(formDataValues)
     createUser(formDataValues)
   }
   const handleFileChange = (e) => {
     const file = e.target.files[0]
-    saveCompressedImageToLocalStorage(file)
-    if (file) {
-      const imageURL = URL.createObjectURL(file)
-      setUserImage(imageURL)
-    }
+    saveCompressedImageToLocalStorage(file, (compressedImage) => {
+      setUserImage(compressedImage)
+      setProfilePhoto(compressedImage)
+    })
   }
   return (
     <Container>
@@ -58,34 +64,19 @@ const Page = () => {
         />
         <InputTypeFile
           className={styles.inputFile}
-          type='file'
           handleFileChange={handleFileChange}
-          name='profilePhoto'
-          id='profilePhoto'
+          name={'foto_perfil'}
+          id={'foto_perfil'}
+          text={'Foto de perfil'}
         />
         <Inputs
           type={'text'}
-          name={'nombre'}
-          placeholder={'Nombre'}
-          text={'Nombre'}
-          id={'nombre'}
+          name={'nombre_apellido'}
+          placeholder={'Nombre y apellido'}
+          text={'Nombre y apellido'}
+          id={'nombre_apellido'}
           errorMessage={'El nombre ingresado tiene un formato no valido.'}
         />
-        <Inputs
-          type={'text'}
-          name={'apellido'}
-          placeholder={'Apellido'}
-          text={'Apellido'}
-          id={'apellido'}
-          errorMessage={'El apellido ingresado tiene un formato no valido.'}
-        />
-        {/* <Inputs
-          type={'number'}
-          name={'edad'}
-          placeholder={'Edad'}
-          text={'Edad'}
-          id={'edad'}
-        /> */}
         <Inputs
           id={'correo'}
           placeholder={'Email'}
@@ -94,20 +85,6 @@ const Page = () => {
           text={'Email'}
           errorMessage={'Ingrese un correo valido. EJ: nombre@email.com'}
         />
-        {/*  <Inputs
-          type={'date'}
-          text={'Fecha de nacimiento'}
-          id={'birthdate'}
-          name={'birthdate'}
-          placeholder={'dd/mm/aa'}
-        /> */}
-        {/* <Inputs
-          id={'phone'}
-          name={'phone'}
-          type={'tel'}
-          placeholder={'2994595681'}
-          text={'Numero de telefono'}
-        /> */}
         <Inputs
           id={'password'}
           name={'password'}
@@ -157,9 +134,6 @@ const Page = () => {
           <li className={styles.li}>Un número</li>
           <li className={styles.li}>Un simbolo</li>
         </ul>
-        <p className={styles.p}>
-          Al crear una cuenta, aceptas nuestras políticas de privacidad
-        </p>
         <ButtonSubmit text={'CREAR CUENTA'} />
       </FormContainer>
     </Container>

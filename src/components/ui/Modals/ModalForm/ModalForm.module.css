@@ -1,0 +1,27 @@
+.modal {
+  background-color: white;
+  border-radius: 10px;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  padding: 20px 0;
+  box-shadow: var(--box-shadow);
+}
+.button {
+  background-color: var(--color-amarillo);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  margin: 0 10px;
+  font-family: var(--font-roboto-bold);
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+}
+.p {
+  font-family: var(--font-roboto-bold);
+  font-size: 24px;
+  color: var(--color-gris-medio);
+}

@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import styles from './FormComponents.module.css'
 
 export const Inputs = ({
@@ -62,7 +62,7 @@ export const TextArea = ({ name, id, text, placeholder, value }) => {
           name={name}
           id={id}
           cols='30'
-          rows='10'
+          rows='5'
           required
           placeholder={placeholder}
         ></textarea>
@@ -94,22 +94,29 @@ export const Select = ({ text, data, id, name, func }) => {
   )
 }
 
-export const InputTypeFile = ({ handleFileChange }) => {
+export const InputTypeFile = ({
+  handleFileChange,
+  text,
+  multiple,
+  name,
+  id,
+}) => {
   const [error, setError] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
 
   return (
     <>
-      <label htmlFor='profilePhoto' className={styles.inputFileLabel}>
-        Subir foto de perfil
+      <label htmlFor={id} className={styles.inputFileLabel}>
+        {text}
         <input
           className={styles.inputFile}
           type='file'
           accept='image/*'
           onChange={handleFileChange}
-          name='profilePhoto'
-          id='profilePhoto'
+          name={name}
+          id={id}
           required
+          multiple={multiple}
           onInvalid={(e) => {
             setError(true)
             setErrorMessage(e.target.validationMessage)
