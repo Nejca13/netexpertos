@@ -7,7 +7,6 @@ const API_URL = 'https://vps-4057595-x.dattaweb.com/users-form/login/'
  * @param {string} loginData.password - Contraseña del usuario.
  */
 export const userLogin = async (loginData) => {
-  console.log(loginData)
   try {
     // Construir los datos del formulario para la solicitud de inicio de sesión
     const formData = new URLSearchParams()
@@ -28,11 +27,9 @@ export const userLogin = async (loginData) => {
 
     if (!loginResponse.ok) {
       const errorData = await loginResponse.json()
-      console.log(loginData)
       console.error(errorData.detail)
       throw new Error('Error al iniciar sesión')
     }
-    console.log(loginResponse)
 
     // Obtener los datos del usuario después del inicio de sesión exitoso
     const userDataResponse = await fetch(
@@ -46,7 +43,6 @@ export const userLogin = async (loginData) => {
     const userData = await userDataResponse.json()
     // Buscar el usuario correspondiente al nombre de usuario proporcionado
     const user = userData.find((item) => item.correo === loginData.username)
-    console.log('holo')
     if (!user) {
       throw new Error('Usuario no encontrado')
     }

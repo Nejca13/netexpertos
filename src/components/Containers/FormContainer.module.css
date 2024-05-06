@@ -6,9 +6,9 @@
   background-color: var(--color-blanco);
   border-radius: 36px;
   box-shadow: var(--box-shadow);
-  padding: 31px 15px;
+  padding: 20px 15px;
   gap: 24px;
-  width: 80%;
+  width: 85%;
   max-width: 400px;
   -webkit-animation: scale-in-right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)
     both;
@@ -19,7 +19,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px;
+  gap: 10px;
 }
 
 @-webkit-keyframes scale-in-right {

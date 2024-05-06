@@ -85,7 +85,7 @@ const SeccionPerfil = ({ onNext, onBack }) => {
           <SimpleLoader />
         )}
       </span>
-      <ul className={styles.ul}>
+      {/* <ul className={styles.ul}>
         <li className={styles.li}>8 Caracteres</li>
         <li className={styles.li}>Una minúscula</li>
         <li className={styles.li}>Una mayúscula</li>
@@ -94,7 +94,7 @@ const SeccionPerfil = ({ onNext, onBack }) => {
       </ul>
       <p className={styles.p}>
         Al crear una cuenta, aceptas nuestras políticas de privacidad
-      </p>
+      </p> */}
       <div style={{ display: 'flex', gap: '30px', width: '100%' }}>
         <ButtonSubmit text={'SIGUIENTE'} />
         <Button func={onBack} text={'VOLVER'} />

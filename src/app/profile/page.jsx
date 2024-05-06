@@ -4,7 +4,7 @@ import ContainerBlanco from '@/components/Containers/ContainerFondoBlanco'
 import Image from 'next/image'
 import LogoNetExpertos from '@/components/ui/Logo/LogoNetExpertos'
 import styles from './page.module.css'
-import lupa from '../../assets/images/LUPA.svg'
+import lupa from '@/assets/images/LUPA.svg'
 import rubros from '@/constants/rubros'
 import { destacados } from '@/constants/destacados'
 import HambMenu from '@/components/ui/HambMenu/HambMenu'
@@ -35,7 +35,7 @@ const Page = () => {
         <HambMenu userApp={userApp} show={() => setShowMenu(!showMenu)} />
       )}
       <div className={styles.divNavBar}>
-        <LogoNetExpertos width={251} height={86} />
+        <LogoNetExpertos width={200} height={70} />
         <HambIcon show={() => setShowMenu(!showMenu)} />
       </div>
       <div className={styles.divBuscador}>
@@ -43,8 +43,8 @@ const Page = () => {
           <Image
             className={styles.lupa}
             src={lupa}
-            width={24}
-            height={24}
+            width={20}
+            height={20}
             alt='Lupa Buscador'
           />
         </div>
@@ -77,8 +77,8 @@ const Page = () => {
               <Image
                 className={styles.image}
                 src={item.photo}
-                width={74}
-                height={74}
+                width={60}
+                height={60}
                 alt='Imagen de experto destacado'
                 quality={50}
                 placeholder='blur'

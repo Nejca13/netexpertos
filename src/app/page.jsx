@@ -9,6 +9,8 @@ import ButtonSubmit from '@/components/Buttons/ButtonSubmit/ButtonSubmit'
 import ButtonSignInWithGoogle from '@/components/Buttons/ButtonSignInWithGoogle/ButtonSignInWithGoogle'
 import FormContainer from '@/components/Containers/FormContainer'
 import { userLogin } from '@/services/api/authUsuarios'
+import Container from '@/components/Containers/Container'
+import LogoNetExpertos from '@/components/ui/Logo/LogoNetExpertos'
 
 export default function Home() {
   const handleSubmit = async (e) => {
@@ -16,7 +18,6 @@ export default function Home() {
     const formDataValues = Object.fromEntries(new FormData(e.target))
     try {
       const user = await userLogin(formDataValues)
-      console.log(user)
       sessionStorage.setItem('user', JSON.stringify(user))
       if (user) {
         window.location.href = '/profile'
@@ -28,17 +29,8 @@ export default function Home() {
   }
 
   return (
-    <main className={styles.main}>
-      <div className={styles.title}>
-        <Image
-          src={NetExpertosLOGO}
-          priority={true}
-          width={331}
-          height={114}
-          placeholder='empty'
-          alt='NetExpertos Logo'
-        />
-      </div>
+    <Container>
+      <LogoNetExpertos width={320} height={114} />
       <FormContainer method={'POST'} onSubmit={(e) => handleSubmit(e)}>
         <Inputs
           id={'userName'}
@@ -84,6 +76,6 @@ export default function Home() {
           </Link>
         </div>
       </div>
-    </main>
+    </Container>
   )
 }

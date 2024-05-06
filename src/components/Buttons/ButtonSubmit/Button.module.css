@@ -3,11 +3,10 @@
   background-color: var(--color-amarillo);
   width: 100%;
   border-color: transparent;
-  box-shadow: none;
   padding: 9px 0;
   color: var(--color-blanco);
   font-weight: 700;
-  font-size: 20px;
+  font-size: 14px;
   box-shadow: var(--box-shadow);
   cursor: pointer;
 }

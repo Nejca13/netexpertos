@@ -30,8 +30,8 @@ const SeccionDatosFreelance = ({ onNext, onBack }) => {
       <Image
         className={styles.imageUser}
         src={userImage}
-        width={100}
-        height={100}
+        width={80}
+        height={80}
         alt='Foto de perfil del usuario'
       />
       <InputTypeFile

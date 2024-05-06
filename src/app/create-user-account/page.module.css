@@ -7,7 +7,7 @@
   gap: 14px;
   margin-left: 30px;
   font-family: var(--font-helvetica-regular);
-  font-size: 14px;
+  font-size: 12px;
   color: var(--color-gris);
 }
 .ul .li {
@@ -28,7 +28,7 @@
 .ubicacionSpan {
   font-weight: 700;
   margin-left: 14px;
-  font-size: 17px;
+  font-size: 12px;
   color: var(--color-gris-medio);
   width: 100%;
   display: flex;

@@ -54,7 +54,7 @@ const MultiImageForm = ({ index }) => {
           <Image
             className={styles.imagen}
             src={image}
-            width={137}
+            width={100}
             height={89}
             alt='Imagen de trabajos del usuario'
           />

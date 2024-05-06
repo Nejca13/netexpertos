@@ -24,8 +24,8 @@ const ProfesionalCard = ({ profesional }) => {
         <Image
           className={styles.image}
           src={foto_perfil}
-          width={150}
-          height={150}
+          width={100}
+          height={100}
           alt='foto del profesional'
         />
       </div>

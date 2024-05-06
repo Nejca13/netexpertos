@@ -16,8 +16,8 @@ const HambMenu = ({ show, userApp }) => {
           <Image
             className={styles.image}
             src={userApp.foto_base64 ? userApp.foto_base64 : defaultImage.src}
-            width={80}
-            height={80}
+            width={60}
+            height={60}
             alt='Imagen de perfil del usuario'
           />
           <div className={styles.divText}>

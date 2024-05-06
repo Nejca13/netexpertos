@@ -1,9 +1,9 @@
 .container {
   display: flex;
   justify-content: space-around;
+  max-width: 100%;
 }
 .inputContainer {
-  padding-left: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -13,8 +13,7 @@
   border: none;
   color: var(--color-gris-medio);
   font-family: var(--font-roboto-bold);
-  padding: 3px;
-  max-width: 80%;
+  max-width: 75%;
 }
 .input::placeholder {
   color: var(--color-gris-medio);
@@ -35,7 +34,6 @@
 
 .inputFileLabel {
   cursor: pointer;
-  padding-right: 10px;
 }
 
 .errorMessage {
@@ -50,8 +48,8 @@
 
 .defaultContainer {
   background-color: var(--color-gris-medio);
-  height: 89px;
-  width: 137px;
+  max-height: 89px;
+  max-width: 137px;
   border-radius: 6px;
   align-content: center;
   text-align: center;
