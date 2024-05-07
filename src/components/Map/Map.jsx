@@ -7,11 +7,8 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import SimpleLoader from '@/components/Loaders/SimpleLoader'
 import ExpertMapMarker from '@/components/ExpertMapMarker/ExpertMapMarker'
 import ReactDOMServer from 'react-dom/server'
-import ProfesionalCard from '../ProfesionalCard/ProfesionalCard'
-import styles from './Map.module.css'
-import defaultUserImage from '@/assets/images/userImage.png'
 
-const MapComponent = ({ coord, destacados }) => {
+const MapComponent = ({ coord, destacados, setIsShowPopup }) => {
   return coord ? (
     typeof window !== undefined && (
       <MapContainer
@@ -48,23 +45,26 @@ const MapComponent = ({ coord, destacados }) => {
           destacados.map((item, index) => (
             <Marker
               key={index}
+              eventHandlers={{
+                click: () =>
+                  setIsShowPopup({
+                    status: true,
+                    profesional: item.profesional,
+                  }),
+              }}
               icon={
                 new L.divIcon({
                   className: 'marker',
                   html: ReactDOMServer.renderToString(
-                    <ExpertMapMarker profesional={item} />
+                    <ExpertMapMarker profesional={item.profesional} />
                   ),
                 })
               }
               position={[
-                item.ubicacion.split(',')[0],
-                item.ubicacion.split(',')[1],
+                item.profesional.ubicacion.split(',')[0],
+                item.profesional.ubicacion.split(',')[1],
               ]}
-            >
-              <Popup className={styles.popup}>
-                <ProfesionalCard profesional={item} />
-              </Popup>
-            </Marker>
+            ></Marker>
           ))}
       </MapContainer>
     )

@@ -10,6 +10,7 @@ export const getAllProfesionales = async () => {
     return await response.json()
   } catch (error) {
     console.error('Error:', error)
+    throw error
   }
 }
 
@@ -68,22 +69,29 @@ export const createProfesional = async (data) => {
 
 // Funcion para obtener profesionales filtrados por profesion y ordenados desde el mas cerca al mas lejos
 
-export const getFilteredAndSortedProfessionalsByDistance = async (data) => {
+export const getFilteredAndSortedProfessionalsByDistance = async (
+  data,
+  setErrorMessage
+) => {
   try {
     const response = await fetch(
       API_URL +
-        `?profesion=${data.profesion}&latitud=${data.latitud}&longitud=${data.longitud}`
+        `cercanos/${data.profesion}?latitud=${data.latitud}&longitud=${data.longitud}&page=1&page_size=10`
     )
     if (!response.ok) {
+      const error = await response.json()
+      console.log(error)
       throw new Error('Error en la solicitud')
     }
-    const onj = await response.json()
-    const res = onj.filter((prof) => {
-      return /\d/.test(prof.ubicacion)
-    })
-    console.log(res)
-    return res
+    const result = await response.json()
+
+    console.log(result.profesionales_cercanos)
+    if (result.profesionales_cercanos.length === 0) {
+      setErrorMessage('No hay profesionales cerca')
+    }
+    return result
   } catch (error) {
-    console.error('Error:', error)
+    console.log(error)
+    throw error
   }
 }

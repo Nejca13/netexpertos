@@ -1,11 +1,15 @@
 .container {
   display: flex;
-  justify-content: space-around;
-  max-width: 100%;
+  align-items: center;
+  gap: 5px;
+  width: 100%;
+  flex-direction: column;
 }
 .inputContainer {
   display: flex;
   flex-direction: column;
+  gap: 3px;
+  width: 100%;
   justify-content: space-between;
 }
 
@@ -13,7 +17,9 @@
   border: none;
   color: var(--color-gris-medio);
   font-family: var(--font-roboto-bold);
-  max-width: 75%;
+  height: 28px;
+  border-bottom: 1px solid var(--color-gris-medio);
+  width: 100%;
 }
 .input::placeholder {
   color: var(--color-gris-medio);
@@ -38,7 +44,7 @@
 
 .errorMessage {
   position: absolute;
-  transform: translateY(50%);
+  transform: translateY(-40%);
   color: var(--color-blanco);
   background-color: var(--color-danger);
   padding: 5px 20px;
@@ -48,8 +54,8 @@
 
 .defaultContainer {
   background-color: var(--color-gris-medio);
-  max-height: 89px;
-  max-width: 137px;
+  height: 144px;
+  width: 256px;
   border-radius: 6px;
   text-align: center;
   display: flex;

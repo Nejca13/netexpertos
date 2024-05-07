@@ -11,26 +11,46 @@ import FormContainer from '@/components/Containers/FormContainer'
 import { userLogin } from '@/services/api/authUsuarios'
 import Container from '@/components/Containers/Container'
 import LogoNetExpertos from '@/components/ui/Logo/LogoNetExpertos'
+import { useState } from 'react'
+import ModalError from '@/components/ui/Modals/ModalError/ModalError'
+import { useRouter } from 'next/navigation'
+import { addUser } from '@/utils/indexedDataBase'
 
 export default function Home() {
+  const [showModalError, setShowModalError] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
+
+  const router = useRouter()
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     const formDataValues = Object.fromEntries(new FormData(e.target))
     try {
-      const user = await userLogin(formDataValues)
-      sessionStorage.setItem('user', JSON.stringify(user))
-      if (user) {
-        window.location.href = '/profile'
+      const data = await userLogin(formDataValues)
+
+      const saveUser = await addUser(data)
+
+      if (saveUser) {
+        router.push('/profile')
       }
     } catch (error) {
-      console.error('Error:', error.message)
-      throw error
+      if (error) {
+        console.log(error)
+        setShowModalError(true)
+        setErrorMessage('Ocurrio un error inesperado')
+      }
     }
   }
 
   return (
     <Container>
-      <LogoNetExpertos width={320} height={114} />
+      {showModalError && (
+        <ModalError
+          errorMessage={errorMessage}
+          setShowModalError={setShowModalError}
+        />
+      )}
+      <LogoNetExpertos width={300} height={90} />
       <FormContainer method={'POST'} onSubmit={(e) => handleSubmit(e)}>
         <Inputs
           id={'userName'}
@@ -48,7 +68,6 @@ export default function Home() {
           text={'INGRESAR'}
           action={(e) => {
             e.preventDefault()
-            window.location.href = '/profile'
           }}
         />
         <div className={styles.resetPassword}>

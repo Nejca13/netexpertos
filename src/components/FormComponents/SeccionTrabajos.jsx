@@ -5,6 +5,7 @@ import ButtonSubmit from '../Buttons/ButtonSubmit/ButtonSubmit'
 import { useState } from 'react'
 import MultiImageForm from '../MultiImageForm/MultiImageForm'
 import ImagenPlus from '@/assets/images/SignoMas.png'
+import Eliminar from '@/assets/images/Eliminar.png'
 
 const SeccionTrabajos = ({ onNext, onBack }) => {
   const [arr, setArr] = useState([1])
@@ -23,19 +24,35 @@ const SeccionTrabajos = ({ onNext, onBack }) => {
             <MultiImageForm index={index} key={index} />
           ))}
       </div>
-      <button
-        className={styles.buttonMore}
-        onClick={(e) => {
-          e.preventDefault()
-          setArr([...arr, 1])
-        }}
-      >
-        <Image src={ImagenPlus} width={25} height={25} alt='signo mas' />
-        <span>Carga mas imagenes!</span>
-      </button>
+      <div className={styles.botonesMasMenos}>
+        <button
+          className={styles.buttonMore}
+          onClick={(e) => {
+            e.preventDefault()
+            if (arr.length < 6) {
+              setArr([...arr, 1])
+            } else {
+              alert('Alcanzaste el maximo de imagenes para mostrar!')
+            }
+          }}
+        >
+          <Image src={ImagenPlus} width={25} height={25} alt='signo mas' />
+        </button>
+        {arr.length > 1 && (
+          <button
+            className={styles.buttonMore}
+            onClick={(e) => {
+              e.preventDefault()
+              const newItems = [...arr] // Creamos una copia del array original
+              newItems.pop() // Eliminamos el elemento en la posición indexToRemove
+              setArr(newItems)
+            }}
+          >
+            <Image src={Eliminar} width={25} height={25} alt='signo mas' />
+          </button>
+        )}
+      </div>
       <div style={{ display: 'flex', gap: '30px', width: '100%' }}>
-        {/* <ButtonSubmit text={'SIGUIENTE'} />
-        <Button func={onBack} text={'VOLVER'} /> */}
         <ButtonSubmit text={'SIGUIENTE'} />
       </div>
     </FormContainer>

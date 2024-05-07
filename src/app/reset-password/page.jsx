@@ -6,11 +6,14 @@ import NavBar from '@/components/Navbar/NavBar'
 import styles from './page.module.css'
 import { Inputs } from '@/components/FormComponents/FormComponents'
 import ButtonSubmit from '@/components/Buttons/ButtonSubmit/ButtonSubmit'
+import { useRouter } from 'next/navigation'
 
-const page = () => {
+const Page = () => {
+  const router = useRouter()
+
   return (
     <Container>
-      <NavBar title={'Recuperar cuenta'} />
+      <NavBar title={'Recuperar cuenta'} onClick={() => router.back()} />
       <FormContainer>
         <p className={styles.p}>
           Introduce tú dirección de email y te enviaremos las instrucciones para
@@ -34,4 +37,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

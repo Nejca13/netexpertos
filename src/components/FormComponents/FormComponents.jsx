@@ -45,6 +45,7 @@ export const Inputs = ({
             e.target.setCustomValidity(errorMessage)
           }}
           minLength={minLength ? minLength : null}
+          maxLength={32}
           onInput={(e) => e.target.setCustomValidity('')}
         />
       </label>

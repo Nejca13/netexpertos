@@ -1,3 +1,5 @@
+import { clearUsers } from '@/utils/indexedDataBase'
+
 const API_URL = 'https://vps-4057595-x.dattaweb.com/users-form/login/'
 
 /**
@@ -26,30 +28,19 @@ export const userLogin = async (loginData) => {
     const loginResponse = await fetch(API_URL, requestOptions)
 
     if (!loginResponse.ok) {
+      // Si la respuesta no es exitosa, lanzar un error con el detalle del error
       const errorData = await loginResponse.json()
       console.error(errorData.detail)
       throw new Error('Error al iniciar sesión')
     }
 
-    // Obtener los datos del usuario después del inicio de sesión exitoso
-    const userDataResponse = await fetch(
-      'https://vps-4057595-x.dattaweb.com/clientes'
-    )
-    if (!userDataResponse.ok) {
-      throw new Error('Error al obtener los datos del usuario')
-    }
-
-    // Parsear los datos del usuario en formato JSON
-    const userData = await userDataResponse.json()
-    // Buscar el usuario correspondiente al nombre de usuario proporcionado
-    const user = userData.find((item) => item.correo === loginData.username)
-    if (!user) {
-      throw new Error('Usuario no encontrado')
-    }
-    return user
+    // Si la solicitud es exitosa, devolver los datos
+    const data = await loginResponse.json()
+    return data
   } catch (error) {
     // Manejar cualquier error ocurrido durante el proceso
     console.error('Error:', error.message)
+    return error //  Relanzar el error para que sea manejado en el contexto superior si es necesario
   }
 }
 
@@ -59,7 +50,7 @@ export const userLogin = async (loginData) => {
 export const userLogout = async () => {
   try {
     // Realizar la solicitud de cierre de sesión
-    const logoutResponse = await fetch(
+    /* const logoutResponse = await fetch(
       'https://vps-4057595-x.dattaweb.com/users-form/logout',
       {
         method: 'POST', // O el método HTTP adecuado para tu API de cierre de sesión
@@ -67,14 +58,12 @@ export const userLogout = async () => {
       }
     )
     if (!logoutResponse.ok) {
-      console.log('error')
+      const error = await logoutResponse.json()
+      console.log(error)
       throw new Error('Error al cerrar sesión')
-    }
-
-    // Eliminar los datos del usuario del almacenamiento local (si es necesario)
-    // Por ejemplo, puedes limpiar el sessionStorage o localStorage
-    sessionStorage.removeItem('user')
-    // localStorage.removeItem('user')  // Si guardaste el usuario en el localStorage
+    } */
+    // limpia los valores de la base de datos 'indexedDB'
+    clearUsers()
 
     // Redirigir al usuario a la página de inicio de sesión u otra página relevante
     window.location.href = '/' // Cambia '/login' según la ruta adecuada

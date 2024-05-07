@@ -51,7 +51,12 @@ const Page = () => {
 
   return (
     <Container>
-      <NavBar title={'Crear cuenta de Experto'} />
+      <NavBar
+        title={'Crear cuenta de Experto'}
+        onClick={() => {
+          formSection === 0 ? router.push('/') : setFormSection(formSection - 1)
+        }}
+      />
       {(() => {
         switch (formSection) {
           case 0:
@@ -87,7 +92,7 @@ const Page = () => {
               <TerminosYCondiciones
                 onClick={() =>
                   createProfesional(formDataValues).then((res) => {
-                    res === true && router.push('/login')
+                    res === true && router.push('/')
                   })
                 }
               />

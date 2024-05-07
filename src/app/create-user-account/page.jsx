@@ -16,11 +16,14 @@ import { useState } from 'react'
 import defaultUserImage from '../../assets/images/userImage.png'
 import { createUser } from '@/services/api/clientes'
 import { saveCompressedImageToLocalStorage } from '@/utils/minificadorDeImagenes'
+import { useRouter } from 'next/navigation'
 
 const Page = () => {
   const { location, error } = useGeolocation()
   const [userImage, setUserImage] = useState(defaultUserImage)
   const [profilePhoto, setProfilePhoto] = useState('')
+
+  const router = useRouter()
 
   const handleSubmit = (e) => {
     const formData = new FormData(e.target)
@@ -29,7 +32,6 @@ const Page = () => {
     formDataValues.edad = parseInt(formDataValues.edad)
     formDataValues.nombre = formDataValues.nombre_apellido.split(' ')[0]
     formDataValues.apellido = formDataValues.nombre_apellido.split(' ')[0]
-    console.log(formDataValues)
     createUser(formDataValues)
   }
   const handleFileChange = (e) => {
@@ -41,7 +43,7 @@ const Page = () => {
   }
   return (
     <Container>
-      <NavBar title={'Crear cuenta de usuario'} />
+      <NavBar title={'Crear cuenta de Usuario'} onClick={() => router.back()} />
       <FormContainer
         onSubmit={(e) => {
           e.preventDefault()
@@ -127,13 +129,13 @@ const Page = () => {
             <SimpleLoader />
           )}
         </span>
-        <ul className={styles.ul}>
+        {/* <ul className={styles.ul}>
           <li className={styles.li}>8 Caracteres</li>
           <li className={styles.li}>Una minúscula</li>
           <li className={styles.li}>Una mayúscula</li>
           <li className={styles.li}>Un número</li>
           <li className={styles.li}>Un simbolo</li>
-        </ul>
+        </ul> */}
         <ButtonSubmit text={'CREAR CUENTA'} />
       </FormContainer>
     </Container>

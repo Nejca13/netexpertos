@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import HambIcon from '@/components/ui/HambIcon/HambIcon'
 import isAuth from '@/components/Auth/IsAuth'
+import { getUser } from '@/utils/indexedDataBase'
 
 const Page = () => {
   const [showMenu, setShowMenu] = useState(false)
@@ -19,7 +20,11 @@ const Page = () => {
   const [searchItems, setSearchItems] = useState('')
 
   useEffect(() => {
-    setUserApp(JSON.parse(sessionStorage.getItem('user')))
+    const asd = async () => {
+      const user = await getUser()
+      setUserApp(user.user_data)
+    }
+    asd()
   }, [])
 
   const searchFunction = () => {

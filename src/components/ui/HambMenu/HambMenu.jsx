@@ -15,7 +15,11 @@ const HambMenu = ({ show, userApp }) => {
         <div className={styles.div}>
           <Image
             className={styles.image}
-            src={userApp.foto_base64 ? userApp.foto_base64 : defaultImage.src}
+            src={
+              userApp
+                ? userApp.foto_base64 || userApp.foto_perfil
+                : defaultImage.src
+            }
             width={60}
             height={60}
             alt='Imagen de perfil del usuario'
@@ -40,6 +44,18 @@ const HambMenu = ({ show, userApp }) => {
               <span>{item.name}</span>
             </li>
           ))}
+          {userApp.rol === 'profesional' && (
+            <li className={styles.li}>
+              <Image
+                className={styles.icon}
+                src={cross}
+                width={24}
+                height={24}
+                alt={`Icono de experto`}
+              />{' '}
+              <span>Solo expertos</span>
+            </li>
+          )}
           <li className={styles.li}>
             <Image
               className={styles.icon}

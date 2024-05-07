@@ -1,7 +1,8 @@
 import Image from 'next/image'
 import styles from './ProfesionalCard.module.css'
+import cross from '@/assets/images/cross-blanca.png'
 
-const ProfesionalCard = ({ profesional }) => {
+const ProfesionalCard = ({ profesional, setIsShowPopup }) => {
   const {
     calificacion,
     acerca_de_mi,
@@ -20,6 +21,12 @@ const ProfesionalCard = ({ profesional }) => {
   } = profesional
   return (
     <div className={styles.container}>
+      <button
+        className={styles.botonCerrar}
+        onClick={() => setIsShowPopup(false)}
+      >
+        <Image width={25} height={25} src={cross} alt='boton cerrar' />
+      </button>
       <div className={styles.containerImage}>
         <Image
           className={styles.image}

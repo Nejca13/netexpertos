@@ -1,5 +1,4 @@
 const API_URL = 'https://vps-4057595-x.dattaweb.com/clientes'
-let password = 'P@ssword123'
 /**
  * Crea un nuevo usuario con los datos proporcionados.
  * @param {Object} data - Datos del usuario a crear.
@@ -20,6 +19,8 @@ export const createUser = async (data) => {
 
     if (response.ok) {
       console.log('Usuario creado exitosamente')
+      alert('Cuenta creada con exito')
+      window.location.href = '/'
     } else {
       const errorData = await response.json() // Captura el cuerpo de la respuesta si hay error
 

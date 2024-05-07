@@ -16,3 +16,8 @@
   font-weight: light;
   font-family: var(--font-roboto-bold);
 }
+
+.button {
+  background-color: transparent;
+  border: none;
+}

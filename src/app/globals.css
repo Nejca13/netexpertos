@@ -22,6 +22,11 @@
   font-family: 'Helvetica-Neue-Italic';
   src: url('../assets/fonts/helvetica-neue-5/HelveticaNeueItalic.ttf');
 }
+@font-face {
+  font-family: 'Helvetica-Neue-Bold';
+  src: url('../assets/fonts/helvetica-neue-5/HelveticaNeueBold.otf');
+}
+
 :root {
   --color-amarillo: #fcd200; /* Amarillo */
   --color-gris-medio: #545454; /* Gris Medio */
@@ -32,12 +37,13 @@
   --color-gris: #666666; /* Gris */
   --color-naranja: #ff8000; /* Naranja */
   --color-negro-transparente2: #00000059; /* Negro Transparente */
-  --color-danger: rgb(245, 48, 48);
+  --color-danger: #f75252;
   --font-florida: 'Florida';
   --font-cooper-black: 'Cooper-Black';
   --font-roboto-regular: 'Roboto-regular';
   --font-roboto-bold: 'Roboto-bold';
   --font-helvetica-regular: 'Helvetica-Neue-Regular';
+  --font-helvetica-bold: 'Helvetica-Neue-Bold';
   --font-helvetica-italic: 'Helvetica-Neue-Italic';
   --box-shadow: 0px 0px 10px rgb(26, 26, 26);
 }
@@ -48,11 +54,6 @@
   box-sizing: border-box;
 }
 
-.leaflet-popup {
-  bottom: -120px !important;
-  left: -180px !important;
-  z-index: 1120 !important;
-}
 .leaflet-popup-content-wrapper {
   background-color: transparent !important;
   width: fit-content !important;
@@ -75,7 +76,4 @@
   color: white !important;
   margin-right: 20px;
   margin-top: 20px;
-}
-.leaflet-popup .leaflet-zoom-animated {
-  transform: translate3d(305px, 503px, 0px) !important;
 }

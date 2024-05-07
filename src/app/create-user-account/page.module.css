@@ -22,6 +22,7 @@
 
 .userImage {
   border: 3px solid var(--color-amarillo);
+  object-fit: cover;
   background-color: var(--color-negro-transparente);
 }
 

@@ -74,7 +74,7 @@
       list-style: none;
       display: flex;
       flex-direction: column;
-      font-family: var(--font-helvetica-regular);
+      font-family: var(--font-helvetica-bold);
       font-size: 12px;
       gap: 21px;
       color: var(--color-gris-medio);
@@ -90,7 +90,7 @@
           border-radius: 100%;
         }
         .button {
-          font-family: var(--font-helvetica-regular);
+          font-family: var(--font-helvetica-bold);
           font-size: 12px;
           background-color: transparent;
           border: none;

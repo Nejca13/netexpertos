@@ -20,32 +20,6 @@ const MultiImageForm = ({ index }) => {
 
   return (
     <div name={index} className={styles.container}>
-      <div className={styles.inputContainer}>
-        <input
-          className={styles.input}
-          required
-          type='text'
-          name={`trabajos_realizados_titulo_${index}`}
-          id={`trabajos_realizados_titulo_${index}`}
-          placeholder='Titulo'
-        />
-        <input
-          required
-          className={styles.input}
-          type='text'
-          name={`trabajos_realizados_lugar_${index}`}
-          id={`trabajos_realizados_lugar_${index}`}
-          placeholder='Lugar'
-        />
-        <input
-          required
-          className={styles.input}
-          type='date'
-          name={`trabajos_realizados_fecha_${index}`}
-          id={`trabajos_realizados_fecha_${index}`}
-          placeholder='Fecha'
-        />
-      </div>
       <label
         htmlFor={`trabajos_realizados_imagen_base64_${index}`}
         className={styles.inputFileLabel}
@@ -54,16 +28,16 @@ const MultiImageForm = ({ index }) => {
           <Image
             className={styles.imagen}
             src={image}
-            width={100}
-            height={89}
+            width={256}
+            height={144}
             alt='Imagen de trabajos del usuario'
           />
         ) : (
           <div className={styles.defaultContainer}>
             <Image
               src={cameraImage}
-              width={50}
-              height={50}
+              width={128}
+              height={95}
               alt='Imagen camara de fotos'
             />
             <p className={styles.p}>Carga una imagen</p>
@@ -85,6 +59,35 @@ const MultiImageForm = ({ index }) => {
         />
       </label>
       {error ? <p className={styles.errorMessage}>{errorMessage}</p> : <p></p>}
+      <div className={styles.inputContainer}>
+        <input
+          maxLength={32}
+          className={styles.input}
+          required
+          type='text'
+          name={`trabajos_realizados_titulo_${index}`}
+          id={`trabajos_realizados_titulo_${index}`}
+          placeholder='Titulo'
+        />
+        <input
+          maxLength={32}
+          required
+          className={styles.input}
+          type='text'
+          name={`trabajos_realizados_lugar_${index}`}
+          id={`trabajos_realizados_lugar_${index}`}
+          placeholder='Lugar'
+        />
+        <input
+          maxLength={32}
+          required
+          className={styles.input}
+          type='date'
+          name={`trabajos_realizados_fecha_${index}`}
+          id={`trabajos_realizados_fecha_${index}`}
+          placeholder='Fecha'
+        />
+      </div>
     </div>
   )
 }

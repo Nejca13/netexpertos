@@ -10,7 +10,7 @@ import defaultUserImage from '../../assets/images/userImage.png'
 import Image from 'next/image'
 import { saveCompressedImageToLocalStorage } from '@/utils/minificadorDeImagenes'
 
-const SeccionDatosEmpresa = ({ onNext, onBack }) => {
+const SeccionDatosEmpresa = ({ onNext }) => {
   const [rubroSeleccionado, setRubroSeleccionado] = useState('')
   const [userImage, setUserImage] = useState(defaultUserImage)
 
@@ -66,7 +66,6 @@ const SeccionDatosEmpresa = ({ onNext, onBack }) => {
 
       <div style={{ display: 'flex', gap: '30px', width: '100%' }}>
         <ButtonSubmit text={'SIGUIENTE'} />
-        <Button func={onBack} text={'VOLVER'} />
       </div>
     </FormContainer>
   )
