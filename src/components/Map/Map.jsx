@@ -55,7 +55,7 @@ const MapComponent = ({ coord, destacados, setIsShowPopup }) => {
               icon={
                 new L.divIcon({
                   className: 'marker',
-                  html: ReactDOMServer.renderToString(
+                  html: ReactDOMServer.renderToStaticMarkup(
                     <ExpertMapMarker profesional={item.profesional} />
                   ),
                 })

@@ -6,13 +6,14 @@ import LogoNetExpertos from '@/components/ui/Logo/LogoNetExpertos'
 import styles from './page.module.css'
 import lupa from '@/assets/images/LUPA.svg'
 import rubros from '@/constants/rubros'
+import profesionesPorRubro from '@/constants/profesionesPorRubro'
 import { destacados } from '@/constants/destacados'
 import HambMenu from '@/components/ui/HambMenu/HambMenu'
 import { useEffect, useState } from 'react'
-import Link from 'next/link'
 import HambIcon from '@/components/ui/HambIcon/HambIcon'
 import isAuth from '@/components/Auth/IsAuth'
 import { getUser } from '@/utils/indexedDataBase'
+import RubrosDropdown from '@/components/RubrosDropdown/RubrosDropdown'
 
 const Page = () => {
   const [showMenu, setShowMenu] = useState(false)
@@ -28,10 +29,12 @@ const Page = () => {
   }, [])
 
   const searchFunction = () => {
-    const results = rubros.filter((item) =>
-      item.toLowerCase().includes(searchItems.toLowerCase())
-    )
-    return results
+    const result = profesionesPorRubro
+      .filter((rubro) =>
+        Object.keys(rubro)[0].toLowerCase().includes(searchItems.toLowerCase())
+      )
+      .map((rubro) => rubro)
+    return result
   }
 
   return (
@@ -64,15 +67,9 @@ const Page = () => {
         />
       </div>
       <div className={styles.divCategorias}>
-        <ul className={styles.ul}>
-          {searchFunction().map((item, index) => (
-            <li className={styles.li} key={index}>
-              <Link className={styles.link} href={`/mapaBuscador/${item}`}>
-                {item}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        {searchFunction().map((item, index) => (
+          <RubrosDropdown item={item} index={index} key={index} />
+        ))}
       </div>
       <div className={styles.destacados}>
         <p className={styles.title}>Destacados de la semana</p>

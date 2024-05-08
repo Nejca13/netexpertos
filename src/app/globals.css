@@ -26,6 +26,10 @@
   font-family: 'Helvetica-Neue-Bold';
   src: url('../assets/fonts/helvetica-neue-5/HelveticaNeueBold.otf');
 }
+@font-face {
+  font-family: 'Roboto-italic';
+  src: url('../assets/fonts/Roboto/Roboto-Italic.ttf');
+}
 
 :root {
   --color-amarillo: #fcd200; /* Amarillo */
@@ -42,6 +46,7 @@
   --font-cooper-black: 'Cooper-Black';
   --font-roboto-regular: 'Roboto-regular';
   --font-roboto-bold: 'Roboto-bold';
+  --font-roboto-italic: 'Roboto-italic';
   --font-helvetica-regular: 'Helvetica-Neue-Regular';
   --font-helvetica-bold: 'Helvetica-Neue-Bold';
   --font-helvetica-italic: 'Helvetica-Neue-Italic';

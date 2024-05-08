@@ -64,12 +64,7 @@ export default function Home() {
           text={'Contraseña'}
           type={'password'}
         />
-        <ButtonSubmit
-          text={'INGRESAR'}
-          action={(e) => {
-            e.preventDefault()
-          }}
-        />
+        <ButtonSubmit text={'INGRESAR'} />
         <div className={styles.resetPassword}>
           <p className={styles.p}>
             ¿Olvidaste tu contreseña?{' '}

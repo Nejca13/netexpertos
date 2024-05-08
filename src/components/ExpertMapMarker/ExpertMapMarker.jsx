@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import styles from './ExpertMapMarker.module.css'
+import defaultImg from '@/assets/images/userImage.png'
 
 const ExpertMapMarker = ({ profesional }) => {
   const {
@@ -25,7 +26,7 @@ const ExpertMapMarker = ({ profesional }) => {
       </div>
       <Image
         className={styles.image}
-        src={foto_perfil}
+        src={foto_perfil ? foto_perfil : defaultImg}
         width={40}
         height={40}
         alt='imagen experto'

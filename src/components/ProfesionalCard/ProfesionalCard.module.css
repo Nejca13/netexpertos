@@ -1,5 +1,13 @@
+.backgroundCard {
+  height: 100dvh;
+  width: 100dvw;
+  backdrop-filter: blur(3px);
+  position: absolute;
+  z-index: 1500;
+}
+
 .container {
-  height: 95dvh;
+  height: 85dvh;
   width: 100dvw;
   z-index: 2000;
   position: absolute;
@@ -18,7 +26,7 @@
 
 .botonCerrar {
   position: absolute;
-  background-color: red;
+  background-color: var(--color-danger);
   right: 10px;
   top: 10px;
   border-radius: 100%;
@@ -41,7 +49,7 @@
 }
 
 .containerInfo {
-  margin-top: -20px;
+  margin-top: -80px;
   width: 100%;
   height: auto;
   text-align: center;
@@ -49,7 +57,7 @@
   font-family: var(--font-roboto-bold);
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 8px;
 }
 
 .containerInfo .pNombre {
@@ -106,7 +114,7 @@
 }
 .buttonMasInfo {
   background-color: var(--color-amarillo);
-  padding: 4px 10px;
+  padding: 6px 10px;
   border-radius: 14px;
   font-family: var(--font-roboto-bold);
   font-size: 12px;
@@ -114,7 +122,20 @@
   border: none;
   box-shadow: 0 3px 10px rgb(94, 94, 94);
   color: var(--color-gris-medio);
+  display: flex;
+  align-items: center;
 }
+
+.iconPlus {
+  position: absolute;
+  background-color: #e8b900;
+  padding: 2px;
+  border-radius: 100%;
+  width: 23px;
+  height: 23px;
+  transform: translateX(-110%);
+}
+
 .pTrabajosRealizados {
   width: 100%;
   background-color: var(--color-amarillo);
@@ -127,16 +148,28 @@
 }
 .ulTrabajosRealizados {
   display: flex;
-  width: 100%;
   list-style: none;
-  max-width: 85%;
+  width: 90%;
   overflow: scroll;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.ulTrabajosRealizados::-webkit-scrollbar {
+  display: none;
 }
 .ulTrabajosRealizados .li {
   padding: 0 10px;
-  border-right: 3px solid var(--color-amarillo);
-  width: 50%;
+
+  width: 80%;
+  border-left: 3px solid var(--color-amarillo);
+  font-size: 11px;
   text-align: center;
+}
+
+.ulTrabajosRealizados .li:nth-child(1) {
+  border: none;
 }
 .ulTrabajosRealizados .li .image {
   border-radius: 100%;

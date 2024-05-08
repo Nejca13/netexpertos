@@ -43,29 +43,10 @@
   width: 90%;
   max-width: 380px;
   overflow: scroll;
+  scrollbar-width: none;
   border-radius: 10px;
   background-image: url('../../assets//images/FondoAmarillo.jpg');
   padding: 13px 10px;
-}
-.divCategorias .ul {
-  list-style: none;
-}
-.divCategorias .ul .li {
-  border-bottom: 1px solid var(--color-gris);
-  font-family: var(--font-roboto-bold);
-  color: var(--color-gris-medio);
-  height: 30px;
-  display: flex;
-  align-items: center;
-  padding-left: 10px;
-  padding-right: 10px;
-  cursor: pointer;
-}
-
-.divCategorias .ul .li .link {
-  color: var(--color-gris-medio);
-  font-size: 12px;
-  text-decoration: none;
 }
 
 .destacados {
@@ -117,4 +98,18 @@
 .destacadosLi .pDescripcion .spanCalificacion {
   color: var(--color-blanco);
   font-family: var(--font-roboto-bold);
+}
+
+@media (min-height: 850px) {
+  .divCategorias {
+    max-height: 450px;
+    min-height: 300px;
+    width: 90%;
+    max-width: 380px;
+    overflow: scroll;
+    scrollbar-width: none;
+    border-radius: 10px;
+    background-image: url('../../assets//images/FondoAmarillo.jpg');
+    padding: 13px 10px;
+  }
 }

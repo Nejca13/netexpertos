@@ -69,7 +69,18 @@ const Map = () => {
         />
       )}
       {loading ? ( // Si está cargando, muestra el loader
-        <SimpleLoader />
+        <ContainerBlanco>
+          <h3
+            style={{
+              alignContent: 'center',
+              margin: 'auto',
+              fontFamily: 'var(--font-roboto-bold)',
+              textAlign: 'center',
+            }}
+          >
+            <SimpleLoader />
+          </h3>
+        </ContainerBlanco>
       ) : errorMsg ? ( // Si hay un error, muestra el mensaje de error
         <ContainerBlanco>
           <h3
