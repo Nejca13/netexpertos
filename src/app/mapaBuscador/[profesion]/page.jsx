@@ -13,6 +13,7 @@ import SimpleLoader from '@/components/Loaders/SimpleLoader'
 import ProfesionalCard from '@/components/ProfesionalCard/ProfesionalCard'
 import { getUser } from '@/utils/indexedDataBase'
 import ContainerBlanco from '@/components/Containers/ContainerFondoBlanco'
+import CardInfoPersonal from '@/components/CardInfoPersonal/CardInfoPersonal'
 
 const Map = () => {
   const { profesion } = useParams()
@@ -24,6 +25,7 @@ const Map = () => {
   const [loading, setLoading] = useState(true)
   const [errorMsg, setErrorMsg] = useState(null)
   const [isShowPopup, setIsShowPopup] = useState(false)
+  const [showMoreInfo, setShowMoreInfo] = useState(false)
 
   const setUser = async () => {
     const storageUser = await getUser()
@@ -62,12 +64,19 @@ const Map = () => {
         <HambIcon show={() => setShow(!show)} />
       </div>
 
-      {isShowPopup.status === true && (
-        <ProfesionalCard
-          profesional={isShowPopup.profesional}
-          setIsShowPopup={setIsShowPopup}
-        />
-      )}
+      {isShowPopup.status === true &&
+        (showMoreInfo ? (
+          <CardInfoPersonal
+            profesional={isShowPopup.profesional}
+            setShowMoreInfo={setShowMoreInfo}
+          />
+        ) : (
+          <ProfesionalCard
+            profesional={isShowPopup.profesional}
+            setIsShowPopup={setIsShowPopup}
+            setShowMoreInfo={setShowMoreInfo}
+          />
+        ))}
       {loading ? ( // Si está cargando, muestra el loader
         <ContainerBlanco>
           <h3

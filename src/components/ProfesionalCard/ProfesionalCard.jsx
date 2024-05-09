@@ -2,9 +2,14 @@ import Image from 'next/image'
 import styles from './ProfesionalCard.module.css'
 import cross from '@/assets/images/cross-blanca.png'
 import plus from '@/assets/images/iconPlusBlanco.png'
+import ModalImg from './ModalImg/ModalImg'
+import { useState } from 'react'
 
-const ProfesionalCard = ({ profesional, setIsShowPopup }) => {
+const ProfesionalCard = ({ profesional, setIsShowPopup, setShowMoreInfo }) => {
+  const [showModalImg, setShowModalImg] = useState(false)
+  const [img, setImg] = useState(null)
   const {
+    _id,
     calificacion,
     acerca_de_mi,
     apellido,
@@ -20,8 +25,18 @@ const ProfesionalCard = ({ profesional, setIsShowPopup }) => {
     horarios_de_atencion,
     recomendaciones,
   } = profesional
+
+  const modal = (img) => {
+    setImg(img)
+    setShowModalImg(true)
+
+    return
+  }
   return (
     <section className={styles.backgroundCard}>
+      {showModalImg && (
+        <ModalImg image={img} setShowModalImg={setShowModalImg} />
+      )}
       <div className={styles.container}>
         <button
           className={styles.botonCerrar}
@@ -54,7 +69,10 @@ const ProfesionalCard = ({ profesional, setIsShowPopup }) => {
             </button>
           </li>
         </ul>
-        <button className={styles.buttonMasInfo}>
+        <button
+          className={styles.buttonMasInfo}
+          onClick={() => setShowMoreInfo(true)}
+        >
           <Image
             src={plus}
             width={23}
@@ -74,6 +92,7 @@ const ProfesionalCard = ({ profesional, setIsShowPopup }) => {
                 src={item.imagen_base64}
                 width={70}
                 height={70}
+                onClick={() => modal(item.imagen_base64)}
                 alt='fotos de trabajos realizados'
               />
               <p>{item.titulo}</p>
