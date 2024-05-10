@@ -19,7 +19,6 @@ const CardInfoPersonal = ({ setShowMoreInfo, profesional }) => {
     horarios_atencion,
     recomendaciones,
   } = profesional
-  console.log(horarios_atencion)
   return (
     <section className={styles.backgroundCard}>
       <div className={styles.container}>

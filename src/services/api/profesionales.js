@@ -1,3 +1,5 @@
+import { updateUser } from '@/utils/indexedDataBase'
+
 const API_URL = 'https://vps-4057595-x.dattaweb.com/profesionales/'
 
 // Función para obtener todos los profesionales
@@ -76,7 +78,7 @@ export const getFilteredAndSortedProfessionalsByDistance = async (
   try {
     const response = await fetch(
       API_URL +
-        `cercanos/${data.profesion}?latitud=${data.latitud}&longitud=${data.longitud}&page=1&page_size=10`
+        `cercanos/${data.profesion}?latitud=${data.latitud}&longitud=${data.longitud}&rango_km=50&page=1&page_size=10`
     )
     if (!response.ok) {
       const error = await response.json()
@@ -93,5 +95,35 @@ export const getFilteredAndSortedProfessionalsByDistance = async (
   } catch (error) {
     console.log(error)
     throw error
+  }
+}
+
+export const updateProfessional = async (mail, updatedData) => {
+  try {
+    const mailEncode = encodeURIComponent(mail)
+    const response = await fetch(API_URL + `/?correo=${mailEncode}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedData),
+    })
+
+    if (response.ok) {
+      // La solicitud fue exitosa
+      const responseData = await response.json()
+      console.log(responseData.message)
+      await updateUser(updatedData)
+      window.location.reload()
+      return responseData // Puedes retornar los datos actualizados si lo deseas
+    } else {
+      // La solicitud no fue exitosa
+      const errorMessage = await response.text()
+      throw new Error(`Error al actualizar los datos: ${errorMessage}`)
+    }
+  } catch (error) {
+    // Error de red o cualquier otro error
+    console.error('Ocurrió un error al realizar la solicitud:', error.message)
+    throw error // Puedes lanzar el error nuevamente para que quien llame a esta función pueda manejarlo si es necesario
   }
 }

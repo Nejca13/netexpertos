@@ -7,6 +7,7 @@
   backdrop-filter: blur(4px);
   position: absolute;
   align-items: flex-end;
+  top: 0;
   z-index: 1100;
   .personalMenu {
     margin-top: 31px;
@@ -85,6 +86,7 @@
         display: flex;
         align-items: center;
         gap: 20px;
+        cursor: pointer;
         .icon {
           margin-left: 10px;
           border-radius: 100%;

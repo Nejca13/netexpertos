@@ -7,6 +7,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import SimpleLoader from '@/components/Loaders/SimpleLoader'
 import ExpertMapMarker from '@/components/ExpertMapMarker/ExpertMapMarker'
 import ReactDOMServer from 'react-dom/server'
+import { estaDisponible } from '@/utils/estaDisponible'
 
 const MapComponent = ({ coord, destacados, setIsShowPopup }) => {
   return coord ? (
@@ -56,7 +57,12 @@ const MapComponent = ({ coord, destacados, setIsShowPopup }) => {
                 new L.divIcon({
                   className: 'marker',
                   html: ReactDOMServer.renderToStaticMarkup(
-                    <ExpertMapMarker profesional={item.profesional} />
+                    <ExpertMapMarker
+                      profesional={item.profesional}
+                      status={estaDisponible(
+                        item.profesional.horarios_atencion
+                      )}
+                    />
                   ),
                 })
               }

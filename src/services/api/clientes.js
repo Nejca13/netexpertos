@@ -1,3 +1,5 @@
+import { updateUser } from '@/utils/indexedDataBase'
+
 const API_URL = 'https://vps-4057595-x.dattaweb.com/clientes'
 /**
  * Crea un nuevo usuario con los datos proporcionados.
@@ -81,23 +83,32 @@ export const updateClienteById = async (cliente_id, data) => {
   }
 }
 
-/**
- * Elimina un cliente por su ID.
- * @param {string} cliente_id - ID del cliente a eliminar.
- * @returns {Object} - Mensaje de éxito o error.
- */
-export const deleteClienteById = async (cliente_id) => {
-  const options = {
-    method: 'DELETE',
-  }
-
+export const updateCliente = async (mail, updatedData) => {
   try {
-    const response = await fetch(`${API_URL}/${cliente_id}`, options)
-    if (!response.ok) {
-      throw new Error('Error en la solicitud')
+    const mailEncode = encodeURIComponent(mail)
+    const response = await fetch(API_URL + `?correo=${mailEncode}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedData),
+    })
+
+    if (response.ok) {
+      // La solicitud fue exitosa
+      const responseData = await response.json()
+      console.log(responseData.message)
+      await updateUser(updatedData)
+      window.location.reload()
+      return responseData // Puedes retornar los datos actualizados si lo deseas
+    } else {
+      // La solicitud no fue exitosa
+      const errorMessage = await response.text()
+      throw new Error(`Error al actualizar los datos: ${errorMessage}`)
     }
-    return await response.json()
   } catch (error) {
-    console.error('Error:', error)
+    // Error de red o cualquier otro error
+    console.error('Ocurrió un error al realizar la solicitud:', error.message)
+    throw error // Puedes lanzar el error nuevamente para que quien llame a esta función pueda manejarlo si es necesario
   }
 }

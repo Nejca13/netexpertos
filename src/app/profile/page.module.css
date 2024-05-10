@@ -48,6 +48,9 @@
   background-image: url('../../assets//images/FondoAmarillo.jpg');
   padding: 13px 10px;
 }
+.divCategorias::-webkit-scrollbar {
+  width: none;
+}
 
 .destacados {
   width: 100%;
@@ -111,5 +114,8 @@
     border-radius: 10px;
     background-image: url('../../assets//images/FondoAmarillo.jpg');
     padding: 13px 10px;
+  }
+  .divCategorias::-webkit-scrollbar {
+    width: none;
   }
 }

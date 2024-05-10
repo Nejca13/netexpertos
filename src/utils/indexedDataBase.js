@@ -76,3 +76,41 @@ export const clearUsers = async () => {
     }
   })
 }
+
+export const updateUser = async (updatedUserData) => {
+  const db = await openDatabase()
+  const transaction = db.transaction(['users'], 'readwrite')
+  const objectStore = transaction.objectStore('users')
+
+  // Obtener el usuario que deseas actualizar
+  const requestGet = objectStore.openCursor()
+
+  return new Promise((resolve, reject) => {
+    requestGet.onsuccess = (event) => {
+      const cursor = event.target.result
+      if (cursor) {
+        // Actualizar los datos del usuario
+        const userData = cursor.value
+        Object.assign(userData.user_data, updatedUserData) // Fusiona los datos actualizados con los existentes
+
+        // Guardar los datos actualizados en la base de datos
+        const requestUpdate = cursor.update(userData)
+
+        requestUpdate.onsuccess = () => {
+          resolve(userData) // Retorna los datos actualizados
+        }
+
+        requestUpdate.onerror = () => {
+          reject(requestUpdate.error)
+        }
+      } else {
+        // Si no se encontró el usuario
+        resolve(null) // Puedes manejar esto de acuerdo a tus necesidades
+      }
+    }
+
+    requestGet.onerror = () => {
+      reject(requestGet.error)
+    }
+  })
+}

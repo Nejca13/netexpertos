@@ -1,8 +1,9 @@
 import Image from 'next/image'
 import styles from './ExpertMapMarker.module.css'
 import defaultImg from '@/assets/images/userImage.png'
+import { useEffect, useState } from 'react'
 
-const ExpertMapMarker = ({ profesional }) => {
+const ExpertMapMarker = ({ profesional, status }) => {
   const {
     calificacion,
     acerca_de_mi,
@@ -16,8 +17,9 @@ const ExpertMapMarker = ({ profesional }) => {
     nacimiento,
     numero,
     foto_perfil,
-    horarios_de_atencion,
+    horarios_atencion,
   } = profesional
+
   return (
     <div className={styles.pin1}>
       <div className={[status === true && styles.online]}></div>

@@ -5,8 +5,6 @@ import Image from 'next/image'
 import LogoNetExpertos from '@/components/ui/Logo/LogoNetExpertos'
 import styles from './page.module.css'
 import lupa from '@/assets/images/LUPA.svg'
-import rubros from '@/constants/rubros'
-import profesionesPorRubro from '@/constants/profesionesPorRubro'
 import { destacados } from '@/constants/destacados'
 import HambMenu from '@/components/ui/HambMenu/HambMenu'
 import { useEffect, useState } from 'react'
@@ -14,6 +12,7 @@ import HambIcon from '@/components/ui/HambIcon/HambIcon'
 import isAuth from '@/components/Auth/IsAuth'
 import { getUser } from '@/utils/indexedDataBase'
 import RubrosDropdown from '@/components/RubrosDropdown/RubrosDropdown'
+import profesiones from '@/constants/profesiones'
 
 const Page = () => {
   const [showMenu, setShowMenu] = useState(false)
@@ -29,7 +28,7 @@ const Page = () => {
   }, [])
 
   const searchFunction = () => {
-    const result = profesionesPorRubro
+    const result = profesiones
       .filter((rubro) =>
         Object.keys(rubro)[0].toLowerCase().includes(searchItems.toLowerCase())
       )

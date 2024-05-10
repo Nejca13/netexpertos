@@ -21,10 +21,7 @@ const ModalImg = ({ image, setShowModalImg }) => {
     // Retorna un objeto con las nuevas dimensiones
     setHeigth(nuevoAlto)
     setWidth(nuevoAncho)
-    console.log({
-      ancho: nuevoAncho,
-      alto: nuevoAlto,
-    })
+
     return {
       ancho: nuevoAncho,
       alto: nuevoAlto,

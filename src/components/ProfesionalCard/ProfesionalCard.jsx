@@ -4,6 +4,8 @@ import cross from '@/assets/images/cross-blanca.png'
 import plus from '@/assets/images/iconPlusBlanco.png'
 import ModalImg from './ModalImg/ModalImg'
 import { useState } from 'react'
+import estrellaGris from '@/assets/images/estrella-Gris.png'
+import estrellaAmarilla from '@/assets/images/estrella-Amarilla.png'
 
 const ProfesionalCard = ({ profesional, setIsShowPopup, setShowMoreInfo }) => {
   const [showModalImg, setShowModalImg] = useState(false)
@@ -22,14 +24,13 @@ const ProfesionalCard = ({ profesional, setIsShowPopup, setShowMoreInfo }) => {
     nacimiento,
     numero,
     foto_perfil,
-    horarios_de_atencion,
+    horarios_atencion,
     recomendaciones,
   } = profesional
 
   const modal = (img) => {
     setImg(img)
     setShowModalImg(true)
-
     return
   }
   return (
@@ -61,7 +62,15 @@ const ProfesionalCard = ({ profesional, setIsShowPopup, setShowMoreInfo }) => {
           </span>
         </div>
         <ul className={styles.ulValoracion}>
-          <li className={styles.li}>{calificacion}</li>
+          <li className={styles.li}>
+            {calificacion}
+            <Image
+              src={estrellaAmarilla}
+              width={22}
+              height={22}
+              alt='icono estrella de valoracion'
+            />
+          </li>
           <li className={styles.li}>{recomendaciones}</li>
           <li className={styles.li}>
             <button className={styles.buttonAgregarFavoritos}>
@@ -95,9 +104,15 @@ const ProfesionalCard = ({ profesional, setIsShowPopup, setShowMoreInfo }) => {
                 onClick={() => modal(item.imagen_base64)}
                 alt='fotos de trabajos realizados'
               />
-              <p>{item.titulo}</p>
-              <p>{item.lugar}</p>
-              <p>{item.fecha}</p>
+              <p className={styles.p}>
+                <strong>Titulo:</strong> {item.titulo}
+              </p>
+              <p className={styles.p}>
+                <strong>Lugar:</strong> {item.lugar}
+              </p>
+              <p className={styles.p}>
+                <strong>Fecha:</strong> {item.fecha}
+              </p>
             </li>
           ))}
         </ul>

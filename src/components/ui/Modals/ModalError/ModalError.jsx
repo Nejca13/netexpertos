@@ -9,7 +9,12 @@ const ModalError = ({ setShowModalError, errorMessage }) => {
           className={styles.button}
           onClick={() => setShowModalError(false)}
         >
-          <Image src={crossBlanca} width={20} height={20} />
+          <Image
+            src={crossBlanca}
+            width={20}
+            height={20}
+            alt='boton de cerrar'
+          />
         </button>
         <p className={styles.p}>Ocurrio un error inesperado</p>
       </div>

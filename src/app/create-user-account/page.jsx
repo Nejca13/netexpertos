@@ -59,8 +59,8 @@ const Page = () => {
         <Image
           className={styles.userImage}
           src={userImage}
-          width={100}
-          height={100}
+          width={60}
+          height={60}
           style={{ borderRadius: '100%' }}
           alt='Foto de perfil del usuario'
         />
