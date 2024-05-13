@@ -65,12 +65,9 @@ export const getUser = async (id) => {
 }
 
 export const clearUsers = async () => {
-  const db = await openDatabase()
-  const transaction = db.transaction(['users'], 'readwrite')
-  const objectStore = transaction.objectStore('users')
-  const request = objectStore.clear()
-
   return new Promise((resolve, reject) => {
+    const request = indexedDB.deleteDatabase('UserDataDB')
+
     request.onsuccess = () => {
       resolve()
     }
