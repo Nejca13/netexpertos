@@ -1,8 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { redirect } from 'next/navigation'
+import { redirect, useParams } from 'next/navigation'
 import SimpleLoader from '../Loaders/SimpleLoader'
-import ContainerBlanco from '../Containers/ContainerFondoBlanco'
 import { getUser } from '@/utils/indexedDataBase'
 
 export default function isAuth(Component) {
@@ -10,8 +9,10 @@ export default function isAuth(Component) {
     const [isLoading, setIsLoading] = useState(true)
     const [auth, setAuth] = useState(null)
 
+    const { _id } = useParams()
+
     const setUser = async () => {
-      const authValue = await getUser()
+      const authValue = await getUser(_id)
       setAuth(authValue.user_data)
     }
 

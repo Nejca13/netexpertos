@@ -13,15 +13,17 @@ import isAuth from '@/components/Auth/IsAuth'
 import { getUser } from '@/utils/indexedDataBase'
 import RubrosDropdown from '@/components/RubrosDropdown/RubrosDropdown'
 import profesiones from '@/constants/profesiones'
+import { useParams } from 'next/navigation'
 
 const Page = () => {
   const [showMenu, setShowMenu] = useState(false)
   const [userApp, setUserApp] = useState({})
   const [searchItems, setSearchItems] = useState('')
+  const { _id } = useParams()
 
   useEffect(() => {
     const asd = async () => {
-      const user = await getUser()
+      const user = await getUser(_id)
       setUserApp(user.user_data)
     }
     asd()
@@ -67,7 +69,7 @@ const Page = () => {
       </div>
       <div className={styles.divCategorias}>
         {searchFunction().map((item, index) => (
-          <RubrosDropdown item={item} index={index} key={index} />
+          <RubrosDropdown item={item} index={index} key={index} _id={_id} />
         ))}
       </div>
       <div className={styles.destacados}>

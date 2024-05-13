@@ -45,7 +45,7 @@
   overflow: scroll;
   scrollbar-width: none;
   border-radius: 10px;
-  background-image: url('../../assets//images/FondoAmarillo.jpg');
+  background-image: url('../../../assets//images/FondoAmarillo.jpg');
   padding: 13px 10px;
 }
 .divCategorias::-webkit-scrollbar {
@@ -112,7 +112,7 @@
     overflow: scroll;
     scrollbar-width: none;
     border-radius: 10px;
-    background-image: url('../../assets//images/FondoAmarillo.jpg');
+    background-image: url('../../../assets/images/FondoAmarillo.jpg');
     padding: 13px 10px;
   }
   .divCategorias::-webkit-scrollbar {

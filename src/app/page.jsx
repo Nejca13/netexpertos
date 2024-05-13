@@ -3,8 +3,6 @@
 import Link from 'next/link'
 import styles from './page.module.css'
 import { Inputs } from '@/components/FormComponents/FormComponents'
-import Image from 'next/image'
-import NetExpertosLOGO from '../assets/images/NetExpertosLOGO.svg'
 import ButtonSubmit from '@/components/Buttons/ButtonSubmit/ButtonSubmit'
 import ButtonSignInWithGoogle from '@/components/Buttons/ButtonSignInWithGoogle/ButtonSignInWithGoogle'
 import FormContainer from '@/components/Containers/FormContainer'
@@ -15,10 +13,12 @@ import { useState } from 'react'
 import ModalError from '@/components/ui/Modals/ModalError/ModalError'
 import { useRouter } from 'next/navigation'
 import { addUser } from '@/utils/indexedDataBase'
+import ModalLoading from '@/components/ui/Modals/ModalLoading/ModalLoading'
 
 export default function Home() {
   const [showModalError, setShowModalError] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   const router = useRouter()
 
@@ -26,12 +26,12 @@ export default function Home() {
     e.preventDefault()
     const formDataValues = Object.fromEntries(new FormData(e.target))
     try {
+      setIsLoading(true)
       const data = await userLogin(formDataValues)
-
-      const saveUser = await addUser(data)
-
+      const saveUser = await addUser(data, setIsLoading)
+      console.log(saveUser)
       if (saveUser) {
-        router.push('/profile')
+        router.push(`/profile/${data.user_data._id}`)
       }
     } catch (error) {
       if (error) {
@@ -44,6 +44,7 @@ export default function Home() {
 
   return (
     <Container>
+      {isLoading && <ModalLoading message={'Iniciando sesion...'} />}
       {showModalError && (
         <ModalError
           errorMessage={errorMessage}

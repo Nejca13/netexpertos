@@ -2,7 +2,7 @@ import Link from 'next/link'
 import styles from './RubrosDropdown.module.css'
 import { useState } from 'react'
 
-const RubrosDropdown = ({ item, index }) => {
+const RubrosDropdown = ({ item, index, _id }) => {
   const rubro = Object.keys(item)[0]
   const profesion = Object.values(item)[0]
   const [isOpen, setIsOpen] = useState(false)
@@ -23,7 +23,7 @@ const RubrosDropdown = ({ item, index }) => {
             <Link
               key={index}
               className={styles.link}
-              href={`/mapaBuscador/${rubro}`}
+              href={`/profile/${_id}/mapaBuscador/${rubro}`}
             >
               <li className={styles.li}>
                 <p className={styles.p}>{profesion}</p>

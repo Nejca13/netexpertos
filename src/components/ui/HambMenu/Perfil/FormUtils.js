@@ -43,12 +43,11 @@ export const handleSubmit = (e, user, newProfileImage) => {
 
   // Convertir FormData a objeto
   const data = Object.fromEntries(formData)
-  console.log(data)
 
   if (user.rol === 'Profesional') {
-    updateProfessional(user.correo, data)
+    updateProfessional(user, data)
   }
   if (user.rol === 'Cliente') {
-    updateCliente(user.correo, data)
+    updateCliente(user, data)
   }
 }

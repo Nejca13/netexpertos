@@ -26,9 +26,10 @@ const Map = () => {
   const [errorMsg, setErrorMsg] = useState(null)
   const [isShowPopup, setIsShowPopup] = useState(false)
   const [showMoreInfo, setShowMoreInfo] = useState(false)
+  const { _id } = useParams()
 
   const setUser = async () => {
-    const storageUser = await getUser()
+    const storageUser = await getUser(_id)
     setUserApp(storageUser.user_data)
   }
 
@@ -101,6 +102,16 @@ const Map = () => {
             }}
           >
             {errorMsg}
+            <input
+              type='range'
+              name='km'
+              id='km'
+              step={25}
+              max={100}
+              min={0}
+              onChange={(e) => console.log(e.target.value)}
+              defaultValue={10}
+            />
           </h3>
         </ContainerBlanco>
       ) : professionalsNearby.profesionales_cercanos.length > 0 ? ( // Si hay datos, muestra el mapa
@@ -113,7 +124,7 @@ const Map = () => {
         <h1>{errorMsg}</h1>
       )}
 
-      <Link href={'/profile'} className={styles.button}>
+      <Link href={`/profile/${_id}`} className={styles.button}>
         Buscar
       </Link>
     </div>

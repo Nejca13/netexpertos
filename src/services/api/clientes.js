@@ -83,9 +83,9 @@ export const updateClienteById = async (cliente_id, data) => {
   }
 }
 
-export const updateCliente = async (mail, updatedData) => {
+export const updateCliente = async (user, updatedData) => {
   try {
-    const mailEncode = encodeURIComponent(mail)
+    const mailEncode = encodeURIComponent(user.correo)
     const response = await fetch(API_URL + `?correo=${mailEncode}`, {
       method: 'PUT',
       headers: {
@@ -97,8 +97,7 @@ export const updateCliente = async (mail, updatedData) => {
     if (response.ok) {
       // La solicitud fue exitosa
       const responseData = await response.json()
-      console.log(responseData.message)
-      await updateUser(updatedData)
+      await updateUser(updatedData, user._id)
       window.location.reload()
       return responseData // Puedes retornar los datos actualizados si lo deseas
     } else {

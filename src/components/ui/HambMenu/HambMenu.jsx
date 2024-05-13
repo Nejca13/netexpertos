@@ -15,14 +15,11 @@ const HambMenu = ({ show, userApp }) => {
   const handleOptionClick = (name) => {
     switch (name) {
       case 'Perfil':
-        console.log(name)
         setMenuComponent(
           <MenuPerfil setMenuComponent={setMenuComponent} user={userApp} />
         )
-
         break
       case 'Configuracion':
-        console.log(name)
       default:
         break
     }

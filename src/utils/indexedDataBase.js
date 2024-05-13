@@ -5,10 +5,13 @@ export const openDatabase = () => {
     request.onupgradeneeded = (event) => {
       const db = event.target.result
       const objectStore = db.createObjectStore('users', {
-        keyPath: 'id',
+        keyPath: '_id',
         autoIncrement: true,
       })
-      objectStore.createIndex('username', 'username', { unique: true })
+      objectStore.createIndex('_id', 'user_data._id', {
+        unique: true,
+      })
+      objectStore.createIndex('user_data', 'user_data', { unique: true })
     }
 
     request.onsuccess = () => {
@@ -38,17 +41,18 @@ export const addUser = async (userData) => {
   })
 }
 
-export const getUser = async () => {
+export const getUser = async (id) => {
   const db = await openDatabase()
   const transaction = db.transaction(['users'], 'readonly')
   const objectStore = transaction.objectStore('users')
-  const request = objectStore.openCursor()
+  const index = objectStore.index('_id')
+  const request = index.get(id)
 
   return new Promise((resolve, reject) => {
     request.onsuccess = (event) => {
       const cursor = event.target.result
       if (cursor) {
-        resolve(cursor.value) // Retorna el valor del primer objeto encontrado
+        resolve(cursor) // Retorna el valor del primer objeto encontrado
       } else {
         resolve(null) // Retorna null si no se encontró ningún objeto
       }
@@ -77,24 +81,22 @@ export const clearUsers = async () => {
   })
 }
 
-export const updateUser = async (updatedUserData) => {
+export const updateUser = async (updatedUserData, id) => {
   const db = await openDatabase()
   const transaction = db.transaction(['users'], 'readwrite')
   const objectStore = transaction.objectStore('users')
-
-  // Obtener el usuario que deseas actualizar
-  const requestGet = objectStore.openCursor()
+  const index = objectStore.index('_id')
+  const requestGet = index.get(id)
 
   return new Promise((resolve, reject) => {
     requestGet.onsuccess = (event) => {
-      const cursor = event.target.result
-      if (cursor) {
+      const userData = event.target.result
+      if (userData) {
         // Actualizar los datos del usuario
-        const userData = cursor.value
         Object.assign(userData.user_data, updatedUserData) // Fusiona los datos actualizados con los existentes
 
         // Guardar los datos actualizados en la base de datos
-        const requestUpdate = cursor.update(userData)
+        const requestUpdate = objectStore.put(userData) // Usar objectStore.put para actualizar el objeto
 
         requestUpdate.onsuccess = () => {
           resolve(userData) // Retorna los datos actualizados
@@ -113,4 +115,27 @@ export const updateUser = async (updatedUserData) => {
       reject(requestGet.error)
     }
   })
+}
+
+export const deleteDatabaseOnClose = async () => {
+  try {
+    // Abre la base de datos
+    const db = await openDatabase()
+
+    // Cierra la base de datos antes de borrarla
+    db.close()
+
+    // Borra la base de datos
+    const deleteRequest = indexedDB.deleteDatabase('UserDataDB')
+
+    deleteRequest.onerror = (event) => {
+      console.error('Error al borrar la base de datos:', event.target.error)
+    }
+
+    deleteRequest.onsuccess = (event) => {
+      console.log('Base de datos borrada con éxito.')
+    }
+  } catch (error) {
+    console.error('Error al abrir la base de datos:', error)
+  }
 }

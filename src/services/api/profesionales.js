@@ -87,7 +87,6 @@ export const getFilteredAndSortedProfessionalsByDistance = async (
     }
     const result = await response.json()
 
-    console.log(result.profesionales_cercanos)
     if (result.profesionales_cercanos.length === 0) {
       setErrorMessage('No hay profesionales cerca')
     }
@@ -98,9 +97,9 @@ export const getFilteredAndSortedProfessionalsByDistance = async (
   }
 }
 
-export const updateProfessional = async (mail, updatedData) => {
+export const updateProfessional = async (user, updatedData) => {
   try {
-    const mailEncode = encodeURIComponent(mail)
+    const mailEncode = encodeURIComponent(user.correo)
     const response = await fetch(API_URL + `/?correo=${mailEncode}`, {
       method: 'PUT',
       headers: {
@@ -113,7 +112,7 @@ export const updateProfessional = async (mail, updatedData) => {
       // La solicitud fue exitosa
       const responseData = await response.json()
       console.log(responseData.message)
-      await updateUser(updatedData)
+      await updateUser(updatedData, user._id)
       window.location.reload()
       return responseData // Puedes retornar los datos actualizados si lo deseas
     } else {
