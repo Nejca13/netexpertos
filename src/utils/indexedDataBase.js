@@ -1,6 +1,6 @@
 export const openDatabase = () => {
   return new Promise((resolve, reject) => {
-    const request = indexedDB.open('UserDataDB', 1)
+    const request = indexedDB.open('NetExpertos', 1)
 
     request.onupgradeneeded = (event) => {
       const db = event.target.result
@@ -66,7 +66,7 @@ export const getUser = async (id) => {
 
 export const clearUsers = async () => {
   return new Promise((resolve, reject) => {
-    const request = indexedDB.deleteDatabase('UserDataDB')
+    const request = indexedDB.deleteDatabase('NetExpertos')
 
     request.onsuccess = () => {
       resolve()
