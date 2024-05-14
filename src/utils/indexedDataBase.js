@@ -67,6 +67,7 @@ export const getUser = async (id) => {
 export const clearUsers = async () => {
   return new Promise((resolve, reject) => {
     const request = indexedDB.deleteDatabase('NetExpertos')
+    const reque = indexedDB.deleteDatabase('UserDataDB')
 
     request.onsuccess = () => {
       resolve()
