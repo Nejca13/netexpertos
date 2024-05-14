@@ -34,6 +34,8 @@ const profesiones = [
       'Panadero/a',
       'Sommelier',
     ],
+  },
+  {
     Diseño: [
       'Diseñador gráfico',
       'Diseñador de moda',

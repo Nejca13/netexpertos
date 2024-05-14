@@ -17,7 +17,7 @@ import ModalLoading from '@/components/ui/Modals/ModalLoading/ModalLoading'
 
 export default function Home() {
   const [showModalError, setShowModalError] = useState(false)
-  const [errorMessage, setErrorMessage] = useState('')
+  const [errorMessage, setErrorMessage] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
   const router = useRouter()
@@ -27,14 +27,19 @@ export default function Home() {
     const formDataValues = Object.fromEntries(new FormData(e.target))
     try {
       setIsLoading(true)
-      const data = await userLogin(formDataValues)
-      const saveUser = await addUser(data, setIsLoading)
+      const data = await userLogin(
+        formDataValues,
+        setErrorMessage,
+        setIsLoading
+      )
+      const saveUser = await addUser(data)
       console.log(saveUser)
       if (saveUser) {
         router.push(`/profile/${data.user_data._id}`)
       }
     } catch (error) {
       if (error) {
+        setIsLoading(false)
         console.log(error)
         setShowModalError(true)
         setErrorMessage('Ocurrio un error inesperado')
@@ -45,10 +50,10 @@ export default function Home() {
   return (
     <Container>
       {isLoading && <ModalLoading message={'Iniciando sesion...'} />}
-      {showModalError && (
+      {errorMessage && (
         <ModalError
           errorMessage={errorMessage}
-          setShowModalError={setShowModalError}
+          setShowModalError={setErrorMessage}
         />
       )}
       <LogoNetExpertos width={300} height={90} />
@@ -56,14 +61,16 @@ export default function Home() {
         <Inputs
           id={'userName'}
           name={'username'}
-          text={'Usuario'}
+          text={'Correo'}
           type={'text'}
+          errorMessage={'El correo ingresado es invalido!'}
         />
         <Inputs
           id={'password'}
           name={'password'}
           text={'Contraseña'}
           type={'password'}
+          errorMessage={'Contraseña invalida!'}
         />
         <ButtonSubmit text={'INGRESAR'} />
         <div className={styles.resetPassword}>

@@ -13,7 +13,7 @@ const profesionesPorRubro = {
     'Psicólogo/a',
     'Nutricionista',
   ],
-  Educación: [
+  Educacion: [
     'Profesor/a de primaria',
     'Profesor/a de secundaria',
     'Profesor/a de universidad',

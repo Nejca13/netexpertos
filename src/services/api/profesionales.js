@@ -18,7 +18,7 @@ export const getAllProfesionales = async () => {
 
 // Función para crear un nuevo profesional
 export const createProfesional = async (data) => {
-  const [nombre, apellido] = data.nombre_apellido.split(' ')
+  const [nombre, apellido] = data?.nombre_apellido?.split(' ')
   const newData = {
     rol: 'Profesional',
     nombre: nombre, // Puedes asignar el nombre y apellido según sea necesario
@@ -49,7 +49,6 @@ export const createProfesional = async (data) => {
       },
       body: JSON.stringify(newData),
     }
-
     const response = await fetch(API_URL, options)
 
     if (response.ok) {
@@ -57,10 +56,9 @@ export const createProfesional = async (data) => {
       return true
     } else {
       const errorData = await response.json() // Captura el cuerpo de la respuesta si hay error
-
+      console.log(errorData)
       console.error(
-        `Error en la solicitud: ${response.status} `,
-        response.statusText,
+        `Error en la solicitud: `,
         errorData // Imprime también los detalles del error si están disponibles
       )
     }
@@ -75,10 +73,32 @@ export const getFilteredAndSortedProfessionalsByDistance = async (
   data,
   setErrorMessage
 ) => {
+  const kilometros = {
+    18: 5,
+    17: 10,
+    16: 20,
+    15: 35,
+    14: 55,
+    13: 80,
+    12: 120,
+    11: 180,
+    10: 250,
+    9: 350,
+    8: 500,
+    7: 650,
+    6: 800,
+    5: 1000,
+    4: 1000,
+    3: 1000,
+    2: 1000,
+    1: 1000,
+  }
   try {
     const response = await fetch(
       API_URL +
-        `cercanos/${data.profesion}?latitud=${data.latitud}&longitud=${data.longitud}&rango_km=50&page=1&page_size=10`
+        `cercanos/${data.profesion}?latitud=${data.latitud}&longitud=${
+          data.longitud
+        }&rango_km=${kilometros[data.kilometrosDeRadio]}&page=1&page_size=10`
     )
     if (!response.ok) {
       const error = await response.json()
@@ -88,8 +108,11 @@ export const getFilteredAndSortedProfessionalsByDistance = async (
     const result = await response.json()
 
     if (result.profesionales_cercanos.length === 0) {
-      setErrorMessage('No hay profesionales cerca')
+      setErrorMessage(`No hay ${decodeURIComponent(data.profesion)} cerca`)
+    } else {
+      setErrorMessage(false)
     }
+    console.log(result)
     return result
   } catch (error) {
     console.log(error)
@@ -98,9 +121,11 @@ export const getFilteredAndSortedProfessionalsByDistance = async (
 }
 
 export const updateProfessional = async (user, updatedData) => {
+  console.log(updatedData)
   try {
-    const mailEncode = encodeURIComponent(user.correo)
-    const response = await fetch(API_URL + `/?correo=${mailEncode}`, {
+    const mailEncode = encodeURIComponent(user.correo.trim())
+    console.log(user.correo)
+    const response = await fetch(API_URL + `?correo=${mailEncode}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

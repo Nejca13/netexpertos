@@ -1,26 +1,24 @@
 .container {
-  height: 100vh;
-  width: 100%;
-  top: 0;
+  height: 100dvh;
+  width: 100dvw;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(3px);
   position: absolute;
-  z-index: 600;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
 }
 .modal {
-  position: relative;
-  height: 30dvh;
-  width: 60dvw;
   background-color: white;
+  position: relative;
+  height: 162px;
+  width: 288px;
   border-radius: 10px;
-  align-content: center;
   display: flex;
-  text-align: center;
   justify-content: center;
+  align-items: center;
   flex-direction: column;
+  gap: 20px;
   box-shadow: var(--box-shadow);
 }
 .button {

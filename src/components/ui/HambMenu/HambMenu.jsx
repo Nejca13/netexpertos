@@ -84,7 +84,7 @@ const HambMenu = ({ show, userApp }) => {
                 </li>
               ))}
 
-          <li className={styles.li}>
+          <li className={styles.li} onClick={userLogout}>
             <Image
               className={styles.icon}
               src={defaultImage}
@@ -92,9 +92,7 @@ const HambMenu = ({ show, userApp }) => {
               height={24}
               alt={`Icono de`}
             />
-            <button className={styles.button} onClick={userLogout}>
-              Salir
-            </button>
+            <button className={styles.button}>Salir</button>
           </li>
         </ul>
       </div>

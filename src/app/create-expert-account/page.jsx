@@ -12,11 +12,15 @@ import separarDatos from '@/utils/separarDatosForm'
 import TerminosYCondiciones from '@/components/TerminosYCondiciones/TerminosYCondiciones'
 import { createProfesional } from '@/services/api/profesionales'
 import { useRouter } from 'next/navigation'
+import ModalError from '@/components/ui/Modals/ModalError/ModalError'
+import ModalLoading from '@/components/ui/Modals/ModalLoading/ModalLoading'
 
 const Page = () => {
   const [formSection, setFormSection] = useState(0)
   const [formDataValues, setFormDataValues] = useState({})
   const [accountType, setAccountType] = useState(null)
+  const [errorMessage, setErrorMessage] = useState(null)
+  const [isLoading, setIsLoading] = useState(null)
 
   const router = useRouter()
 
@@ -90,17 +94,31 @@ const Page = () => {
           case 5:
             return (
               <TerminosYCondiciones
-                onClick={() =>
-                  createProfesional(formDataValues).then((res) => {
-                    res === true && router.push('/')
-                  })
-                }
+                onClick={() => {
+                  setIsLoading(true)
+                  createProfesional(formDataValues)
+                    .then((res) => {
+                      res === true && router.push('/')
+                    })
+                    .catch((error) => {
+                      setIsLoading(false)
+                      setErrorMessage(error)
+                      console.log(error)
+                    })
+                }}
               />
             )
           default:
             return null
         }
       })()}
+      {errorMessage && (
+        <ModalError
+          errorMessage={errorMessage}
+          setShowModalError={setErrorMessage}
+        />
+      )}
+      {isLoading && <ModalLoading message={'Creando profesional...'} />}
     </Container>
   )
 }

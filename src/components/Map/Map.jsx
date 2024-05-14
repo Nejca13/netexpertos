@@ -3,13 +3,33 @@ import L from 'leaflet'
 import MarkerIcon from '../../../node_modules/leaflet/dist/images/marker-icon.png'
 import MarkerShadow from '../../../node_modules/leaflet/dist/images/marker-shadow.png'
 import 'leaflet/dist/leaflet.css'
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  useMapEvent,
+} from 'react-leaflet'
 import SimpleLoader from '@/components/Loaders/SimpleLoader'
 import ExpertMapMarker from '@/components/ExpertMapMarker/ExpertMapMarker'
 import ReactDOMServer from 'react-dom/server'
 import { estaDisponible } from '@/utils/estaDisponible'
 
-const MapComponent = ({ coord, destacados, setIsShowPopup }) => {
+const MapComponent = ({
+  coord,
+  profesionales,
+  setIsShowPopup,
+  setKilometrosDeRadio,
+}) => {
+  function MyComponent() {
+    const map = useMapEvent('zoom', () => {
+      const km = map.getZoom()
+      setKilometrosDeRadio(km)
+    })
+
+    return null
+  }
+
   return coord ? (
     typeof window !== undefined && (
       <MapContainer
@@ -22,8 +42,8 @@ const MapComponent = ({ coord, destacados, setIsShowPopup }) => {
         }}
         center={coord}
         zoom={15}
-        scrollWheelZoom={false}
       >
+        <MyComponent />
         <TileLayer url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' />
 
         <Marker
@@ -42,8 +62,8 @@ const MapComponent = ({ coord, destacados, setIsShowPopup }) => {
         >
           <Popup>Este eres tu!</Popup>
         </Marker>
-        {destacados &&
-          destacados.map((item, index) => (
+        {profesionales &&
+          profesionales.map((item, index) => (
             <Marker
               key={index}
               eventHandlers={{

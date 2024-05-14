@@ -32,3 +32,15 @@
   text-align: center;
   text-decoration: none;
 }
+
+.errorMessage {
+  position: absolute;
+  z-index: 1050;
+  bottom: 50%;
+  text-align: center;
+  font-size: 11px;
+  width: 100%;
+  padding: 10px 0;
+  font-family: var(--font-roboto-bold);
+  background-color: var(--color-blanco);
+}

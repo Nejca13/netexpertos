@@ -100,6 +100,7 @@ const MenuPerfil = ({ setMenuComponent, user }) => {
             {rubroSeleccionado && (
               <SelectPerfil
                 data={profesionesPorRubro[rubroSeleccionado]}
+                defaultValue={user.profesion_nombre}
                 id={'profesion'}
                 name={'profesion_nombre'}
                 text={'Profesión'}

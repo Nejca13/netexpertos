@@ -64,6 +64,7 @@
 }
 .link {
   text-decoration: none;
+  color: inherit;
 }
 .li {
   cursor: pointer;

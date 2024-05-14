@@ -16,7 +16,11 @@ const ModalError = ({ setShowModalError, errorMessage }) => {
             alt='boton de cerrar'
           />
         </button>
-        <p className={styles.p}>Ocurrio un error inesperado</p>
+        {errorMessage ? (
+          <p className={styles.p}>{errorMessage}</p>
+        ) : (
+          <p className={styles.p}>Ocurrio un error inesperado</p>
+        )}
       </div>
     </div>
   )

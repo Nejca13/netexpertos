@@ -20,15 +20,16 @@ const RubrosDropdown = ({ item, index, _id }) => {
       {isOpen && (
         <ul className={styles.profesionUl}>
           {profesion.map((profesion, index) => (
-            <Link
-              key={index}
-              className={styles.link}
-              href={`/profile/${_id}/mapaBuscador/${rubro}`}
-            >
-              <li className={styles.li}>
+            <li key={index} className={styles.li}>
+              <Link
+                className={styles.link}
+                href={`/profile/${_id}/mapaBuscador/${encodeURIComponent(
+                  profesion
+                )}`}
+              >
                 <p className={styles.p}>{profesion}</p>
-              </li>
-            </Link>
+              </Link>
+            </li>
           ))}
         </ul>
       )}

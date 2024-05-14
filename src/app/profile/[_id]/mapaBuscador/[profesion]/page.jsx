@@ -16,7 +16,7 @@ import ContainerBlanco from '@/components/Containers/ContainerFondoBlanco'
 import CardInfoPersonal from '@/components/CardInfoPersonal/CardInfoPersonal'
 
 const Map = () => {
-  const { profesion } = useParams()
+  const { profesion, _id } = useParams()
   const { location, error } = useGeolocation()
   const [userApp, setUserApp] = useState({})
   const [coord, setCoord] = useState(null)
@@ -26,7 +26,7 @@ const Map = () => {
   const [errorMsg, setErrorMsg] = useState(null)
   const [isShowPopup, setIsShowPopup] = useState(false)
   const [showMoreInfo, setShowMoreInfo] = useState(false)
-  const { _id } = useParams()
+  const [kilometrosDeRadio, setKilometrosDeRadio] = useState(15)
 
   const setUser = async () => {
     const storageUser = await getUser(_id)
@@ -37,32 +37,122 @@ const Map = () => {
     setUser()
     if (location) {
       setCoord([location.latitude, location.longitude])
-      setLoading(true) // Inicia el loader
-
+      setLoading(true)
       getFilteredAndSortedProfessionalsByDistance(
         {
-          profesion: decodeURIComponent(profesion),
+          profesion: profesion,
           latitud: location.latitude,
           longitud: location.longitude,
+          kilometrosDeRadio: kilometrosDeRadio,
         },
         setErrorMsg
       )
         .then((res) => {
           setProfessionalsNearby(res)
-          setLoading(false) // Detiene el loader cuando se recibe la respuesta
+          setLoading(false)
         })
         .catch((error) => {
-          setErrorMsg('Hubo un error al cargar los profesionales cercanos.') // Manejo de error
-          setLoading(false) // Detiene el loader en caso de error
+          setErrorMsg('Hubo un error al cargar los profesionales cercanos.')
+          setLoading(false)
         })
     }
   }, [location])
+  useEffect(() => {
+    if (location) {
+      getFilteredAndSortedProfessionalsByDistance(
+        {
+          profesion: profesion,
+          latitud: location.latitude,
+          longitud: location.longitude,
+          kilometrosDeRadio: kilometrosDeRadio,
+        },
+        setErrorMsg
+      )
+        .then((res) => {
+          setProfessionalsNearby(res)
+          setLoading(false)
+        })
+        .catch((error) => {
+          setErrorMsg('Hubo un error al cargar los profesionales cercanos.')
+          setLoading(false)
+        })
+    }
+  }, [kilometrosDeRadio])
+
+  const toggleShow = () => {
+    setShow(!show)
+  }
+
+  const kilometros = {
+    18: 5,
+    17: 10,
+    16: 20,
+    15: 35,
+    14: 55,
+    13: 80,
+    12: 120,
+    11: 180,
+    10: 250,
+    9: 350,
+    8: 500,
+    7: 650,
+    6: 800,
+    5: 1000,
+    4: 1000,
+    3: 1000,
+    2: 1000,
+    1: 1000,
+  }
+
+  const renderMapComponent = () => {
+    if (loading) {
+      return (
+        <ContainerBlanco>
+          <h3
+            style={{
+              alignContent: 'center',
+              margin: 'auto',
+              fontFamily: 'var(--font-roboto-bold)',
+              textAlign: 'center',
+            }}
+          >
+            <SimpleLoader />
+          </h3>
+        </ContainerBlanco>
+      )
+    } else {
+      return (
+        <>
+          <MapComponent
+            coord={coord}
+            profesionales={professionalsNearby.profesionales_cercanos}
+            setIsShowPopup={setIsShowPopup}
+            setKilometrosDeRadio={setKilometrosDeRadio}
+          />
+          <>
+            {errorMsg && (
+              <>
+                <p className={styles.errorMessage}>
+                  <SimpleLoader />
+                  No se encontro ningun {decodeURIComponent(profesion)}
+                  <p className={styles.e}>
+                    Buscando en un radio de {kilometros[kilometrosDeRadio]} Km
+                  </p>
+                </p>
+              </>
+            )}
+          </>
+        </>
+      )
+    }
+  }
+
   return (
-    <div id='map'>
-      {show && <HambMenu userApp={userApp} show={() => setShow(!show)} />}
+    <>
+      {show && <HambMenu userApp={userApp} show={toggleShow} />}
 
       <div className={styles.menu}>
-        <HambIcon show={() => setShow(!show)} />
+        <HambIcon show={toggleShow} />
       </div>
 
       {isShowPopup.status === true &&
@@ -78,56 +168,13 @@ const Map = () => {
             setShowMoreInfo={setShowMoreInfo}
           />
         ))}
-      {loading ? ( // Si está cargando, muestra el loader
-        <ContainerBlanco>
-          <h3
-            style={{
-              alignContent: 'center',
-              margin: 'auto',
-              fontFamily: 'var(--font-roboto-bold)',
-              textAlign: 'center',
-            }}
-          >
-            <SimpleLoader />
-          </h3>
-        </ContainerBlanco>
-      ) : errorMsg ? ( // Si hay un error, muestra el mensaje de error
-        <ContainerBlanco>
-          <h3
-            style={{
-              alignContent: 'center',
-              margin: 'auto',
-              fontFamily: 'var(--font-roboto-bold)',
-              textAlign: 'center',
-            }}
-          >
-            {errorMsg}
-            <input
-              type='range'
-              name='km'
-              id='km'
-              step={25}
-              max={100}
-              min={0}
-              onChange={(e) => console.log(e.target.value)}
-              defaultValue={10}
-            />
-          </h3>
-        </ContainerBlanco>
-      ) : professionalsNearby.profesionales_cercanos.length > 0 ? ( // Si hay datos, muestra el mapa
-        <MapComponent
-          coord={coord}
-          destacados={professionalsNearby.profesionales_cercanos}
-          setIsShowPopup={setIsShowPopup}
-        />
-      ) : (
-        <h1>{errorMsg}</h1>
-      )}
+
+      {renderMapComponent()}
 
       <Link href={`/profile/${_id}`} className={styles.button}>
         Buscar
       </Link>
-    </div>
+    </>
   )
 }
 
