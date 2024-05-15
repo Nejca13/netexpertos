@@ -12,8 +12,8 @@ import HambIcon from '@/components/ui/HambIcon/HambIcon'
 import isAuth from '@/components/Auth/IsAuth'
 import { getUser } from '@/utils/indexedDataBase'
 import RubrosDropdown from '@/components/RubrosDropdown/RubrosDropdown'
-import profesiones from '@/constants/profesiones'
 import { useParams } from 'next/navigation'
+import { searchFunction } from './searchFunction'
 
 const Page = () => {
   const [showMenu, setShowMenu] = useState(false)
@@ -29,23 +29,17 @@ const Page = () => {
     asd()
   }, [])
 
-  const searchFunction = () => {
-    const result = profesiones
-      .filter((rubro) =>
-        Object.keys(rubro)[0].toLowerCase().includes(searchItems.toLowerCase())
-      )
-      .map((rubro) => rubro)
-    return result
-  }
-
   return (
     <ContainerBlanco>
-      {showMenu && (
-        <HambMenu userApp={userApp} show={() => setShowMenu(!showMenu)} />
-      )}
+      <HambMenu userApp={userApp} setShowMenu={setShowMenu} show={showMenu} />
+
       <div className={styles.divNavBar}>
         <LogoNetExpertos width={200} height={70} />
-        <HambIcon show={() => setShowMenu(!showMenu)} />
+        <HambIcon
+          show={() => {
+            setShowMenu(!showMenu)
+          }}
+        />
       </div>
       <div className={styles.divBuscador}>
         <div className={styles.logoLupa}>
@@ -68,7 +62,7 @@ const Page = () => {
         />
       </div>
       <div className={styles.divCategorias}>
-        {searchFunction().map((item, index) => (
+        {searchFunction(searchItems).map((item, index) => (
           <RubrosDropdown item={item} index={index} key={index} _id={_id} />
         ))}
       </div>

@@ -23,10 +23,11 @@ const MapComponent = ({
 }) => {
   function MyComponent() {
     const map = useMapEvent('zoom', () => {
-      const km = map.getZoom()
-      setKilometrosDeRadio(km)
+      setTimeout(() => {
+        const km = map.getZoom()
+        setKilometrosDeRadio(km)
+      }, 1000)
     })
-
     return null
   }
 

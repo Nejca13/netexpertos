@@ -1,3 +1,4 @@
+import { kilometros } from '@/constants/kilometros'
 import { updateUser } from '@/utils/indexedDataBase'
 
 const API_URL = 'https://vps-4057595-x.dattaweb.com/profesionales/'
@@ -80,26 +81,6 @@ export const getFilteredAndSortedProfessionalsByDistance = async (
   data,
   setErrorMessage
 ) => {
-  const kilometros = {
-    18: 5,
-    17: 10,
-    16: 20,
-    15: 35,
-    14: 55,
-    13: 80,
-    12: 120,
-    11: 180,
-    10: 250,
-    9: 350,
-    8: 500,
-    7: 650,
-    6: 800,
-    5: 1000,
-    4: 1000,
-    3: 1000,
-    2: 1000,
-    1: 1000,
-  }
   try {
     const response = await fetch(
       API_URL +
@@ -119,7 +100,6 @@ export const getFilteredAndSortedProfessionalsByDistance = async (
     } else {
       setErrorMessage(false)
     }
-    console.log(result)
     return result
   } catch (error) {
     console.log(error)

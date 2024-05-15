@@ -31,6 +31,7 @@
   max-width: 273px;
   margin: auto;
   border-radius: 5px;
+  padding: 0 10px;
   border: none;
 }
 .divBuscador .searchInput:focus {

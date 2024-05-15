@@ -7,10 +7,12 @@
   flex-direction: column;
   align-items: center;
   padding: 15px 0;
+  overflow: hidden;
   justify-content: space-around;
 }
 
 .mainFondoBlanco {
+  overflow: hidden;
   min-height: 100dvh;
   min-width: 100dvw;
   background-image: url('../../assets/images/FondoBlanco.png');
