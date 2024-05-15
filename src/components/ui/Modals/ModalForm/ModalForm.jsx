@@ -16,12 +16,12 @@ const ModalForm = ({ setAccountType, setFormSection, formSection }) => {
         </button>
         <button
           onClick={() => {
-            setAccountType('freelance')
+            setAccountType('independiente')
             setFormSection(formSection + 1)
           }}
           className={styles.button}
         >
-          FREELANCE
+          INDEPENDIENTE
         </button>
       </div>
     </div>

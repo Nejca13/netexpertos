@@ -79,7 +79,7 @@ const Page = () => {
                 <SeccionDatosEmpresa onNext={handleNext} onBack={handleBack} />
               )
             }
-            if (accountType === 'freelance') {
+            if (accountType === 'independiente') {
               return (
                 <SeccionDatosFreelance
                   onNext={handleNext}
@@ -96,7 +96,11 @@ const Page = () => {
               <TerminosYCondiciones
                 onClick={() => {
                   setIsLoading(true)
-                  createProfesional(formDataValues)
+                  createProfesional(
+                    formDataValues,
+                    setIsLoading,
+                    setErrorMessage
+                  )
                     .then((res) => {
                       res === true && router.push('/')
                     })

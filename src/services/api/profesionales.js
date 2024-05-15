@@ -17,11 +17,15 @@ export const getAllProfesionales = async () => {
 }
 
 // Función para crear un nuevo profesional
-export const createProfesional = async (data) => {
-  const [nombre, apellido] = data?.nombre_apellido?.split(' ')
+export const createProfesional = async (
+  data,
+  setIsLoading,
+  setErrorMessage
+) => {
+  const [nombre, apellido] = data.nombre_apellido.split(' ')
   const newData = {
     rol: 'Profesional',
-    nombre: nombre, // Puedes asignar el nombre y apellido según sea necesario
+    nombre: nombre,
     apellido: apellido,
     numero: data.telefono,
     correo: data.correo,
@@ -55,7 +59,9 @@ export const createProfesional = async (data) => {
       console.log('Usuario creado exitosamente')
       return true
     } else {
+      setIsLoading(false)
       const errorData = await response.json() // Captura el cuerpo de la respuesta si hay error
+      setErrorMessage(errorData.detail)
       console.log(errorData)
       console.error(
         `Error en la solicitud: `,
@@ -64,6 +70,7 @@ export const createProfesional = async (data) => {
     }
   } catch (error) {
     console.error('Error creando usuario:', error)
+    setErrorMessage('Error al crear usuario')
   }
 }
 

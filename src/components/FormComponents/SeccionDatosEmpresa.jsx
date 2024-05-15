@@ -32,7 +32,7 @@ const SeccionDatosEmpresa = ({ onNext }) => {
         src={userImage}
         width={80}
         height={80}
-        alt='Foto de perfil del usuario'
+        alt='logo de la empresa'
       />
       <InputTypeFile
         handleFileChange={handleFileChange}
@@ -47,7 +47,13 @@ const SeccionDatosEmpresa = ({ onNext }) => {
         type={'text'}
         placeholder={'Security and System'}
       />
-
+      <Inputs
+        type={'date'}
+        text={'Fecha de nacimiento'}
+        id={'nacimiento'}
+        name={'nacimiento'}
+        errorMessage={'Fecha incorrecta'}
+      />
       <Select
         data={rubros}
         id={'rubro'}
