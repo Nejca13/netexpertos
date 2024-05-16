@@ -12,89 +12,94 @@
     backwards;
   animation: slide-in-right 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;
   z-index: 1100;
-  .personalMenu {
-    margin-top: 31px;
-    background-color: var(--color-amarillo);
-    min-width: 270px;
-    display: flex;
-    align-items: flex-end;
-    flex-direction: column;
-    position: relative;
-    border-radius: 20px 0 0 20px;
-    box-shadow: -1px 3px 10px var(--color-gris-medio);
+}
+.personalMenu {
+  margin-top: 31px;
+  background-color: var(--color-amarillo);
+  min-width: 270px;
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  position: relative;
+  border-radius: 20px 0 0 20px;
+  box-shadow: -1px 3px 10px var(--color-gris-medio);
+}
 
-    .button {
-      width: 30px;
-      background-color: transparent;
-      border: none;
-      font-size: 14px;
-      margin-right: 10px;
-      cursor: pointer;
-    }
-    .div {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      width: 100%;
-      justify-content: space-between;
-      padding: 5px 14px;
-      .image {
-        border-radius: 100%;
-        object-fit: cover;
-      }
-      .divText {
-        width: 70%;
-        text-align: left;
-        .name {
-          color: var(--color-gris-medio);
-          font-family: var(--font-roboto-bold);
-          font-size: 16px;
-        }
-        .email {
-          color: var(--color-gris-medio);
-          font-family: var(--font-roboto-bold);
-          font-size: 10px;
-        }
-      }
-    }
+.personalMenu .button {
+  width: 30px;
+  background-color: transparent;
+  border: none;
+  font-size: 14px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.personalMenu .div {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+  padding: 5px 14px;
+}
+.personalMenu .div .image {
+  border-radius: 100%;
+  object-fit: cover;
+}
+
+.personalMenu .div .divText {
+  width: 70%;
+  text-align: left;
+  .name {
+    color: var(--color-gris-medio);
+    font-family: var(--font-roboto-bold);
+    font-size: 16px;
   }
-  .menuConfig {
-    padding: 24px 0;
-    background-color: var(--color-blanco);
-    border-radius: 20px 0 0 20px;
-    width: 270px;
-    box-shadow: -1px 3px 10px var(--color-gris-medio);
-    .ul {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      font-family: var(--font-helvetica-bold);
-      font-size: 12px;
-      gap: 21px;
-      color: var(--color-gris-medio);
-      .li {
-        margin-left: 18px;
-        height: 40px;
-        border-bottom: 1px solid var(--color-negro-transparente);
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        cursor: pointer;
-        .icon {
-          margin-left: 10px;
-          border-radius: 100%;
-        }
-        .button {
-          font-family: var(--font-helvetica-bold);
-          font-size: 12px;
-          background-color: transparent;
-          border: none;
-          color: var(--color-gris-medio);
-          cursor: pointer;
-        }
-      }
-    }
-  }
+}
+.personalMenu .div .divText .email {
+  color: var(--color-gris-medio);
+  font-family: var(--font-roboto-bold);
+  font-size: 10px;
+}
+
+.container .menuConfig {
+  padding: 24px 0;
+  background-color: var(--color-blanco);
+  border-radius: 20px 0 0 20px;
+  width: 270px;
+  box-shadow: -1px 3px 10px var(--color-gris-medio);
+}
+
+.container .menuConfig .ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-helvetica-bold);
+  font-size: 12px;
+  gap: 21px;
+  color: var(--color-gris-medio);
+}
+
+.container .menuConfig .ul .li {
+  margin-left: 18px;
+  height: 40px;
+  border-bottom: 1px solid var(--color-negro-transparente);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  cursor: pointer;
+}
+
+.container .menuConfig .ul .li .icon {
+  margin-left: 10px;
+  border-radius: 100%;
+}
+.container .menuConfig .ul .li .button {
+  font-family: var(--font-helvetica-bold);
+  font-size: 12px;
+  background-color: transparent;
+  border: none;
+  color: var(--color-gris-medio);
+  cursor: pointer;
 }
 
 .container.hide {

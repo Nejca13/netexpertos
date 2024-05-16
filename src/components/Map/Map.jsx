@@ -35,8 +35,8 @@ const MapComponent = ({
     typeof window !== undefined && (
       <MapContainer
         style={{
-          height: '100vh',
-          width: '100vw',
+          height: '100dvh',
+          width: '100dvw',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',

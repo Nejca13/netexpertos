@@ -1,6 +1,6 @@
 export const openDatabase = () => {
   return new Promise((resolve, reject) => {
-    const request = indexedDB.open('UserDataDB', 1)
+    const request = indexedDB.open('UserDataDBA', 1)
 
     request.onupgradeneeded = (event) => {
       const db = event.target.result
@@ -8,10 +8,7 @@ export const openDatabase = () => {
         keyPath: '_id',
         autoIncrement: true,
       })
-      objectStore.createIndex('_id', 'user_data._id', {
-        unique: true,
-      })
-      objectStore.createIndex('user_data', 'user_data', { unique: true })
+      objectStore.createIndex('_id', 'user_data._id', { unique: true })
     }
 
     request.onsuccess = () => {
@@ -26,15 +23,14 @@ export const openDatabase = () => {
 
 export const addUser = async (userData) => {
   const db = await openDatabase()
-  const transaction = db.transaction(['users'], 'readwrite')
-  const objectStore = transaction.objectStore('users')
+  const transaction = await db.transaction(['users'], 'readwrite')
+  const objectStore = await transaction.objectStore('users')
   const request = objectStore.put(userData)
 
   return new Promise((resolve, reject) => {
     request.onsuccess = () => {
       resolve(request.result)
     }
-
     request.onerror = () => {
       reject(request.error)
     }
@@ -66,7 +62,7 @@ export const getUser = async (id) => {
 
 export const clearUsers = async () => {
   return new Promise((resolve, reject) => {
-    const request = indexedDB.deleteDatabase('UserDataDB')
+    const request = indexedDB.deleteDatabase('UserDataDBA')
 
     request.onsuccess = () => {
       resolve()
@@ -123,7 +119,7 @@ export const deleteDatabaseOnClose = async () => {
     db.close()
 
     // Borra la base de datos
-    const deleteRequest = indexedDB.deleteDatabase('UserDataDB')
+    const deleteRequest = indexedDB.deleteDatabase('UserDataDBA')
 
     deleteRequest.onerror = (event) => {
       console.error('Error al borrar la base de datos:', event.target.error)

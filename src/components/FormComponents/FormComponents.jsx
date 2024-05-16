@@ -12,6 +12,7 @@ export const Inputs = ({
   value,
   errorMessage,
   minLength,
+  readOnly,
 }) => {
   let pattern = null
 
@@ -47,6 +48,7 @@ export const Inputs = ({
           minLength={minLength ? minLength : null}
           maxLength={32}
           onInput={(e) => e.target.setCustomValidity('')}
+          readOnly={readOnly && readOnly}
         />
       </label>
     </div>

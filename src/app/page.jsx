@@ -12,13 +12,14 @@ import LogoNetExpertos from '@/components/ui/Logo/LogoNetExpertos'
 import { useState } from 'react'
 import ModalError from '@/components/ui/Modals/ModalError/ModalError'
 import { useRouter } from 'next/navigation'
-import { addUser } from '@/utils/indexedDataBase'
+import { addUser, clearUsers } from '@/utils/indexedDataBase'
 import ModalLoading from '@/components/ui/Modals/ModalLoading/ModalLoading'
 
 export default function Home() {
   const [showModalError, setShowModalError] = useState(false)
   const [errorMessage, setErrorMessage] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [loadingMessage, setLoadingMessage] = useState('Iniciando sesion...')
 
   const router = useRouter()
 
@@ -26,16 +27,19 @@ export default function Home() {
     e.preventDefault()
     const formDataValues = Object.fromEntries(new FormData(e.target))
     try {
+      clearUsers()
       setIsLoading(true)
       const data = await userLogin(
         formDataValues,
         setErrorMessage,
-        setIsLoading
+        setIsLoading,
+        setLoadingMessage
       )
-      const saveUser = await addUser(data)
-      console.log(saveUser)
-      if (saveUser) {
-        router.push(`/profile/${data.user_data._id}`)
+      if (data.error) {
+        setErrorMessage(data.error.message)
+      }
+      if (data === true) {
+        router.push(`/verifyAccount/${formDataValues.username}`)
       }
     } catch (error) {
       if (error) {
@@ -49,7 +53,7 @@ export default function Home() {
 
   return (
     <Container>
-      {isLoading && <ModalLoading message={'Iniciando sesion...'} />}
+      {isLoading && <ModalLoading message={loadingMessage} />}
       {errorMessage && (
         <ModalError
           errorMessage={errorMessage}

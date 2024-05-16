@@ -14,6 +14,7 @@ import ProfesionalCard from '@/components/ProfesionalCard/ProfesionalCard'
 import { getUser } from '@/utils/indexedDataBase'
 import ContainerBlanco from '@/components/Containers/ContainerFondoBlanco'
 import CardInfoPersonal from '@/components/CardInfoPersonal/CardInfoPersonal'
+import Container from '@/components/Containers/Container'
 
 const Map = () => {
   const { profesion, _id } = useParams()
@@ -79,10 +80,6 @@ const Map = () => {
     }
   }, [kilometrosDeRadio])
 
-  const toggleShow = () => {
-    setShow(!show)
-  }
-
   const kilometros = {
     18: 5,
     17: 10,
@@ -131,15 +128,15 @@ const Map = () => {
           />
           <>
             {errorMsg && (
-              <>
-                <p className={styles.errorMessage}>
-                  <SimpleLoader />
+              <div className={styles.errorMessage}>
+                <SimpleLoader />
+                <p className={styles.p}>
                   No se encontro ningun {decodeURIComponent(profesion)}
                   <p className={styles.e}>
                     Buscando en un radio de {kilometros[kilometrosDeRadio]} Km
                   </p>
                 </p>
-              </>
+              </div>
             )}
           </>
         </>
@@ -148,11 +145,10 @@ const Map = () => {
   }
 
   return (
-    <>
-      {show && <HambMenu userApp={userApp} show={toggleShow} />}
-
+    <Container>
+      <HambMenu userApp={userApp} show={show} setShowMenu={setShow} />
       <div className={styles.menu}>
-        <HambIcon show={toggleShow} />
+        <HambIcon show={() => setShow(!show)} />
       </div>
 
       {isShowPopup.status === true &&
@@ -174,7 +170,7 @@ const Map = () => {
       <Link href={`/profile/${_id}`} className={styles.button}>
         Buscar
       </Link>
-    </>
+    </Container>
   )
 }
 

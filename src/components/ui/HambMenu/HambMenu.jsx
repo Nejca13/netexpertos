@@ -24,6 +24,11 @@ const HambMenu = ({ show, userApp, setShowMenu }) => {
         break
     }
   }
+
+  const imagenDePerfil =
+    (typeof userApp.foto_perfil !== 'object' && userApp.foto_perfil) ||
+    (typeof userApp.foto_base64 !== 'object' && userApp.foto_base64) ||
+    defaultImage.src
   return (
     <div className={`${styles.container} ${show ? '' : styles.hide}`}>
       <div className={styles.personalMenu}>
@@ -33,11 +38,7 @@ const HambMenu = ({ show, userApp, setShowMenu }) => {
         <div className={styles.div}>
           <Image
             className={styles.image}
-            src={
-              !userApp
-                ? defaultImage || userApp.foto_perfil
-                : userApp.foto_base64
-            }
+            src={imagenDePerfil}
             width={60}
             height={60}
             alt='Imagen de perfil del usuario'
