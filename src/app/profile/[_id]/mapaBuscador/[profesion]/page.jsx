@@ -13,8 +13,9 @@ import SimpleLoader from '@/components/Loaders/SimpleLoader'
 import ProfesionalCard from '@/components/ProfesionalCard/ProfesionalCard'
 import { getUser } from '@/utils/indexedDataBase'
 import ContainerBlanco from '@/components/Containers/ContainerFondoBlanco'
-import CardInfoPersonal from '@/components/CardInfoPersonal/CardInfoPersonal'
-import Container from '@/components/Containers/Container'
+import Destacados from '@/components/Map/Destacados/Destacados'
+import Image from 'next/image'
+import Lupa from '@/assets/images/LUPA_NEGRA.svg'
 
 const Map = () => {
   const { profesion, _id } = useParams()
@@ -119,7 +120,7 @@ const Map = () => {
       )
     } else {
       return (
-        <>
+        <div className={styles.containerMap}>
           <MapComponent
             coord={coord}
             profesionales={professionalsNearby.profesionales_cercanos}
@@ -139,38 +140,29 @@ const Map = () => {
               </div>
             )}
           </>
-        </>
+        </div>
       )
     }
   }
 
   return (
-    <Container>
-      <HambMenu userApp={userApp} show={show} setShowMenu={setShow} />
+    <div className={styles.containerMap}>
+      {show && <HambMenu userApp={userApp} show={() => setShow(!show)} />}
       <div className={styles.menu}>
         <HambIcon show={() => setShow(!show)} />
       </div>
-
-      {isShowPopup.status === true &&
-        (showMoreInfo ? (
-          <CardInfoPersonal
-            profesional={isShowPopup.profesional}
-            setShowMoreInfo={setShowMoreInfo}
-          />
-        ) : (
-          <ProfesionalCard
-            profesional={isShowPopup.profesional}
-            setIsShowPopup={setIsShowPopup}
-            setShowMoreInfo={setShowMoreInfo}
-          />
-        ))}
-
+      {isShowPopup && (
+        <ProfesionalCard
+          profesional={isShowPopup.profesional}
+          setIsShowPopup={setIsShowPopup}
+        />
+      )}
       {renderMapComponent()}
-
+      <Destacados />
       <Link href={`/profile/${_id}`} className={styles.button}>
-        Buscar
+        <Image src={Lupa} width={20} height={20} /> Buscar
       </Link>
-    </Container>
+    </div>
   )
 }
 

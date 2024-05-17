@@ -20,7 +20,10 @@
   z-index: 500;
   width: 120px;
   position: absolute;
-  bottom: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  top: 20px;
   padding: 8px 10px;
   box-shadow: var(--box-shadow);
   font-family: var(--font-roboto-bold);
@@ -47,4 +50,10 @@
   gap: 10px;
   font-family: var(--font-roboto-bold);
   background-color: rgba(255, 255, 255, 0.568);
+}
+
+.containerMap {
+  height: 100dvh;
+  width: 100dvw;
+  position: relative;
 }

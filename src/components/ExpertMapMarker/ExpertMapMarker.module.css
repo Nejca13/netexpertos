@@ -4,6 +4,7 @@
   height: 30px !important;
   object-fit: cover;
   transform: rotate(45deg);
+  border: 1px solid white;
 }
 
 .online {

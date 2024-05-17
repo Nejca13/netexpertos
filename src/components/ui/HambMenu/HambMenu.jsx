@@ -10,7 +10,7 @@ import {
 import MenuPerfil from './Perfil/MenuPerfil'
 import { useState } from 'react'
 
-const HambMenu = ({ show, userApp, setShowMenu }) => {
+const HambMenu = ({ show, userApp }) => {
   const [menuComponent, setMenuComponent] = useState(null)
   const handleOptionClick = (name) => {
     switch (name) {
@@ -24,21 +24,20 @@ const HambMenu = ({ show, userApp, setShowMenu }) => {
         break
     }
   }
-
-  const imagenDePerfil =
-    (typeof userApp.foto_perfil !== 'object' && userApp.foto_perfil) ||
-    (typeof userApp.foto_base64 !== 'object' && userApp.foto_base64) ||
-    defaultImage.src
   return (
-    <div className={`${styles.container} ${show ? '' : styles.hide}`}>
+    <div className={styles.container} onClick={show}>
       <div className={styles.personalMenu}>
-        <button onClick={() => setShowMenu(!show)} className={styles.button}>
+        <button onClick={show} className={styles.button}>
           <Image src={cross} width={40} height={40} alt='Icono de cerrar' />
         </button>
         <div className={styles.div}>
           <Image
             className={styles.image}
-            src={imagenDePerfil}
+            src={
+              userApp
+                ? userApp.foto_base64 || userApp.foto_perfil
+                : defaultImage.src
+            }
             width={60}
             height={60}
             alt='Imagen de perfil del usuario'

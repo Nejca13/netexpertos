@@ -6,9 +6,11 @@ import ModalImg from './ModalImg/ModalImg'
 import { useState } from 'react'
 import estrellaGris from '@/assets/images/estrella-Gris.png'
 import estrellaAmarilla from '@/assets/images/estrella-Amarilla.png'
+import CardInfoPersonal from '../CardInfoPersonal/CardInfoPersonal'
 
-const ProfesionalCard = ({ profesional, setIsShowPopup, setShowMoreInfo }) => {
+const ProfesionalCard = ({ profesional, setIsShowPopup }) => {
   const [showModalImg, setShowModalImg] = useState(false)
+  const [showMoreInfo, setShowMoreInfo] = useState(false)
   const [img, setImg] = useState(null)
   const {
     _id,
@@ -33,11 +35,17 @@ const ProfesionalCard = ({ profesional, setIsShowPopup, setShowMoreInfo }) => {
     setShowModalImg(true)
     return
   }
-  return (
+  return showMoreInfo === true ? (
+    <CardInfoPersonal
+      profesional={profesional}
+      setShowMoreInfo={setShowMoreInfo}
+    />
+  ) : (
     <section className={styles.backgroundCard}>
       {showModalImg && (
         <ModalImg image={img} setShowModalImg={setShowModalImg} />
       )}
+
       <div className={styles.container}>
         <button
           className={styles.botonCerrar}

@@ -34,6 +34,8 @@ const MapComponent = ({
   return coord ? (
     typeof window !== undefined && (
       <MapContainer
+        zoomControl={false}
+        attributionControl={false}
         style={{
           height: '100dvh',
           width: '100dvw',

@@ -14,6 +14,9 @@ import { getUser } from '@/utils/indexedDataBase'
 import RubrosDropdown from '@/components/RubrosDropdown/RubrosDropdown'
 import { useParams } from 'next/navigation'
 import { searchFunction } from './searchFunction'
+import InfiniteLooper from '@/components/InfinityLooper/InfinityLooper'
+import { usuariosPremium } from '@/constants/usuariosPremium'
+import Destacados from '@/components/Map/Destacados/Destacados'
 
 const Page = () => {
   const [showMenu, setShowMenu] = useState(false)
@@ -31,7 +34,9 @@ const Page = () => {
 
   return (
     <ContainerBlanco>
-      <HambMenu userApp={userApp} setShowMenu={setShowMenu} show={showMenu} />
+      {showMenu && (
+        <HambMenu userApp={userApp} show={() => setShowMenu(!showMenu)} />
+      )}
 
       <div className={styles.divNavBar}>
         <LogoNetExpertos width={200} height={70} />
@@ -67,30 +72,7 @@ const Page = () => {
         ))}
       </div>
       <div className={styles.destacados}>
-        <p className={styles.title}>Destacados de la semana</p>
-        <ul className={styles.destacadosUl}>
-          {destacados.map((item, index) => (
-            <li className={styles.destacadosLi} key={index}>
-              <Image
-                className={styles.image}
-                src={item.photo}
-                width={60}
-                height={60}
-                alt='Imagen de experto destacado'
-                quality={50}
-                placeholder='blur'
-              />
-              <p className={styles.pName}>{item.nombre}</p>
-              <p className={styles.pDescripcion}>
-                {item.profesion}{' '}
-                <span className={styles.spanCalificacion}>
-                  {item.calificacion}
-                </span>{' '}
-                X
-              </p>
-            </li>
-          ))}
-        </ul>
+        <Destacados />
       </div>
     </ContainerBlanco>
   )

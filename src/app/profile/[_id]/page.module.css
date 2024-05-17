@@ -54,9 +54,10 @@
 }
 
 .destacados {
+  position: relative;
+  height: 130px;
   width: 100%;
   border-radius: 10px 10px 0 0;
-  background-color: var(--color-gris);
 }
 .destacados .title {
   background-color: var(--color-amarillo);

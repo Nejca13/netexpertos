@@ -1,11 +1,23 @@
 'use client'
+import useFetch from '@/hooks/useFetch'
 import styles from './ButtonSignInWithGoogle.module.css'
 
 const ButtonSignInWithGoogle = () => {
+  const { data, loading, error } = useFetch(
+    'https://vps-4057595-x.dattaweb.com/auth-google/login',
+    {
+      method: 'GET',
+    }
+  )
+
   return (
     <button
       className={styles.button}
-      onClick={() => alert('Iniciando sesion con Google ?')}
+      onClick={() => {
+        if (data) return window.open(data, 'mozillaWindow', 'popup')
+        if (loading) return console.log('Cargando...')
+        if (error) return console.error(error.message)
+      }}
     >
       <svg
         className={styles.svg}
