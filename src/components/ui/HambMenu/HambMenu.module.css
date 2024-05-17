@@ -55,7 +55,7 @@
     font-family: var(--font-roboto-bold);
     font-size: 16px;
   }
-  .container .personalMenu .div .email {
+  .email {
     color: var(--color-gris-medio);
     font-family: var(--font-roboto-bold);
     font-size: 10px;
