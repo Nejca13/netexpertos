@@ -7,7 +7,8 @@ const API_URL = 'https://vps-4057595-x.dattaweb.com/clientes'
  * @param {string} data.username - Nombre de usuario.
  * @param {string} data.password - Contraseña del usuario.
  */
-export const createUser = async (data) => {
+export const createUser = async (data, setOnError, setLoading) => {
+  setLoading('Esperando respuesta...')
   try {
     const options = {
       method: 'POST',
@@ -17,21 +18,18 @@ export const createUser = async (data) => {
       body: JSON.stringify(data),
     }
 
-    const response = await fetch(API_URL, options)
-
+    const response = await fetch(API_URL + '/request-registration/', options)
     if (response.ok) {
-      console.log('Usuario creado exitosamente')
-      alert('Cuenta creada con exito')
-      window.location.href = '/'
-    } else {
-      const errorData = await response.json() // Captura el cuerpo de la respuesta si hay error
+      const data = await response.json()
+      console.log(data)
+      setLoading('Enviando codigo de verifiación al correo')
 
-      console.error(
-        `Error en la solicitud: ${response.status} `,
-        response.statusText,
-        errorData // Imprime también los detalles del error si están disponibles
-      )
-      alert(errorData.detail)
+      return true
+    } else {
+      setLoading(false)
+      const errorData = await response.json() // Captura el cuerpo de la respuesta si hay error
+      console.log(errorData)
+      setOnError(errorData.detail)
     }
   } catch (error) {
     console.error('Error creando usuario:', error)

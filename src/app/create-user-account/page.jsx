@@ -17,22 +17,33 @@ import defaultUserImage from '../../assets/images/userImage.png'
 import { createUser } from '@/services/api/clientes'
 import { saveCompressedImageToLocalStorage } from '@/utils/minificadorDeImagenes'
 import { useRouter } from 'next/navigation'
+import useFetch from '@/hooks/useFetch'
+import ModalError from '@/components/ui/Modals/ModalError/ModalError'
+import ModalLoading from '@/components/ui/Modals/ModalLoading/ModalLoading'
 
 const Page = () => {
   const { location, error } = useGeolocation()
   const [userImage, setUserImage] = useState(defaultUserImage)
   const [profilePhoto, setProfilePhoto] = useState('')
+  const [onError, setOnError] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const router = useRouter()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     const formData = new FormData(e.target)
     formData.append('foto_base64', profilePhoto)
     const formDataValues = Object.fromEntries(formData)
-    formDataValues.edad = parseInt(formDataValues.edad)
     formDataValues.nombre = formDataValues.nombre_apellido.split(' ')[0]
     formDataValues.apellido = formDataValues.nombre_apellido.split(' ')[0]
-    createUser(formDataValues)
+    createUser(formDataValues, setOnError, setLoading)
+      .then((res) => {
+        res === true &&
+          router.push(`/verifyAccount/cliente/${formDataValues.correo}`)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
   const handleFileChange = (e) => {
     const file = e.target.files[0]
@@ -43,6 +54,10 @@ const Page = () => {
   }
   return (
     <Container>
+      {loading && <ModalLoading message={loading} />}
+      {onError && (
+        <ModalError errorMessage={onError} setShowModalError={setOnError} />
+      )}
       <NavBar title={'Crear cuenta de Usuario'} onClick={() => router.back()} />
       <FormContainer
         onSubmit={(e) => {
@@ -109,12 +124,7 @@ const Page = () => {
           type={'hidden'}
           name={'ubicacion'}
           id={'ubicacion'}
-          value={
-            location && {
-              latitud: location.latitude,
-              longitude: location.longitude,
-            }
-          }
+          value={location && `${location.latitude}, ${location.longitude}`}
         />
         <span className={styles.ubicacionSpan}>
           Ubicación:{' '}

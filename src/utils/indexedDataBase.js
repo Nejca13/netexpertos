@@ -1,5 +1,12 @@
+let dbInstance = null // Variable para almacenar la instancia de la base de datos
+
 export const openDatabase = () => {
   return new Promise((resolve, reject) => {
+    if (dbInstance) {
+      resolve(dbInstance) // Si la conexión ya está abierta, devuelve la instancia existente
+      return
+    }
+
     const request = indexedDB.open('UserDataDBA', 1)
 
     request.onupgradeneeded = (event) => {
@@ -10,13 +17,14 @@ export const openDatabase = () => {
       })
       objectStore.createIndex('_id', 'user_data._id', { unique: true })
     }
-
-    request.onsuccess = () => {
-      resolve(request.result)
+    console.log('Abriendo conexion con la IndexedDB')
+    request.onsuccess = (event) => {
+      dbInstance = event.target.result
+      resolve(dbInstance)
     }
 
-    request.onerror = () => {
-      reject(request.error)
+    request.onerror = (event) => {
+      reject(event.target.error)
     }
   })
 }

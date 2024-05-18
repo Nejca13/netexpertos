@@ -10,19 +10,23 @@
 .destacados .title {
   background-color: var(--color-amarillo);
   text-align: center;
-  font-family: var(--font-roboto-bold);
+  font-family: var(--font-roboto-italic);
+  font-weight: bold;
   font-size: 16px;
   padding: 2px 0;
   align-content: center;
   color: var(--color-gris-medio);
   border-radius: 10px;
   width: 100%;
+  .span {
+    font-family: var(--font-roboto-italic);
+  }
 }
 .destacadosUl {
   position: relative;
   display: flex;
   gap: 40px;
-  padding: 9px 0;
+  padding: 9px 0px;
   overflow: scroll;
   align-items: flex-start;
   scrollbar-width: none;

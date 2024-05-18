@@ -23,6 +23,8 @@ export const createProfesional = async (
   setIsLoading,
   setErrorMessage
 ) => {
+  const CREATE_PROFESIONAL_API_URL =
+    'https://vps-4057595-x.dattaweb.com/profesionales/request-registration/'
   const [nombre, apellido] = data.nombre_apellido.split(' ')
   const newData = {
     rol: 'Profesional',
@@ -54,7 +56,8 @@ export const createProfesional = async (
       },
       body: JSON.stringify(newData),
     }
-    const response = await fetch(API_URL, options)
+
+    const response = await fetch(CREATE_PROFESIONAL_API_URL, options)
 
     if (response.ok) {
       console.log('Usuario creado exitosamente')

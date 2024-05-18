@@ -8,10 +8,12 @@ import {
   hambMenuOptionsExpert,
 } from '@/constants/hambMenu'
 import MenuPerfil from './Perfil/MenuPerfil'
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 const HambMenu = ({ show, userApp }) => {
   const [menuComponent, setMenuComponent] = useState(null)
+  const containerRef = useRef(null)
+
   const handleOptionClick = (name) => {
     switch (name) {
       case 'Perfil':
@@ -24,77 +26,93 @@ const HambMenu = ({ show, userApp }) => {
         break
     }
   }
+
+  const handleOutsideClick = (event) => {
+    if (containerRef.current && !containerRef.current.contains(event.target)) {
+      show()
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('click', handleOutsideClick)
+    return () => {
+      document.removeEventListener('click', handleOutsideClick)
+    }
+  }, [])
+
   return (
-    <div className={styles.container} onClick={show}>
-      <div className={styles.personalMenu}>
-        <button onClick={show} className={styles.button}>
-          <Image src={cross} width={40} height={40} alt='Icono de cerrar' />
-        </button>
-        <div className={styles.div}>
-          <Image
-            className={styles.image}
-            src={
-              userApp
-                ? userApp.foto_base64 || userApp.foto_perfil
-                : defaultImage.src
-            }
-            width={60}
-            height={60}
-            alt='Imagen de perfil del usuario'
-          />
-          <div className={styles.divText}>
-            <p className={styles.name}>¡Hola, {userApp.nombre}!</p>
-            <p className={styles.email}>{userApp.correo}</p>
+    <div className={styles.container}>
+      <div className={styles.menu} ref={containerRef}>
+        <div className={styles.personalMenu}>
+          <button onClick={show} className={styles.button}>
+            <Image src={cross} width={40} height={40} alt='Icono de cerrar' />
+          </button>
+          <div className={styles.div}>
+            <Image
+              className={styles.image}
+              src={
+                userApp
+                  ? userApp.foto_base64 || userApp.foto_perfil
+                  : defaultImage.src
+              }
+              width={60}
+              height={60}
+              alt='Imagen de perfil del usuario'
+            />
+            <div className={styles.divText}>
+              <p className={styles.name}>¡Hola, {userApp.nombre}!</p>
+              <p className={styles.email}>{userApp.correo}</p>
+            </div>
           </div>
         </div>
-      </div>
-      <div className={styles.menuConfig}>
-        <ul className={styles.ul}>
-          {userApp.rol === 'Profesional'
-            ? hambMenuOptionsExpert.map((item, index) => (
-                <li
-                  className={styles.li}
-                  key={index}
-                  onClick={() => handleOptionClick(item.name)}
-                >
-                  <Image
-                    className={styles.icon}
-                    src={item.icon}
-                    width={24}
-                    height={24}
-                    alt={`Icono de ${item.name}`}
-                  />{' '}
-                  <span>{item.name}</span>
-                </li>
-              ))
-            : hambMenuOptionsClient.map((item, index) => (
-                <li
-                  className={styles.li}
-                  key={index}
-                  onClick={() => handleOptionClick(item.name)}
-                >
-                  <Image
-                    className={styles.icon}
-                    src={item.icon}
-                    width={24}
-                    height={24}
-                    alt={`Icono de ${item.name}`}
-                  />{' '}
-                  <span>{item.name}</span>
-                </li>
-              ))}
+        <div className={styles.menuConfig}>
+          <ul className={styles.ul}>
+            {userApp.rol === 'Profesional'
+              ? hambMenuOptionsExpert.map((item, index) => (
+                  <li
+                    className={styles.li}
+                    key={index}
+                    onClick={() => handleOptionClick(item.name)}
+                  >
+                    <Image
+                      className={styles.icon}
+                      src={item.icon}
+                      width={24}
+                      height={24}
+                      alt={`Icono de ${item.name}`}
+                    />{' '}
+                    <span>{item.name}</span>
+                  </li>
+                ))
+              : hambMenuOptionsClient.map((item, index) => (
+                  <li
+                    className={styles.li}
+                    key={index}
+                    onClick={() => handleOptionClick(item.name)}
+                  >
+                    <Image
+                      className={styles.icon}
+                      src={item.icon}
+                      width={24}
+                      height={24}
+                      alt={`Icono de ${item.name}`}
+                    />{' '}
+                    <span>{item.name}</span>
+                  </li>
+                ))}
 
-          <li className={styles.li} onClick={userLogout}>
-            <Image
-              className={styles.icon}
-              src={defaultImage}
-              width={24}
-              height={24}
-              alt={`Icono de`}
-            />
-            <button className={styles.button}>Salir</button>
-          </li>
-        </ul>
+            <li className={styles.li} onClick={userLogout}>
+              <Image
+                className={styles.icon}
+                src={defaultImage}
+                width={24}
+                height={24}
+                alt={`Icono de`}
+              />
+              <button className={styles.button}>Salir</button>
+            </li>
+          </ul>
+        </div>
       </div>
       {menuComponent}
     </div>

@@ -102,7 +102,10 @@ const Page = () => {
                     setErrorMessage
                   )
                     .then((res) => {
-                      res === true && router.push('/')
+                      res === true &&
+                        router.push(
+                          `/verifyAccount/profesional/${formDataValues.correo}`
+                        )
                     })
                     .catch((error) => {
                       setIsLoading(false)
@@ -122,7 +125,11 @@ const Page = () => {
           setShowModalError={setErrorMessage}
         />
       )}
-      {isLoading && <ModalLoading message={'Creando profesional...'} />}
+      {isLoading && (
+        <ModalLoading
+          message={'Creando profesional, enviando codigo de verificación'}
+        />
+      )}
     </Container>
   )
 }

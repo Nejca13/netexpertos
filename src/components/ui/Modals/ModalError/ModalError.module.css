@@ -14,6 +14,9 @@
   height: 162px;
   width: 288px;
   border-radius: 10px;
+  padding: 0 10px;
+  text-align: center;
+  text-wrap: balance;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,4 +34,9 @@
   background-color: var(--color-danger);
   border: none;
   border-radius: 100%;
+}
+
+.p {
+  font-family: var(--font-roboto-italic);
+  font-size: 14px;
 }

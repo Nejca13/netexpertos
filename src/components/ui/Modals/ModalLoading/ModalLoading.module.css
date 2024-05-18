@@ -14,6 +14,7 @@
   width: 288px;
   border-radius: 10px;
   display: flex;
+  text-align: center;
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -23,5 +24,5 @@
 
 .message {
   font-family: var(--font-roboto-italic);
-  font-size: 16px;
+  font-size: 14px;
 }

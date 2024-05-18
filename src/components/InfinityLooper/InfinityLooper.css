@@ -22,5 +22,6 @@
   display: flex;
   width: max-content;
   gap: 30px;
+  padding-left: 20px;
   animation: slideAnimation linear infinite;
 }

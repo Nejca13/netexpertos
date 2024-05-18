@@ -30,7 +30,7 @@ export const userLogin = async (
     }
 
     // Realizar la solicitud de inicio de sesión
-    const loginResponse = await fetch(API_URL + 'login1/', requestOptions)
+    const loginResponse = await fetch(API_URL + 'login/', requestOptions)
 
     if (!loginResponse.ok) {
       // Si la respuesta no es exitosa, lanzar un error con el detalle del error
@@ -43,9 +43,7 @@ export const userLogin = async (
 
     // Si la solicitud es exitosa, devolver los datos
     const data = await loginResponse.json()
-    setLoadingMessage(data.message)
-
-    return true
+    return data
   } catch (error) {
     // Manejar cualquier error ocurrido durante el proceso
 
@@ -63,26 +61,31 @@ export const userLogout = async () => {
   }
 }
 
-export const verifyCode = async (data) => {
+export const verifyClientsCode = async (data) => {
   const formData = new URLSearchParams()
-  formData.append('username', data.username)
+  formData.append('correo', data.username)
   formData.append('otp', data.otp)
   try {
-    const response = await fetch(API_URL + 'login2/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: formData.toString(),
-    })
-
+    const response = await fetch(
+      'https://vps-4057595-x.dattaweb.com/clientes/verify-otp/',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: formData.toString(),
+      }
+    )
     if (response.ok) {
-      const data = await response.json()
-      return data
+      // const data = await response.json()
+      return true
     } else {
       const error = await response.json()
       console.log(error.detail)
       throw error
     }
-  } catch (error) {}
+  } catch (error) {
+    console.error('Error en la verificación del código:', error)
+    throw error
+  }
 }

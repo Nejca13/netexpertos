@@ -12,7 +12,7 @@ import LogoNetExpertos from '@/components/ui/Logo/LogoNetExpertos'
 import { useState } from 'react'
 import ModalError from '@/components/ui/Modals/ModalError/ModalError'
 import { useRouter } from 'next/navigation'
-import { clearUsers } from '@/utils/indexedDataBase'
+import { addUser, clearUsers } from '@/utils/indexedDataBase'
 import ModalLoading from '@/components/ui/Modals/ModalLoading/ModalLoading'
 
 export default function Home() {
@@ -38,8 +38,11 @@ export default function Home() {
       if (data.error) {
         setErrorMessage(data.error.message)
       }
-      if (data === true) {
-        router.push(`/verifyAccount/${formDataValues.username}`)
+      if (data.user_data) {
+        const saveUser = await addUser(data)
+        if (saveUser) {
+          router.push(`/profile/${data.user_data._id}`)
+        }
       }
     } catch (error) {
       if (error) {

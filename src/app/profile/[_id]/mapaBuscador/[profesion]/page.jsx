@@ -158,7 +158,7 @@ const Map = () => {
         />
       )}
       {renderMapComponent()}
-      <Destacados />
+      <Destacados setIsShowPopup={setIsShowPopup} />
       <Link href={`/profile/${_id}`} className={styles.button}>
         <Image src={Lupa} width={20} height={20} /> Buscar
       </Link>

@@ -7,11 +7,10 @@ import { useParams, useRouter } from 'next/navigation'
 import LogoNetExpertos from '@/components/ui/Logo/LogoNetExpertos'
 import ButtonSubmit from '@/components/Buttons/ButtonSubmit/ButtonSubmit'
 import NavBar from '@/components/Navbar/NavBar'
-import { verifyCode } from '@/services/api/authUsuarios'
-import { addUser } from '@/utils/indexedDataBase'
 import ModalLoading from '@/components/ui/Modals/ModalLoading/ModalLoading'
 import ModalError from '@/components/ui/Modals/ModalError/ModalError'
 import { useState } from 'react'
+import { verifyProfesionalCode } from '@/services/api/authProfesionales'
 
 const Page = () => {
   const [errorMessage, setErrorMessage] = useState(false)
@@ -23,11 +22,9 @@ const Page = () => {
     e.preventDefault()
     const formData = Object.fromEntries(new FormData(e.target))
     try {
-      const response = await verifyCode(formData)
-      response.user_data = JSON.parse(response.user_data)
-      const saveUser = await addUser(response)
-      if (saveUser) {
-        router.push(`/profile/${response.user_data._id}`)
+      const response = await verifyProfesionalCode(formData)
+      if (response === true) {
+        router.push(`/`)
       }
     } catch (error) {
       setErrorMessage(error)
@@ -38,16 +35,12 @@ const Page = () => {
 
   return (
     <Container>
-      {showModal === true ? (
-        errorMessage ? (
-          <ModalError
-            errorMessage={errorMessage}
-            setShowModalError={setShowModal}
-          />
-        ) : (
-          <ModalLoading message={'Comprobando codigo e iniciando session...'} />
-        )
-      ) : null}
+      {errorMessage && (
+        <ModalError
+          errorMessage={errorMessage}
+          setShowModalError={setErrorMessage}
+        />
+      )}
       <NavBar onClick={() => router.back()} />
       <FormContainer onSubmit={(e) => handleSubmit(e)}>
         <LogoNetExpertos height={80} />
