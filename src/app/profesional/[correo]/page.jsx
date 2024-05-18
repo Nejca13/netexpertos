@@ -7,7 +7,7 @@ import NavBar from '@/components/Navbar/NavBar'
 
 const API_URL = 'https://vps-4057595-x.dattaweb.com/profesionales/buscar'
 
-const page = () => {
+const Page = () => {
   const [show, setShow] = useState(false)
   const router = useRouter()
   const { correo } = useParams()
@@ -21,4 +21,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page
