@@ -4,13 +4,15 @@ import { useState } from 'react'
 import ProfesionalCard from '@/components/ProfesionalCard/ProfesionalCard'
 import { useRouter } from 'next/navigation'
 import estrellaAmarilla from '@/assets/images/estrella-Amarilla.png'
+import { useShowProfesionalCard } from '@/app/profesionalCardContext'
 
 const DestacadosCard = ({ item, index, setIsShowPopup }) => {
   const router = useRouter()
-  const [showProfesionalCard, setShowProfesionalCard] = useState(false)
+  const [showProfesionalCard, setShowProfesionalCard] = useShowProfesionalCard()
+  const [showCard, setshowCard] = useState(false)
   return (
     <>
-      {showProfesionalCard && (
+      {showCard && (
         <ProfesionalCard
           profesional={item}
           setIsShowPopup={setIsShowPopup && setIsShowPopup}
@@ -19,13 +21,15 @@ const DestacadosCard = ({ item, index, setIsShowPopup }) => {
       <li
         className={styles.destacadosLi}
         key={index}
-        onClick={() =>
+        onClick={() => {
           setIsShowPopup &&
-          setIsShowPopup({
-            status: true,
-            profesional: item,
-          })
-        }
+            setIsShowPopup({
+              status: true,
+              profesional: item,
+            })
+
+          setShowProfesionalCard({ profesional: item })
+        }}
       >
         <Image
           className={styles.image}

@@ -31,6 +31,9 @@ function useGeolocation() {
         },
         (error) => {
           setError(error.message)
+          alert(
+            'Obtener la ubicación actual es necesario para el correcto funcionamiento de la aplicación!'
+          )
         }
       )
     }

@@ -1,5 +1,6 @@
 import './globals.css'
-import Providers from '@/lib/provider'
+import { ProfesionalCardProvider } from './profesionalCardContext'
+import { AuthProvider } from './userContext'
 
 export const metadata = {
   title: 'NetExpertos',
@@ -9,9 +10,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang='es'>
-      <Providers>
-        <body>{children}</body>
-      </Providers>
+      <body>
+        <AuthProvider>
+          <ProfesionalCardProvider>{children}</ProfesionalCardProvider>
+        </AuthProvider>
+      </body>
     </html>
   )
 }

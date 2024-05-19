@@ -28,7 +28,11 @@ const HambMenu = ({ show, userApp }) => {
   }
 
   const handleOutsideClick = (event) => {
-    if (containerRef.current && !containerRef.current.contains(event.target)) {
+    if (
+      menuComponent === null &&
+      containerRef.current &&
+      !containerRef.current.contains(event.target)
+    ) {
       show()
     }
   }
@@ -38,7 +42,7 @@ const HambMenu = ({ show, userApp }) => {
     return () => {
       document.removeEventListener('click', handleOutsideClick)
     }
-  }, [])
+  }, [menuComponent])
 
   return (
     <div className={styles.container}>

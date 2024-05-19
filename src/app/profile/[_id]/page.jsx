@@ -17,12 +17,15 @@ import { searchFunction } from './searchFunction'
 import InfiniteLooper from '@/components/InfinityLooper/InfinityLooper'
 import { usuariosPremium } from '@/constants/usuariosPremium'
 import Destacados from '@/components/Map/Destacados/Destacados'
+import { useShowProfesionalCard } from '@/app/profesionalCardContext'
+import ProfesionalCard from '@/components/ProfesionalCard/ProfesionalCard'
 
 const Page = () => {
   const [showMenu, setShowMenu] = useState(false)
   const [userApp, setUserApp] = useState({})
   const [searchItems, setSearchItems] = useState('')
   const { _id } = useParams()
+  const [showProfesionalCard, setShowProfesionalCard] = useShowProfesionalCard()
 
   useEffect(() => {
     const asd = async () => {
@@ -73,6 +76,12 @@ const Page = () => {
       </div>
       <div className={styles.destacados}>
         <Destacados />
+        {showProfesionalCard && (
+          <ProfesionalCard
+            profesional={showProfesionalCard.profesional}
+            setIsShowPopup={setShowProfesionalCard}
+          />
+        )}
       </div>
     </ContainerBlanco>
   )
