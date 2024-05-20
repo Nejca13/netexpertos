@@ -6,13 +6,13 @@ import { Inputs } from '@/components/FormComponents/FormComponents'
 import ButtonSubmit from '@/components/Buttons/ButtonSubmit/ButtonSubmit'
 import ButtonSignInWithGoogle from '@/components/Buttons/ButtonSignInWithGoogle/ButtonSignInWithGoogle'
 import FormContainer from '@/components/Containers/FormContainer'
-import { LoginWithGoogle, userLogin } from '@/services/api/authUsuarios'
+import { userLogin } from '@/services/api/authUsuarios'
 import Container from '@/components/Containers/Container'
 import LogoNetExpertos from '@/components/ui/Logo/LogoNetExpertos'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import ModalError from '@/components/ui/Modals/ModalError/ModalError'
 import { useRouter } from 'next/navigation'
-import { addUser, clearUsers } from '@/utils/indexedDataBase'
+import { addUser, clearUsers, getFirstUser } from '@/utils/indexedDataBase'
 import ModalLoading from '@/components/ui/Modals/ModalLoading/ModalLoading'
 
 export default function Home() {
@@ -22,6 +22,16 @@ export default function Home() {
   const [loadingMessage, setLoadingMessage] = useState('Iniciando sesion...')
 
   const router = useRouter()
+
+  const ifUser = async () => {
+    const user = await getFirstUser()
+    if (user && user.user_data) {
+      setIsLoading(false)
+      router.push(`/profile/${user.user_data._id}`)
+    } else {
+      setIsLoading(false)
+    }
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -53,6 +63,12 @@ export default function Home() {
       }
     }
   }
+
+  useEffect(() => {
+    setIsLoading(true)
+    setLoadingMessage('Comprobando sesiones activas...')
+    ifUser()
+  }, [])
 
   return (
     <Container>

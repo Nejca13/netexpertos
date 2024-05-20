@@ -69,6 +69,7 @@ export const getUser = async (id) => {
 }
 
 export const clearUsers = async () => {
+  console.log('Borrando DB')
   return new Promise((resolve, reject) => {
     const request = indexedDB.deleteDatabase('UserDataDBA')
 
@@ -139,4 +140,26 @@ export const deleteDatabaseOnClose = async () => {
   } catch (error) {
     console.error('Error al abrir la base de datos:', error)
   }
+}
+
+export const getFirstUser = async () => {
+  const db = await openDatabase()
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction('users', 'readonly')
+    const objectStore = transaction.objectStore('users')
+    const request = objectStore.openCursor()
+
+    request.onsuccess = (event) => {
+      const cursor = event.target.result
+      if (cursor) {
+        resolve(cursor.value) // Devuelve el primer objeto encontrado
+      } else {
+        resolve(null) // No hay objetos en el ObjectStore
+      }
+    }
+
+    request.onerror = (event) => {
+      reject(event.target.error)
+    }
+  })
 }
