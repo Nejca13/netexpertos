@@ -6,6 +6,7 @@ const RubrosDropdown = ({ item, index, _id }) => {
   const rubro = Object.keys(item)[0]
   const profesion = Object.values(item)[0]
   const [isOpen, setIsOpen] = useState(false)
+  const [loading, setLoading] = useState(false)
   return (
     <div
       key={index}
@@ -26,6 +27,7 @@ const RubrosDropdown = ({ item, index, _id }) => {
                 href={`/profile/${_id}/mapaBuscador/${encodeURIComponent(
                   profesion
                 )}`}
+                onClick={() => console.log('Cargando..')}
               >
                 <p className={styles.p}>{profesion}</p>
               </Link>

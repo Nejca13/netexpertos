@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation'
 import useGeolocation from '@/hooks/useGeolocation'
 import ModalLoading from '@/components/ui/Modals/ModalLoading/ModalLoading'
 import Container from '@/components/Containers/Container'
-import { addUser, clearUsers } from '@/utils/indexedDataBase'
+import { addUser } from '@/utils/indexedDataBase'
 
 const Page = () => {
   const [auth, setAuth] = useAuth()
@@ -31,19 +31,25 @@ const Page = () => {
     if (response.ok) {
       const data = await response.json()
       const user = {
-        token: 'asdasdaqwe123',
-        user_data: data.user,
+        token: data.token,
+        user_data: data.user_data,
       }
       await addUser(user)
-      setTimeout(() => {
-        router.push(`/profile/${data.user._id}`)
-      }, 1000)
+        .then((result) => {
+          console.log('Usuario guardado con ID:', result)
+          router.push(`/profile/${user.user_data._id}`)
+        })
+        .catch((error) => {
+          console.error('Error al guardar el usuario:', error)
+        })
+    } else {
+      const error = await response.json()
+      console.error(error)
     }
 
     setAuthComponent(<ModalLoading message={'Cargando infomacion...'} />)
   }
   useEffect(() => {
-    clearUsers()
     if (location && auth) {
       handleAuth(auth)
     }

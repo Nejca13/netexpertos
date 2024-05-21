@@ -15,7 +15,7 @@ export const hambMenuOptionsExpert = [
     icon: CONFIG,
   },
   {
-    name: 'Medios de pago',
+    name: 'Conviertete en experto Plus',
     icon: TARJETA,
   },
   {
@@ -40,10 +40,6 @@ export const hambMenuOptionsClient = [
   {
     name: 'Quiero ser un experto',
     icon: LLAVE,
-  },
-  {
-    name: 'Medios de pago',
-    icon: TARJETA,
   },
   {
     name: 'Ayuda',

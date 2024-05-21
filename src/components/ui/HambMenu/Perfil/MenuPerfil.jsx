@@ -149,7 +149,7 @@ const MenuPerfil = ({ setMenuComponent, user }) => {
             <ButtonSubmit
               backgroundColor={'white'}
               textColor={'var(--color-gris-medio)'}
-              text={'Guarda cambios'}
+              text={'Guardar cambios'}
             />
           )}
         </div>

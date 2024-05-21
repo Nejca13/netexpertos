@@ -1,45 +1,20 @@
-import FormContainer from '../Containers/FormContainer'
-import { InputTypeFile, Inputs, Select, TextArea } from './FormComponents'
+import { Inputs, Select } from '@/components/FormComponents/FormComponents'
 import rubros from '@/constants/rubros'
 import profesionesPorRubro from '@/constants/profesionesPorRubro'
 import { useEffect, useState } from 'react'
-import Button from '../Buttons/Button/Button'
-import ButtonSubmit from '../Buttons/ButtonSubmit/ButtonSubmit'
-import styles from './SeccionDatosEmpresa.module.css'
-import defaultUserImage from '../../assets/images/userImage.png'
-import Image from 'next/image'
-import { saveCompressedImageToLocalStorage } from '@/utils/minificadorDeImagenes'
+import ButtonSubmit from '@/components/Buttons/ButtonSubmit/ButtonSubmit'
+import styles from './Empresas.module.css'
+import FormContainer from '@/components/Containers/FormContainer'
 
-const SeccionDatosEmpresa = ({ onNext, defaultProfilePhoto }) => {
+const Empresas = ({ onNext }) => {
   const [rubroSeleccionado, setRubroSeleccionado] = useState('')
-  const [userImage, setUserImage] = useState(defaultUserImage)
 
   useEffect(() => {
     setRubroSeleccionado(rubros[0])
   }, [])
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0]
-    saveCompressedImageToLocalStorage(file, (compressedImage) => {
-      setUserImage(compressedImage)
-    })
-  }
-
   return (
     <FormContainer onSubmit={(e) => onNext(e)}>
-      <Image
-        className={styles.imageUser}
-        src={userImage}
-        width={80}
-        height={80}
-        alt='logo de la empresa'
-      />
-      <InputTypeFile
-        handleFileChange={handleFileChange}
-        text={'Logo de la empresa'}
-        name={'foto_perfil'}
-        id={'foto_perfil'}
-      />
       <Inputs
         text={'Nombre de la empresa'}
         name={'empresa_nombre'}
@@ -77,4 +52,4 @@ const SeccionDatosEmpresa = ({ onNext, defaultProfilePhoto }) => {
   )
 }
 
-export default SeccionDatosEmpresa
+export default Empresas

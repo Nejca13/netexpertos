@@ -1,6 +1,6 @@
 import styles from './SimpleLoader.module.css'
 
-const SimpleLoader = () => {
+const SimpleLoader = ({ width }) => {
   return (
     <div>
       <div className={styles.threeBody}>

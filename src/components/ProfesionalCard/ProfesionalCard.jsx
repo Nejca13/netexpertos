@@ -108,8 +108,15 @@ const ProfesionalCard = ({ profesional, setIsShowPopup }) => {
                 className={styles.image}
                 src={item.imagen_base64}
                 width={70}
+                quality={50}
                 height={70}
-                onClick={() => modal(item.imagen_base64)}
+                onClick={() => {
+                  if (typeof item.imagen_base64 === 'string') {
+                    modal(item.imagen_base64)
+                  } else {
+                    modal(item.imagen_base64.src)
+                  }
+                }}
                 alt='fotos de trabajos realizados'
               />
               <p className={styles.p}>

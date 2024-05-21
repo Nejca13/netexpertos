@@ -9,6 +9,7 @@ import {
 } from '@/constants/hambMenu'
 import MenuPerfil from './Perfil/MenuPerfil'
 import { useState, useEffect, useRef } from 'react'
+import ConvertiteEnExperto from './ConvertiteEnExperto/ConvertiteEnExperto'
 
 const HambMenu = ({ show, userApp }) => {
   const [menuComponent, setMenuComponent] = useState(null)
@@ -21,7 +22,13 @@ const HambMenu = ({ show, userApp }) => {
           <MenuPerfil setMenuComponent={setMenuComponent} user={userApp} />
         )
         break
-      case 'Configuracion':
+      case 'Quiero ser un experto':
+        setMenuComponent(
+          <ConvertiteEnExperto
+            setMenuComponent={setMenuComponent}
+            user={userApp}
+          />
+        )
       default:
         break
     }

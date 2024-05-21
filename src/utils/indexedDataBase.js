@@ -7,7 +7,7 @@ export const openDatabase = () => {
       return
     }
 
-    const request = indexedDB.open('UserDataDBA', 1)
+    const request = indexedDB.open('UserDataDB', 1)
 
     request.onupgradeneeded = (event) => {
       const db = event.target.result
@@ -15,7 +15,7 @@ export const openDatabase = () => {
         keyPath: '_id',
         autoIncrement: true,
       })
-      objectStore.createIndex('_id', 'user_data._id', { unique: true })
+      objectStore.createIndex('_id', 'user_data._id')
     }
     console.log('Abriendo conexion con la IndexedDB')
     request.onsuccess = (event) => {
@@ -69,21 +69,33 @@ export const getUser = async (id) => {
 }
 
 export const clearUsers = async () => {
-  console.log('Borrando DB')
-  return new Promise((resolve, reject) => {
-    const request = indexedDB.deleteDatabase('UserDataDBA')
+  console.log('Borrando todos los usuarios en la IndexedDB')
 
-    request.onsuccess = () => {
-      resolve()
-    }
+  try {
+    const db = await openDatabase()
+    const transaction = db.transaction(['users'], 'readwrite')
+    const objectStore = transaction.objectStore('users')
+    const clearRequest = objectStore.clear()
 
-    request.onerror = () => {
-      reject(request.error)
-    }
-  })
+    return new Promise((resolve, reject) => {
+      clearRequest.onsuccess = () => {
+        console.log('Todos los usuarios borrados con éxito')
+        resolve()
+      }
+
+      clearRequest.onerror = () => {
+        console.error('Error al borrar los usuarios:', clearRequest.error)
+        reject(clearRequest.error)
+      }
+    })
+  } catch (error) {
+    console.error('Error al abrir la base de datos:', error)
+    throw error
+  }
 }
 
 export const updateUser = async (updatedUserData, id) => {
+  console.log('update user')
   const db = await openDatabase()
   const transaction = db.transaction(['users'], 'readwrite')
   const objectStore = transaction.objectStore('users')
@@ -117,29 +129,6 @@ export const updateUser = async (updatedUserData, id) => {
       reject(requestGet.error)
     }
   })
-}
-
-export const deleteDatabaseOnClose = async () => {
-  try {
-    // Abre la base de datos
-    const db = await openDatabase()
-
-    // Cierra la base de datos antes de borrarla
-    db.close()
-
-    // Borra la base de datos
-    const deleteRequest = indexedDB.deleteDatabase('UserDataDBA')
-
-    deleteRequest.onerror = (event) => {
-      console.error('Error al borrar la base de datos:', event.target.error)
-    }
-
-    deleteRequest.onsuccess = (event) => {
-      console.log('Base de datos borrada con éxito.')
-    }
-  } catch (error) {
-    console.error('Error al abrir la base de datos:', error)
-  }
 }
 
 export const getFirstUser = async () => {

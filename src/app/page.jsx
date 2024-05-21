@@ -18,13 +18,17 @@ import ModalLoading from '@/components/ui/Modals/ModalLoading/ModalLoading'
 export default function Home() {
   const [showModalError, setShowModalError] = useState(false)
   const [errorMessage, setErrorMessage] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-  const [loadingMessage, setLoadingMessage] = useState('Iniciando sesion...')
+  const [isLoading, setIsLoading] = useState(true)
+  const [loadingMessage, setLoadingMessage] = useState(
+    'Buscando sesiones activas...'
+  )
 
   const router = useRouter()
 
   const ifUser = async () => {
     const user = await getFirstUser()
+      .then((res) => res)
+      .catch((error) => error)
     if (user && user.user_data) {
       setIsLoading(false)
       router.push(`/profile/${user.user_data._id}`)
@@ -37,8 +41,9 @@ export default function Home() {
     e.preventDefault()
     const formDataValues = Object.fromEntries(new FormData(e.target))
     try {
-      clearUsers()
+      setLoadingMessage('Iniciando sesion...')
       setIsLoading(true)
+      clearUsers()
       const data = await userLogin(
         formDataValues,
         setErrorMessage,

@@ -82,6 +82,7 @@ export const updateClienteById = async (cliente_id, data) => {
 }
 
 export const updateCliente = async (user, updatedData) => {
+  console.log('test')
   try {
     const mailEncode = encodeURIComponent(user.correo)
     const response = await fetch(API_URL + `?correo=${mailEncode}`, {
@@ -95,6 +96,7 @@ export const updateCliente = async (user, updatedData) => {
     if (response.ok) {
       // La solicitud fue exitosa
       const responseData = await response.json()
+      console.log(responseData)
       await updateUser(updatedData, user._id)
       window.location.reload()
       return responseData // Puedes retornar los datos actualizados si lo deseas
@@ -107,5 +109,58 @@ export const updateCliente = async (user, updatedData) => {
     // Error de red o cualquier otro error
     console.error('Ocurrió un error al realizar la solicitud:', error.message)
     throw error // Puedes lanzar el error nuevamente para que quien llame a esta función pueda manejarlo si es necesario
+  }
+}
+
+export const converToProfesional = async (
+  data,
+  setIsLoading,
+  setErrorMessage
+) => {
+  const newData = {
+    rol: 'Profesional',
+    nombre: data.nombre,
+    apellido: data.apellido,
+    numero: data.telefono,
+    correo: data.correo,
+    password: data.password,
+    ubicacion: data.ubicacion,
+    calificacion: 0,
+    experiencia_laboral_años: parseInt(data.experiencia_laboral_años),
+    recomendaciones: 0,
+    fotos_trabajos: data.fotos_trabajos,
+    foto_perfil: data.foto_base64,
+    horarios_atencion: `de ${data.horario_apertura} - a ${data.horario_cierre}`,
+    nacimiento: data.nacimiento,
+    rubro_nombre: data.rubro_nombre,
+    profesion_nombre: data.profesion_nombre,
+    acerca_de_mi: data.acerca_de_mi,
+    fecha_registro: new Date().toISOString(),
+  }
+  setIsLoading(true)
+  try {
+    const response = await fetch(API_URL + '/convertir-a-profesional/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newData),
+    })
+
+    if (response.ok) {
+      const responseData = await response.json()
+      console.log(responseData)
+      setIsLoading(false)
+      return true
+    } else {
+      const errorData = await response.json()
+      console.log(errorData)
+      setErrorMessage(errorData.detail)
+      setIsLoading(false)
+    }
+  } catch (error) {
+    console.error('Error convirtiendo a profesional:', error)
+    setErrorMessage('Error al cambiar de tipo de cuenta')
+    setIsLoading(false)
   }
 }
