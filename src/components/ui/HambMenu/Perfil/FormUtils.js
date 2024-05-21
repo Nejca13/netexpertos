@@ -5,7 +5,6 @@ import { updateProfessional } from '@/services/api/profesionales'
 
 export const handleSubmit = (e, user, newProfileImage) => {
   e.preventDefault()
-  console.log('submit')
   const formData = new FormData(e.target)
 
   // Extraer nombre y apellido
