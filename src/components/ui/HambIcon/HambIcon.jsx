@@ -8,7 +8,7 @@ const HambIcon = ({ show }) => {
       style={{ cursor: 'pointer' }}
       src={hamb}
       width={50}
-      height={70}
+      height={50}
       alt='menu'
     />
   )

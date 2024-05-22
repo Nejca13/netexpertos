@@ -15,7 +15,7 @@ export const hambMenuOptionsExpert = [
     icon: CONFIG,
   },
   {
-    name: 'Conviertete en experto Plus',
+    name: 'Convertite en experto Plus',
     icon: TARJETA,
   },
   {

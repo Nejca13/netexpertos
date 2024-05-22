@@ -1,4 +1,4 @@
-import { updateUser } from '@/utils/indexedDataBase'
+import { addUser, clearUsers, updateUser } from '@/utils/indexedDataBase'
 
 const API_URL = 'https://vps-4057595-x.dattaweb.com/clientes'
 /**
@@ -149,14 +149,19 @@ export const converToProfesional = async (
 
     if (response.ok) {
       const responseData = await response.json()
-      console.log(responseData)
-      setIsLoading(false)
-      return true
+      if (responseData) {
+        clearUsers().then(() => {
+          addUser(responseData)
+          setIsLoading(false)
+          return true
+        })
+      }
     } else {
       const errorData = await response.json()
       console.log(errorData)
       setErrorMessage(errorData.detail)
       setIsLoading(false)
+      return false
     }
   } catch (error) {
     console.error('Error convirtiendo a profesional:', error)

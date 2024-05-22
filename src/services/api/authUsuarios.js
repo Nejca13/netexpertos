@@ -43,7 +43,6 @@ export const userLogin = async (
 
     // Si la solicitud es exitosa, devolver los datos
     const data = await loginResponse.json()
-    console.log(data)
     return data
   } catch (error) {
     // Manejar cualquier error ocurrido durante el proceso

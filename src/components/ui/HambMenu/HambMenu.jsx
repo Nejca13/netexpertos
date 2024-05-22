@@ -56,7 +56,7 @@ const HambMenu = ({ show, userApp }) => {
       <div className={styles.menu} ref={containerRef}>
         <div className={styles.personalMenu}>
           <button onClick={show} className={styles.button}>
-            <Image src={cross} width={40} height={40} alt='Icono de cerrar' />
+            <Image src={cross} width={30} height={30} alt='Icono de cerrar' />
           </button>
           <div className={styles.div}>
             <Image

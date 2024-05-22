@@ -44,13 +44,9 @@
   width: 90%;
   max-width: 380px;
   overflow: scroll;
-  scrollbar-width: none;
   border-radius: 10px;
   background-image: url('../../../assets//images/FondoAmarillo.jpg');
   padding: 13px 10px;
-}
-.divCategorias::-webkit-scrollbar {
-  width: none;
 }
 
 .destacados {

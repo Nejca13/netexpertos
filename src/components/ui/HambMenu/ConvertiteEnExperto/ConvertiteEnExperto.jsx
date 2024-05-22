@@ -13,6 +13,7 @@ import { useRouter } from 'next/navigation'
 import SeccionDatosIndependiente from './Formulario/ProfesionalesIndependientes/SeccionDatosIndependiente'
 import { converToProfesional } from '@/services/api/clientes'
 import Empresas from './Formulario/Empresas/Empresas'
+import LogoNetExpertos from '../../Logo/LogoNetExpertos'
 
 /**
  * Componente ConvertiteEnExperto
@@ -84,7 +85,7 @@ const ConvertiteEnExperto = ({ user, setMenuComponent }) => {
         setErrorMessage
       )
       if (res === true) {
-        router.push(`/`)
+        window.location.reload()
       }
     } catch (error) {
       console.log(error)
@@ -102,6 +103,7 @@ const ConvertiteEnExperto = ({ user, setMenuComponent }) => {
             : setFormSection((prevSection) => prevSection - 1)
         }}
       />
+      <LogoNetExpertos width={200} />
       {(() => {
         switch (formSection) {
           case 0:

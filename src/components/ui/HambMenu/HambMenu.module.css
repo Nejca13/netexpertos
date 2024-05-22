@@ -20,12 +20,14 @@
   margin-top: 31px;
   background-color: var(--color-amarillo);
   min-width: 270px;
+  min-height: 100px;
   display: flex;
+  justify-content: end;
   align-items: flex-end;
   flex-direction: column;
   position: relative;
   border-radius: 20px 0 0 20px;
-  box-shadow: -1px 3px 10px var(--color-gris-medio);
+  box-shadow: 0px 3px 10px var(--color-gris-medio);
 
   -webkit-animation: slide-in-right 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94)
     backwards;
@@ -37,7 +39,9 @@
   background-color: transparent;
   border: none;
   font-size: 14px;
-  margin-right: 10px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
   cursor: pointer;
 }
 .container .personalMenu .div {

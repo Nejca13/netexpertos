@@ -49,7 +49,7 @@ const SeccionDatosEmpresa = ({ onNext, defaultProfilePhoto }) => {
       />
       <Inputs
         type={'date'}
-        text={'Fecha de nacimiento'}
+        text={'Fecha de fundación'}
         id={'nacimiento'}
         name={'nacimiento'}
         errorMessage={'Fecha incorrecta'}

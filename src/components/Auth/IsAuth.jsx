@@ -1,19 +1,27 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { redirect, useParams } from 'next/navigation'
+import { redirect, useParams, useRouter } from 'next/navigation'
 import SimpleLoader from '../Loaders/SimpleLoader'
 import { getUser } from '@/utils/indexedDataBase'
+import Container from '../Containers/Container'
+import NavBar from '../Navbar/NavBar'
+import FormContainer from '../Containers/FormContainer'
+import LogoNetExpertos from '../ui/Logo/LogoNetExpertos'
+import ButtonSignInWithGoogle from '../Buttons/ButtonSignInWithGoogle/ButtonSignInWithGoogle'
 
 export default function isAuth(Component) {
   return function IsAuth(props) {
     const [isLoading, setIsLoading] = useState(true)
     const [auth, setAuth] = useState(null)
+    const router = useRouter()
 
     const { _id } = useParams()
 
     const setUser = async () => {
       const authValue = await getUser(_id)
-      setAuth(authValue.user_data)
+      if (authValue) {
+        setAuth(authValue.user_data)
+      }
     }
 
     useEffect(() => {
@@ -49,7 +57,21 @@ export default function isAuth(Component) {
           <SimpleLoader />
         </div>
       ) : (
-        <h1>No has iniciado sesion!</h1>
+        <Container>
+          <NavBar onClick={() => router.push('/')} />
+          <FormContainer>
+            <LogoNetExpertos width={200} />
+            <p
+              style={{
+                fontFamily: 'var(--font-roboto-italic)',
+                color: 'var(--color-gris-medio)',
+              }}
+            >
+              Debes iniciar sesion!
+            </p>
+            <ButtonSignInWithGoogle />
+          </FormContainer>
+        </Container>
       )
     }
 

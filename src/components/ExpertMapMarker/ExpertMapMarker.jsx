@@ -2,6 +2,7 @@ import Image from 'next/image'
 import styles from './ExpertMapMarker.module.css'
 import defaultImg from '@/assets/images/userImage.png'
 import { useEffect, useState } from 'react'
+import ESTRELLA from '@/assets/images/estrella-Amarilla.png'
 
 const ExpertMapMarker = ({ profesional, status }) => {
   const {
@@ -24,7 +25,13 @@ const ExpertMapMarker = ({ profesional, status }) => {
     <div className={styles.pin1}>
       <div className={[status === true && styles.online]}></div>
       <div className={styles.rating}>
-        <p>{calificacion}</p>
+        <p>{calificacion}</p>{' '}
+        <Image
+          src={ESTRELLA}
+          width={13}
+          height={13}
+          alt='estrella de calificacion'
+        />
       </div>
       <Image
         className={styles.image}

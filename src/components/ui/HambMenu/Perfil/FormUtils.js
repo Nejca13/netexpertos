@@ -42,7 +42,6 @@ export const handleSubmit = (e, user, newProfileImage) => {
 
   // Convertir FormData a objeto
   const data = Object.fromEntries(formData)
-  console.log(user)
   if (user.rol === 'Profesional') {
     updateProfessional(user, data)
   }

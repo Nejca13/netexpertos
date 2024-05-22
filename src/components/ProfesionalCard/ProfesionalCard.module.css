@@ -88,7 +88,7 @@
   border-radius: 14px;
   align-items: center;
   text-align: center;
-  box-shadow: 0 3px 10px rgb(94, 94, 94);
+  box-shadow: var(--box-shadow);
   height: 35px;
   font-family: var(--font-roboto-bold);
 }
@@ -127,7 +127,7 @@
   font-size: 13px;
   max-width: 250px;
   border: none;
-  box-shadow: 0 3px 10px rgb(94, 94, 94);
+  box-shadow: var(--box-shadow);
   color: var(--color-gris-medio);
   display: flex;
   align-items: center;
@@ -183,6 +183,7 @@
   border-radius: 100%;
   object-fit: cover;
   border: 3px solid var(--color-amarillo);
+  box-shadow: var(--box-shadow);
 }
 .ulTrabajosRealizados .li .p {
   width: 120px;
@@ -195,7 +196,7 @@
   font-size: 16px;
   max-width: 250px;
   border: none;
-  box-shadow: 0 3px 10px rgb(94, 94, 94);
+  box-shadow: var(--box-shadow);
   color: var(--color-gris-medio);
 }
 

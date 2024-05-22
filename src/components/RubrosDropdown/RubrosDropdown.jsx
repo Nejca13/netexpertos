@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import styles from './RubrosDropdown.module.css'
 import { useState } from 'react'
+import Image from 'next/image'
+import iconMap from '@/constants/iconosProfesiones'
 
 const RubrosDropdown = ({ item, index, _id }) => {
   const rubro = Object.keys(item)[0]
@@ -17,6 +19,12 @@ const RubrosDropdown = ({ item, index, _id }) => {
         onClick={() => setIsOpen(!isOpen)}
       >
         {rubro}
+        <Image
+          src={iconMap[rubro]}
+          width={18}
+          height={18}
+          alt='icono profesion'
+        />
       </button>
       {isOpen && (
         <ul className={styles.profesionUl}>

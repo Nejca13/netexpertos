@@ -19,6 +19,20 @@ const CardInfoPersonal = ({ setShowMoreInfo, profesional }) => {
     horarios_atencion,
     recomendaciones,
   } = profesional
+
+  function calcularEdad(fechaNacimiento) {
+    const hoy = new Date()
+    const fechaNac = new Date(fechaNacimiento)
+    let edad = hoy.getFullYear() - fechaNac.getFullYear()
+    const mes = hoy.getMonth() - fechaNac.getMonth()
+
+    // Ajuste de edad si el mes actual es anterior al mes de nacimiento o es el mes de nacimiento pero el día actual es anterior al día de nacimiento.
+    if (mes < 0 || (mes === 0 && hoy.getDate() < fechaNac.getDate())) {
+      edad--
+    }
+
+    return edad
+  }
   return (
     <section className={styles.backgroundCard}>
       <div className={styles.container}>
@@ -49,7 +63,7 @@ const CardInfoPersonal = ({ setShowMoreInfo, profesional }) => {
         <div className={styles.edad_profesion}>
           <div className={styles.containerInfo}>
             <span className={styles.span}>Edad</span>
-            <p className={styles.p}>{nacimiento}</p>
+            <p className={styles.p}>{calcularEdad(nacimiento)}</p>
           </div>
           <div className={styles.containerInfo}>
             <span className={styles.span}>Profesión</span>
