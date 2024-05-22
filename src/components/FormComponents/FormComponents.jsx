@@ -2,6 +2,9 @@
 
 import { useState } from 'react'
 import styles from './FormComponents.module.css'
+import Image from 'next/image'
+import openEye from '@/assets/images/openEye.svg'
+import closeEye from '@/assets/images/closeEye.svg'
 
 export const Inputs = ({
   type,
@@ -14,6 +17,8 @@ export const Inputs = ({
   minLength,
   readOnly,
 }) => {
+  const [passwordVisible, setPasswordVisible] = useState(false)
+  const [isType, setIsType] = useState(type)
   let pattern = null
 
   if (type === 'email') {
@@ -26,6 +31,18 @@ export const Inputs = ({
   if (type === 'tel') {
     pattern = '[0-9]+'
   }
+
+  const togglePasswordVisibility = (e) => {
+    e.preventDefault()
+    setPasswordVisible(!passwordVisible)
+    if (isType === 'password') {
+      setIsType('text')
+    }
+    if (isType === 'text') {
+      setIsType('password')
+    }
+  }
+
   return (
     <div
       className={styles.inputs}
@@ -35,7 +52,7 @@ export const Inputs = ({
         {text ? text : <p></p>}
         <input
           className={styles.input}
-          type={type}
+          type={type === 'password' ? isType : type}
           id={id}
           name={name}
           placeholder={placeholder ? placeholder : null}
@@ -51,6 +68,28 @@ export const Inputs = ({
           readOnly={readOnly && readOnly}
         />
       </label>
+      {type === 'password' && (
+        <button
+          className={styles.revelarPassword}
+          onClick={(e) => {
+            togglePasswordVisibility(e)
+          }}
+        >
+          {passwordVisible ? (
+            <Image
+              alt='icono de un ojo, mostrar o no mostrar contraseña'
+              src={openEye}
+              height={20}
+            />
+          ) : (
+            <Image
+              alt='icono de un ojo, mostrar o no mostrar contraseña'
+              src={closeEye}
+              height={20}
+            />
+          )}
+        </button>
+      )}
     </div>
   )
 }
@@ -67,6 +106,7 @@ export const TextArea = ({ name, id, text, placeholder, value }) => {
           cols='30'
           rows='5'
           required
+          maxLength={200}
           placeholder={placeholder}
         ></textarea>
       </label>
@@ -127,6 +167,7 @@ export const InputTypeFile = ({
           onInput={(e) => setError(false)}
         />
       </label>
+
       {error ? <p className={styles.errorMessage}>{errorMessage}</p> : <p></p>}
     </>
   )

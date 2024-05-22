@@ -21,7 +21,7 @@
 .rating {
   position: absolute;
   display: flex;
-  align-items: center;
+  align-items: baseline;
   background-color: var(--color-naranja);
   font-family: var(--font-roboto-bold);
   color: white;

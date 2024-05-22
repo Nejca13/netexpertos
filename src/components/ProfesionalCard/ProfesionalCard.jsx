@@ -4,14 +4,15 @@ import cross from '@/assets/images/cross-blanca.png'
 import plus from '@/assets/images/iconPlusBlanco.png'
 import ModalImg from './ModalImg/ModalImg'
 import { useState } from 'react'
-import estrellaGris from '@/assets/images/estrella-Gris.png'
-import estrellaAmarilla from '@/assets/images/estrella-Amarilla.png'
+import estrellaGris from '@/assets/images/estrellaGris.svg'
+import estrellaAmarilla from '@/assets/images/estrellaAmarilla.svg'
 import CardInfoPersonal from '../CardInfoPersonal/CardInfoPersonal'
 
 const ProfesionalCard = ({ profesional, setIsShowPopup }) => {
   const [showModalImg, setShowModalImg] = useState(false)
   const [showMoreInfo, setShowMoreInfo] = useState(false)
   const [img, setImg] = useState(null)
+
   const {
     _id,
     calificacion,
@@ -26,9 +27,11 @@ const ProfesionalCard = ({ profesional, setIsShowPopup }) => {
     nacimiento,
     numero,
     foto_perfil,
+    favoritos,
     horarios_atencion,
     recomendaciones,
   } = profesional
+  const [favorite, setFavorite] = useState(favoritos)
 
   const modal = (img) => {
     setImg(img)
@@ -79,10 +82,33 @@ const ProfesionalCard = ({ profesional, setIsShowPopup }) => {
               alt='icono estrella de valoracion'
             />
           </li>
-          <li className={styles.li}>{recomendaciones}</li>
+          <li className={styles.li}>{recomendaciones} Reseñas</li>
           <li className={styles.li}>
-            <button className={styles.buttonAgregarFavoritos}>
-              Agregar a favoritos
+            <button
+              className={styles.buttonAgregarFavoritos}
+              onClick={() => setFavorite(!favorite)}
+            >
+              {favorite ? (
+                <>
+                  <Image
+                    src={estrellaAmarilla}
+                    width={22}
+                    height={22}
+                    alt='icono estrella de valoracion'
+                  />
+                  Quitar de favoritos
+                </>
+              ) : (
+                <>
+                  <Image
+                    src={estrellaGris}
+                    width={22}
+                    height={22}
+                    alt='icono estrella de valoracion'
+                  />
+                  Agregar a favoritos
+                </>
+              )}
             </button>
           </li>
         </ul>

@@ -17,7 +17,6 @@ import defaultUserImage from '../../assets/images/userImage.png'
 import { createUser } from '@/services/api/clientes'
 import { saveCompressedImageToLocalStorage } from '@/utils/minificadorDeImagenes'
 import { useRouter } from 'next/navigation'
-import useFetch from '@/hooks/useFetch'
 import ModalError from '@/components/ui/Modals/ModalError/ModalError'
 import ModalLoading from '@/components/ui/Modals/ModalLoading/ModalLoading'
 

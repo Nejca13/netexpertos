@@ -22,7 +22,7 @@
   min-width: 270px;
   min-height: 100px;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: flex-end;
   flex-direction: column;
   position: relative;

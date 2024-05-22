@@ -1,9 +1,11 @@
 .inputs {
   width: 100%;
+  position: relative;
   .label {
     font-weight: 700;
     margin-left: 14px;
     font-size: 12px;
+    width: 100%;
     color: var(--color-gris-medio);
   }
   .input {
@@ -72,4 +74,12 @@
   padding: 5px 20px;
   border-radius: 10px;
   font-family: var(--font-roboto-bold);
+}
+
+.revelarPassword {
+  position: absolute;
+  top: 30px;
+  right: 10px;
+  background-color: transparent;
+  border: none;
 }
