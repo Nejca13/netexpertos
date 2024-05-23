@@ -2,17 +2,21 @@
 import React, { useEffect, useState } from 'react'
 import styles from './page.module.css'
 import Image from 'next/image'
-import imageDefault from '@/assets/images/FotosDePerfil/1.jpg'
 import TEL from '@/assets/images/ICONOS/ICO-TEL.svg'
 import SEND from '@/assets/images/ICONOS/ICO-SEND.svg'
+import EMOJI from '@/assets/images/ICONOS/ICO-EMOJI.svg'
 import { useParams, useRouter } from 'next/navigation'
+import SlideToUnlock from '@/components/SlideToUnlock/SlideToUnlock'
+import IsAuth from '@/components/Auth/IsAuth'
+import EmojiPicker from 'emoji-picker-react'
 
 const Chat = () => {
   const { _id } = useParams()
   const [prof, setProf] = useState()
   const [messages, setMessages] = useState([])
-  const router = useRouter()
+  const [showEmojis, setShowEmojis] = useState(false)
   const [currentMessage, setCurrentMessage] = useState('')
+  const router = useRouter()
 
   const handleSend = () => {
     if (currentMessage.trim() !== '') {
@@ -44,12 +48,16 @@ const Chat = () => {
                 width={35}
                 height={35}
                 alt='Flecha atras'
-                onClick={() => router.back()}
+                onClick={() => {
+                  localStorage.removeItem(_id)
+                  router.back()
+                }}
               />
               <Image
                 className={styles.imagenPerfil}
                 src={prof.foto_perfil}
                 height={43}
+                width={43}
                 alt='Imagen de perfil'
               />
               <p className={styles.username}>
@@ -93,11 +101,26 @@ const Chat = () => {
             <button className={styles.botonEnviar} onClick={handleSend}>
               <Image src={SEND} alt='icono enviar' height={30} />
             </button>
+            <button
+              className={styles.botonEnviar}
+              onClick={() => setShowEmojis(!showEmojis)}
+            >
+              <Image src={EMOJI} height={30} alt='icono emojis' />
+            </button>
+            <div className={styles.containerEmojis}>
+              <EmojiPicker
+                open={showEmojis}
+                onEmojiClick={(e) =>
+                  setCurrentMessage(currentMessage + '' + e.emoji)
+                }
+              />
+            </div>
           </div>
+          <SlideToUnlock />
         </>
       ) : null}
     </div>
   )
 }
 
-export default Chat
+export default IsAuth(Chat)

@@ -29,6 +29,8 @@ const HambMenu = ({ show, userApp }) => {
             user={userApp}
           />
         )
+      case 'Salir':
+        userLogout()
       default:
         break
     }
@@ -111,17 +113,6 @@ const HambMenu = ({ show, userApp }) => {
                     <span>{item.name}</span>
                   </li>
                 ))}
-
-            <li className={styles.li} onClick={userLogout}>
-              <Image
-                className={styles.icon}
-                src={defaultImage}
-                width={24}
-                height={24}
-                alt={`Icono de`}
-              />
-              <button className={styles.button}>Salir</button>
-            </li>
           </ul>
         </div>
       </div>

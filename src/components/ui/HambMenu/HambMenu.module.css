@@ -17,7 +17,7 @@
 }
 
 .container .personalMenu {
-  margin-top: 31px;
+  margin-top: 25px;
   background-color: var(--color-amarillo);
   min-width: 270px;
   min-height: 100px;
@@ -95,7 +95,7 @@
 
 .container .menuConfig .ul .li {
   margin-left: 18px;
-  height: 40px;
+  height: 37px;
   border-bottom: 1px solid var(--color-negro-transparente);
   display: flex;
   align-items: center;

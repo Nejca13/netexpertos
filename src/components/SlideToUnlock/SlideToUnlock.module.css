@@ -1,0 +1,73 @@
+/* styles.css */
+.container {
+  width: 100dvw;
+  display: flex;
+  justify-content: center;
+}
+
+.slideContainer {
+  width: 90%;
+  height: 35px;
+  border: 2px solid rgba(138, 138, 138, 0.747);
+  background-color: rgba(128, 128, 128, 0.425);
+  border-radius: 26px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  align-self: center;
+  color: white;
+  font-family: var(--font-roboto-italic);
+}
+
+.slideContainer.endReached {
+  background-color: rgba(128, 128, 128, 0.425);
+}
+
+.slider {
+  width: 35px;
+  height: 35px;
+  background-color: #fff;
+  border-radius: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+  transition: left 0.3s;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100dvw;
+  height: 100dvh;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+  padding-top: 60px;
+}
+
+.modalContent {
+  background-color: #fefefe;
+  margin: 5% auto;
+  width: 90dvw;
+  padding: 20px 30px;
+  border: 1px solid #888;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.show {
+  display: block;
+}
+
+.close {
+  align-self: flex-end;
+  font-size: 20px;
+}

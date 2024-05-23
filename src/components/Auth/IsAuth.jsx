@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 import { redirect, useParams, useRouter } from 'next/navigation'
 import SimpleLoader from '../Loaders/SimpleLoader'
-import { getUser } from '@/utils/indexedDataBase'
+import { getFirstUser, getUser } from '@/utils/indexedDataBase'
 import Container from '../Containers/Container'
 import NavBar from '../Navbar/NavBar'
 import FormContainer from '../Containers/FormContainer'
@@ -19,8 +19,9 @@ export default function isAuth(Component) {
 
     const setUser = async () => {
       const authValue = await getUser(_id)
-      if (authValue) {
-        setAuth(authValue.user_data)
+      const user = await getFirstUser()
+      if (authValue || user) {
+        setAuth(authValue?.user_data || user.user_data)
       }
     }
 

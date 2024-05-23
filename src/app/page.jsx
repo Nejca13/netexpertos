@@ -34,6 +34,8 @@ export default function Home() {
       router.push(`/profile/${user.user_data._id}`)
     } else {
       setIsLoading(false)
+      console.log(user)
+      return user
     }
   }
 

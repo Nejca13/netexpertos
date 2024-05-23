@@ -139,6 +139,16 @@ const Map = () => {
                 </p>
               </div>
             )}
+            {error && (
+              <div className={styles.errorMessage}>
+                <p className={styles.p}>
+                  Para poder usar la aplicación debes activar la ubicación
+                  <p className={styles.e}>
+                    Buscando en un radio de {kilometros[kilometrosDeRadio]} Km
+                  </p>
+                </p>
+              </div>
+            )}
           </>
         </div>
       )

@@ -52,6 +52,7 @@
   display: flex;
   flex-direction: column;
   overflow: scroll;
+  scrollbar-width: none;
   gap: 10px;
   padding: 20px 5px;
 }
@@ -87,6 +88,7 @@
 
 .containerInput {
   width: 90%;
+  position: relative;
   min-height: fit-content;
   align-self: center;
   display: flex;
@@ -95,6 +97,7 @@
   justify-content: center;
   border-radius: 26px;
   background-color: white;
+  margin-bottom: 10px;
 }
 
 .input {
@@ -116,4 +119,10 @@
   background-color: transparent;
   border: none;
   cursor: pointer;
+}
+
+.containerEmojis {
+  max-width: 95dvw;
+  position: absolute;
+  bottom: 40px;
 }

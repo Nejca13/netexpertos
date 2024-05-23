@@ -1,15 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30" viewBox="0 0 30 30">
-  <defs>
-    <clipPath id="clip-path">
-      <rect width="30" height="30" fill="none"/>
-    </clipPath>
-  </defs>
-  <g id="ICO-TEL" clip-path="url(#clip-path)">
-    <g id="ico-telefono">
-      <g id="Grupo_412" data-name="Grupo 412" transform="translate(-48 -512)">
-        <rect id="Rectángulo_218" data-name="Rectángulo 218" width="30" height="30" transform="translate(48 512)" fill="none"/>
-        <path id="Trazado_123" data-name="Trazado 123" d="M2055.323,607.689c1.2-1.159,1.849-2.917,0-5.325s-3.512-1.618-4.778-.35-3.475,2.427,0,8.917,10.835,11.815,13.578,12.948,6.28,2.344,8.067-.331,1.055-3.681-1.03-5.108-3.09-1.484-4.555,0-3.463,1.5-7.968-3.42S2054.119,608.848,2055.323,607.689Z" transform="translate(-1998.178 -86.306)" fill="none" stroke="#545454" stroke-width="1"/>
-      </g>
-    </g>
-  </g>
-</svg>
+<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="#545454"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-phone"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2" /></svg>

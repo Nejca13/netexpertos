@@ -3,7 +3,7 @@ import styles from './ProfesionalCard.module.css'
 import cross from '@/assets/images/cross-blanca.png'
 import plus from '@/assets/images/iconPlusBlanco.png'
 import ModalImg from './ModalImg/ModalImg'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import estrellaGris from '@/assets/images/estrellaGris.svg'
 import estrellaAmarilla from '@/assets/images/estrellaAmarilla.svg'
 import CardInfoPersonal from '../CardInfoPersonal/CardInfoPersonal'
@@ -14,6 +14,7 @@ const ProfesionalCard = ({ profesional, setIsShowPopup }) => {
   const [showMoreInfo, setShowMoreInfo] = useState(false)
   const [img, setImg] = useState(null)
   const router = useRouter()
+  const audioRef = useRef(null)
 
   const {
     _id,
@@ -60,6 +61,7 @@ const ProfesionalCard = ({ profesional, setIsShowPopup }) => {
     />
   ) : (
     <section className={styles.backgroundCard}>
+      <audio className='audio' src={'/sounds/Pop2.mp3'} ref={audioRef}></audio>
       {showModalImg && (
         <ModalImg image={img} setShowModalImg={setShowModalImg} />
       )}
@@ -101,7 +103,13 @@ const ProfesionalCard = ({ profesional, setIsShowPopup }) => {
           <li className={styles.li}>
             <button
               className={styles.buttonAgregarFavoritos}
-              onClick={() => setFavorite(!favorite)}
+              onClick={() => {
+                const pop = document.querySelector('.audio')
+                if (!favorite) {
+                  pop.play()
+                }
+                setFavorite(!favorite)
+              }}
             >
               {favorite ? (
                 <>
