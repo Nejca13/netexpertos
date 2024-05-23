@@ -7,11 +7,13 @@ import { useState } from 'react'
 import estrellaGris from '@/assets/images/estrellaGris.svg'
 import estrellaAmarilla from '@/assets/images/estrellaAmarilla.svg'
 import CardInfoPersonal from '../CardInfoPersonal/CardInfoPersonal'
+import { useRouter } from 'next/navigation'
 
 const ProfesionalCard = ({ profesional, setIsShowPopup }) => {
   const [showModalImg, setShowModalImg] = useState(false)
   const [showMoreInfo, setShowMoreInfo] = useState(false)
   const [img, setImg] = useState(null)
+  const router = useRouter()
 
   const {
     _id,
@@ -37,6 +39,19 @@ const ProfesionalCard = ({ profesional, setIsShowPopup }) => {
     setImg(img)
     setShowModalImg(true)
     return
+  }
+
+  const contactarProfesional = async () => {
+    localStorage.setItem(
+      profesional._id,
+      JSON.stringify({
+        nombre: nombre,
+        apellido: apellido,
+        foto_perfil: foto_perfil,
+      })
+    )
+
+    router.push(`/chatroom/${profesional._id}`)
   }
   return showMoreInfo === true ? (
     <CardInfoPersonal
@@ -157,7 +172,12 @@ const ProfesionalCard = ({ profesional, setIsShowPopup }) => {
             </li>
           ))}
         </ul>
-        <button className={styles.buttonContactar}>Contactar</button>
+        <button
+          className={styles.buttonContactar}
+          onClick={contactarProfesional}
+        >
+          Contactar
+        </button>
       </div>
     </section>
   )
