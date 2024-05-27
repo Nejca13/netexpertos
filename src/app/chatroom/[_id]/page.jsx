@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styles from './page.module.css'
 import Image from 'next/image'
 import TEL from '@/assets/images/ICONOS/ICO-TEL.svg'
@@ -17,21 +17,26 @@ const Chat = () => {
   const [showEmojis, setShowEmojis] = useState(false)
   const [currentMessage, setCurrentMessage] = useState('')
   const router = useRouter()
+  const textareaRef = useRef(null)
+  const containerRef = useRef(null)
+
+  useEffect(() => {
+    textareaRef?.current?.focus()
+    if (containerRef.current) {
+      containerRef.current.scrollTop = containerRef.current.scrollHeight
+    }
+  }, [messages])
 
   const handleSend = () => {
+    setShowEmojis(false)
     if (currentMessage.trim() !== '') {
-      setMessages([
-        ...messages,
-        { id: 0, message: currentMessage },
-        {
-          id: 1,
-          message:
-            'En este momento no estoy disponible, en unas horas podre hablar contigo!',
-        },
-      ])
+      setMessages([...messages, { id: 0, message: currentMessage }])
       setCurrentMessage('')
+
+      const PopMensajeSaliente = document.querySelector('#popMensajeSaliente')
+      PopMensajeSaliente.volume = 0.3
+      PopMensajeSaliente.play()
     }
-    console.log(messages)
   }
   useEffect(() => {
     setProf(JSON.parse(localStorage.getItem(_id)))
@@ -39,6 +44,7 @@ const Chat = () => {
 
   return (
     <div className={styles.container}>
+      <audio src='/sounds/Pop2.mp3' id='popMensajeSaliente'></audio>
       {prof ? (
         <>
           <div className={styles.header}>
@@ -72,7 +78,7 @@ const Chat = () => {
               alt='Imagen de perfil'
             />
           </div>
-          <div className={styles.chats}>
+          <div className={styles.chats} ref={containerRef}>
             {messages.map((message, index) => {
               if (message.id === 0) {
                 return (
@@ -92,27 +98,40 @@ const Chat = () => {
           </div>
           <div className={styles.containerInput}>
             <textarea
+              ref={textareaRef}
               className={styles.input}
               cols={18}
+              autoFocus={true}
               value={currentMessage}
-              onChange={(e) => setCurrentMessage(e.target.value)}
+              onChange={(e) => {
+                setCurrentMessage(e.target.value)
+              }}
               placeholder='Escribe tu mensaje'
             />
-            <button className={styles.botonEnviar} onClick={handleSend}>
-              <Image src={SEND} alt='icono enviar' height={30} />
-            </button>
-            <button
-              className={styles.botonEnviar}
-              onClick={() => setShowEmojis(!showEmojis)}
-            >
-              <Image src={EMOJI} height={30} alt='icono emojis' />
-            </button>
+            <div className={styles.containerButtons}>
+              <button className={styles.botonEnviar} onClick={handleSend}>
+                <Image src={SEND} alt='icono enviar' height={30} />
+              </button>
+              <button
+                className={styles.botonEnviar}
+                onClick={() => {
+                  setShowEmojis(!showEmojis)
+                }}
+              >
+                <Image src={EMOJI} height={30} alt='icono emojis' />
+              </button>
+            </div>
             <div className={styles.containerEmojis}>
               <EmojiPicker
                 open={showEmojis}
                 onEmojiClick={(e) =>
                   setCurrentMessage(currentMessage + '' + e.emoji)
                 }
+                emojiStyle='native'
+                lazyLoadEmojis={true}
+                searchDisabled={true}
+                width={300}
+                height={300}
               />
             </div>
           </div>

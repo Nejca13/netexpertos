@@ -8,7 +8,6 @@
 .slideContainer {
   width: 90%;
   height: 35px;
-  border: 2px solid rgba(138, 138, 138, 0.747);
   background-color: rgba(128, 128, 128, 0.425);
   border-radius: 26px;
   position: relative;
@@ -20,6 +19,16 @@
   align-self: center;
   color: white;
   font-family: var(--font-roboto-italic);
+  animation: shadow 1s linear alternate infinite;
+}
+
+@keyframes shadow {
+  0% {
+    box-shadow: 0 0px 10px rgba(255, 255, 255, 0.418);
+  }
+  100% {
+    box-shadow: 0 0px 30px white;
+  }
 }
 
 .slideContainer.endReached {
@@ -27,15 +36,35 @@
 }
 
 .slider {
-  width: 35px;
-  height: 35px;
+  width: 33px;
+  height: 33px;
   background-color: #fff;
   border-radius: 100%;
   position: absolute;
-  top: 0;
+  top: auto;
   left: 0;
   cursor: pointer;
   transition: left 0.3s;
+}
+
+.animated {
+  animation: shadow 1s linear alternate infinite;
+  animation: advance 1s linear alternate infinite;
+}
+
+@keyframes advance {
+  0% {
+    left: 0;
+  }
+  50% {
+    left: 4px;
+  }
+  60% {
+    left: 6px;
+  }
+  100% {
+    left: 8px;
+  }
 }
 
 .modal {
@@ -56,7 +85,7 @@
   background-color: #fefefe;
   margin: 5% auto;
   width: 90dvw;
-  padding: 20px 30px;
+  padding: 20px;
   border: 1px solid #888;
   border-radius: 24px;
   display: flex;

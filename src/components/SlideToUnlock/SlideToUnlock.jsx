@@ -93,6 +93,13 @@ const SlideToUnlock = () => {
     sliderRef.current.style.left = '0'
   }
 
+  // Obtener la fecha actual
+  const today = new Date()
+
+  // Calcular la fecha 15 días en el futuro
+  const maxDate = new Date()
+  maxDate.setDate(today.getDate() + 30)
+
   return (
     <div className={styles.container}>
       <div
@@ -112,7 +119,7 @@ const SlideToUnlock = () => {
           src={Forward}
           height={35}
           width={35}
-          className={styles.slider}
+          className={`${styles.slider} ${!dragging ? styles.animated : ''}`}
           ref={sliderRef}
           onMouseDown={handleMouseDown}
           onTouchStart={handleTouchStart}
@@ -126,7 +133,7 @@ const SlideToUnlock = () => {
             <span className={styles.close} onClick={() => closeModal()}>
               &times;
             </span>
-            <Calendar />
+            <Calendar minDate={today} maxDate={maxDate} />
           </div>
         </div>
       )}
