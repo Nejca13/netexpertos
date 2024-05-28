@@ -17,6 +17,7 @@ function useGeolocation() {
           const newLocation = { latitude, longitude }
 
           if (
+            !storedLocation ||
             storedLocation.latitude !== newLocation.latitude ||
             storedLocation.longitude !== newLocation.longitude
           ) {
