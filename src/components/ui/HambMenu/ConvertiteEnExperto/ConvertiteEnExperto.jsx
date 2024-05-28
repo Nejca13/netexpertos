@@ -86,6 +86,8 @@ const ConvertiteEnExperto = ({ user, setMenuComponent }) => {
       )
       if (res === true) {
         window.location.reload()
+      } else {
+        setIsLoading(false) // Asegúrate de que el loading se detenga si no hay recarga
       }
     } catch (error) {
       console.log(error)

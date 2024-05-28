@@ -29,6 +29,7 @@ const HambMenu = ({ show, userApp }) => {
             user={userApp}
           />
         )
+        break
       case 'Salir':
         userLogout()
       default:

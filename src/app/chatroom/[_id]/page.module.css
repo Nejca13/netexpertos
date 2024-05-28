@@ -133,3 +133,9 @@
   position: absolute;
   bottom: calc(100% + 10px);
 }
+
+.hora {
+  font-size: 11px;
+  margin: 0 5px;
+  color: rgb(173, 173, 173);
+}

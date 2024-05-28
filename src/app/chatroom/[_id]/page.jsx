@@ -9,28 +9,61 @@ import { useParams, useRouter } from 'next/navigation'
 import SlideToUnlock from '@/components/SlideToUnlock/SlideToUnlock'
 import IsAuth from '@/components/Auth/IsAuth'
 import EmojiPicker from 'emoji-picker-react'
+import { getFirstUser } from '@/utils/indexedDataBase'
+import { getChats } from '@/services/api/chat'
+import { useWebSocket } from '@/app/WebSocketContext'
 
 const Chat = () => {
   const { _id } = useParams()
-  const [prof, setProf] = useState()
-  const [messages, setMessages] = useState([])
-  const [showEmojis, setShowEmojis] = useState(false)
+  const [prof, setProf] = useState(null)
   const [currentMessage, setCurrentMessage] = useState('')
   const router = useRouter()
   const textareaRef = useRef(null)
   const containerRef = useRef(null)
+  const { ws, messages, setUserId, setMessages } = useWebSocket()
+  const [user, setUser] = useState(null)
+  const [showEmojis, setShowEmojis] = useState(false)
 
   useEffect(() => {
-    textareaRef?.current?.focus()
+    textareaRef.current?.focus()
     if (containerRef.current) {
       containerRef.current.scrollTop = containerRef.current.scrollHeight
     }
   }, [messages])
 
+  useEffect(() => {
+    setProf(JSON.parse(localStorage.getItem(_id)))
+  }, [_id])
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const user = await getFirstUser()
+      setUser(user)
+      if (user) {
+        setUserId(user.user_data._id)
+        await getChats(_id, user.user_data._id).then((response) => {
+          setMessages(
+            response.conversaciones[response.conversaciones.length - 1].mensajes
+          )
+        })
+      }
+    }
+    fetchUser()
+  }, [])
+
   const handleSend = () => {
     setShowEmojis(false)
     if (currentMessage.trim() !== '') {
-      setMessages([...messages, { id: 0, message: currentMessage }])
+      const messageToSend = `${_id}:${currentMessage}:${user.user_data.foto_perfil}`
+      ws.send(messageToSend)
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        {
+          remitente_id: user.user_data._id,
+          mensaje: currentMessage,
+          hora: obtenerHoraActual(),
+        },
+      ])
       setCurrentMessage('')
 
       const PopMensajeSaliente = document.querySelector('#popMensajeSaliente')
@@ -38,14 +71,18 @@ const Chat = () => {
       PopMensajeSaliente.play()
     }
   }
-  useEffect(() => {
-    setProf(JSON.parse(localStorage.getItem(_id)))
-  }, [])
+
+  const obtenerHoraActual = (time) => {
+    const ahora = time ? new Date(time) : new Date()
+    const horas = String(ahora.getHours()).padStart(2, '0')
+    const minutos = String(ahora.getMinutes()).padStart(2, '0')
+    return `${horas}:${minutos}`
+  }
 
   return (
     <div className={styles.container}>
       <audio src='/sounds/Pop2.mp3' id='popMensajeSaliente'></audio>
-      {prof ? (
+      {prof && user && (
         <>
           <div className={styles.header}>
             <div className={styles.div}>
@@ -56,7 +93,7 @@ const Chat = () => {
                 alt='Flecha atras'
                 onClick={() => {
                   localStorage.removeItem(_id)
-                  router.back()
+                  router.push(`/profile/${user.user_data._id}`)
                 }}
               />
               <Image
@@ -80,17 +117,24 @@ const Chat = () => {
           </div>
           <div className={styles.chats} ref={containerRef}>
             {messages.map((message, index) => {
-              if (message.id === 0) {
+              if (message.remitente_id === user.user_data._id) {
                 return (
                   <p key={index} className={styles.mensajeSaliente}>
-                    {message.message}
+                    {message.mensaje || message.message}
+                    <span className={styles.hora}>
+                      {message.time
+                        ? obtenerHoraActual(message.time)
+                        : message.hora}
+                    </span>
                   </p>
                 )
-              }
-              if (message.id === 1) {
+              } else {
                 return (
                   <p key={index} className={styles.mensajeEntrante}>
-                    {message.message}
+                    {message.mensaje || message.message}
+                    <span className={styles.hora}>
+                      {obtenerHoraActual(message.time)}
+                    </span>
                   </p>
                 )
               }
@@ -103,9 +147,7 @@ const Chat = () => {
               cols={18}
               autoFocus={true}
               value={currentMessage}
-              onChange={(e) => {
-                setCurrentMessage(e.target.value)
-              }}
+              onChange={(e) => setCurrentMessage(e.target.value)}
               placeholder='Escribe tu mensaje'
             />
             <div className={styles.containerButtons}>
@@ -114,9 +156,7 @@ const Chat = () => {
               </button>
               <button
                 className={styles.botonEnviar}
-                onClick={() => {
-                  setShowEmojis(!showEmojis)
-                }}
+                onClick={() => setShowEmojis(!showEmojis)}
               >
                 <Image src={EMOJI} height={30} alt='icono emojis' />
               </button>
@@ -125,7 +165,7 @@ const Chat = () => {
               <EmojiPicker
                 open={showEmojis}
                 onEmojiClick={(e) =>
-                  setCurrentMessage(currentMessage + '' + e.emoji)
+                  setCurrentMessage(currentMessage + e.emoji)
                 }
                 emojiStyle='native'
                 lazyLoadEmojis={true}
@@ -137,7 +177,7 @@ const Chat = () => {
           </div>
           <SlideToUnlock />
         </>
-      ) : null}
+      )}
     </div>
   )
 }

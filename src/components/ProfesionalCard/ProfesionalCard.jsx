@@ -8,6 +8,7 @@ import estrellaGris from '@/assets/images/estrellaGris.svg'
 import estrellaAmarilla from '@/assets/images/estrellaAmarilla.svg'
 import CardInfoPersonal from '../CardInfoPersonal/CardInfoPersonal'
 import { useRouter } from 'next/navigation'
+import { getFirstUser } from '@/utils/indexedDataBase'
 
 const ProfesionalCard = ({ profesional, setIsShowPopup }) => {
   const [showModalImg, setShowModalImg] = useState(false)

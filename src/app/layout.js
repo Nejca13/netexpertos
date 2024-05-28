@@ -1,3 +1,4 @@
+import { WebSocketProvider } from './WebSocketContext'
 import './globals.css'
 import { ProfesionalCardProvider } from './profesionalCardContext'
 import { AuthProvider } from './userContext'
@@ -12,7 +13,9 @@ export default function RootLayout({ children }) {
     <html lang='es'>
       <body>
         <AuthProvider>
-          <ProfesionalCardProvider>{children}</ProfesionalCardProvider>
+          <WebSocketProvider>
+            <ProfesionalCardProvider>{children}</ProfesionalCardProvider>
+          </WebSocketProvider>
         </AuthProvider>
       </body>
     </html>

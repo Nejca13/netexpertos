@@ -5,7 +5,6 @@ import Image from 'next/image'
 import LogoNetExpertos from '@/components/ui/Logo/LogoNetExpertos'
 import styles from './page.module.css'
 import lupa from '@/assets/images/LUPA.svg'
-import { destacados } from '@/constants/destacados'
 import HambMenu from '@/components/ui/HambMenu/HambMenu'
 import { useEffect, useState } from 'react'
 import HambIcon from '@/components/ui/HambIcon/HambIcon'
@@ -14,11 +13,11 @@ import { getUser } from '@/utils/indexedDataBase'
 import RubrosDropdown from '@/components/RubrosDropdown/RubrosDropdown'
 import { useParams } from 'next/navigation'
 import { searchFunction } from './searchFunction'
-import InfiniteLooper from '@/components/InfinityLooper/InfinityLooper'
-import { usuariosPremium } from '@/constants/usuariosPremium'
 import Destacados from '@/components/Map/Destacados/Destacados'
 import { useShowProfesionalCard } from '@/app/profesionalCardContext'
 import ProfesionalCard from '@/components/ProfesionalCard/ProfesionalCard'
+import { useWebSocket } from '@/app/WebSocketContext'
+import NotificacionChat from '@/components/NotificacionChat/NotificacionChat'
 
 const Page = () => {
   const [showMenu, setShowMenu] = useState(false)
@@ -26,17 +25,38 @@ const Page = () => {
   const [searchItems, setSearchItems] = useState('')
   const { _id } = useParams()
   const [showProfesionalCard, setShowProfesionalCard] = useShowProfesionalCard()
+  const { ws, messages, setUserId } = useWebSocket()
+  const [notificationMessages, setNotificationMessages] = useState([])
 
   useEffect(() => {
-    const asd = async () => {
-      const user = await getUser(_id)
-      setUserApp(user.user_data)
-    }
     asd()
   }, [])
 
+  useEffect(() => {
+    if (userApp) {
+      if (messages.length > 0) {
+        setNotificationMessages(messages)
+      }
+      setTimeout(() => {
+        setNotificationMessages([])
+      }, 5000)
+    }
+  }, [messages])
+
+  const asd = async () => {
+    const user = await getUser(_id)
+    setUserApp(user.user_data)
+    setUserId(user.user_data._id)
+  }
+
   return (
     <ContainerBlanco>
+      {notificationMessages.length > 0 ? (
+        <NotificacionChat
+          message={notificationMessages}
+          setNotificationMessages={setNotificationMessages}
+        />
+      ) : null}
       {showMenu && (
         <HambMenu userApp={userApp} show={() => setShowMenu(!showMenu)} />
       )}

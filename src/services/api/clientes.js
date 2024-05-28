@@ -150,11 +150,10 @@ export const converToProfesional = async (
     if (response.ok) {
       const responseData = await response.json()
       if (responseData) {
-        clearUsers().then(() => {
-          addUser(responseData)
-          setIsLoading(false)
-          return true
-        })
+        await clearUsers()
+        await addUser(responseData)
+        setIsLoading(false)
+        return true
       }
     } else {
       const errorData = await response.json()
@@ -167,5 +166,6 @@ export const converToProfesional = async (
     console.error('Error convirtiendo a profesional:', error)
     setErrorMessage('Error al cambiar de tipo de cuenta')
     setIsLoading(false)
+    return false
   }
 }
