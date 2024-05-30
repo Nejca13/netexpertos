@@ -36,7 +36,12 @@ const SeccionTrabajos = ({ onNext, onBack }) => {
             }
           }}
         >
-          <Image src={ImagenPlus} width={25} height={25} alt='signo mas' />
+          <Image
+            src={ImagenPlus}
+            width={25}
+            height={25}
+            alt='icono agregar mas'
+          />
         </button>
         {arr.length > 1 && (
           <button
@@ -48,7 +53,7 @@ const SeccionTrabajos = ({ onNext, onBack }) => {
               setArr(newItems)
             }}
           >
-            <Image src={Eliminar} width={25} height={25} alt='signo mas' />
+            <Image src={Eliminar} width={25} height={25} alt='icono eliminar' />
           </button>
         )}
       </div>

@@ -10,10 +10,12 @@ import {
 import MenuPerfil from './Perfil/MenuPerfil'
 import { useState, useEffect, useRef } from 'react'
 import ConvertiteEnExperto from './ConvertiteEnExperto/ConvertiteEnExperto'
+import { useRouter } from 'next/navigation'
 
 const HambMenu = ({ show, userApp }) => {
   const [menuComponent, setMenuComponent] = useState(null)
   const containerRef = useRef(null)
+  const router = useRouter()
 
   const handleOptionClick = (name) => {
     switch (name) {
@@ -29,6 +31,9 @@ const HambMenu = ({ show, userApp }) => {
             user={userApp}
           />
         )
+        break
+      case 'Mensajes':
+        router.push(`/profile/${userApp._id}/chats`)
         break
       case 'Salir':
         userLogout()

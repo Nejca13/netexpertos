@@ -1,10 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { saveCompressedImageToLocalStorage } from '@/utils/minificadorDeImagenes'
 import styles from './MultiImageForm.module.css'
 import cameraImage from '@/assets/images/Camera.png'
 
-const MultiImageForm = ({ index }) => {
+const MultiImageForm = ({ index, trabajos }) => {
   const [image, setImage] = useState(null)
   const [error, setError] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
@@ -17,6 +17,12 @@ const MultiImageForm = ({ index }) => {
       })
     }
   }
+
+  useEffect(() => {
+    if (trabajos) {
+      setImage(trabajos[0].imagen_base64)
+    }
+  }, [])
 
   return (
     <div name={index} className={styles.container}>

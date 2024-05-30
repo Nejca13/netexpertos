@@ -35,7 +35,24 @@ export const WebSocketProvider = ({ children }) => {
 
     ws.current.onmessage = (event) => {
       const data = JSON.parse(event.data)
-      console.log('Message received:', data)
+      const localMessage = [
+        {
+          id: data.id,
+          message: data.message,
+          name: data.name,
+          surname: data.surname,
+        },
+      ]
+      const unSeeMessages = JSON.parse(localStorage.getItem(data.id))
+      if (unSeeMessages) {
+        const otherMessage = [...unSeeMessages, localMessage]
+        console.log(unSeeMessages)
+        localStorage.setItem(data.id, JSON.stringify(otherMessage))
+      } else {
+        localStorage.setItem(data.id, JSON.stringify(localMessage))
+      }
+
+      console.log('Message received y guardado en localStorage:', localMessage)
       setMessages((prevMessages) => [...prevMessages, data])
     }
 

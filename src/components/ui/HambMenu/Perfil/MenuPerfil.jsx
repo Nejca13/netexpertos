@@ -14,11 +14,13 @@ import ButtonSubmit from '@/components/Buttons/ButtonSubmit/ButtonSubmit'
 import crossBlanca from '@/assets/images/cross-blanca.png'
 import { parsearHorarios } from './parsearHorarios'
 import { handleSubmit } from './FormUtils'
+import CargarTrabajos from './CargarTrabajos/CargarTrabajos'
 
 const MenuPerfil = ({ setMenuComponent, user }) => {
   const [newProfileImage, setNewProfileImage] = useState(null)
   const [rubroSeleccionado, setRubroSeleccionado] = useState(user.rubro_nombre)
   const [editMode, setEditMode] = useState(false)
+  const [cargarTrabajos, setCargarTrabajos] = useState(false)
 
   const handleChangeImage = (files) => {
     const file = files[0]
@@ -145,13 +147,27 @@ const MenuPerfil = ({ setMenuComponent, user }) => {
               setEditMode(!editMode)
             }}
           />
-          {editMode && (
+          {editMode ? (
             <ButtonSubmit
               backgroundColor={'white'}
               textColor={'var(--color-gris-medio)'}
               text={'Guardar cambios'}
             />
+          ) : (
+            <Button
+              backgroundColor={'var(--color-amarillo)'}
+              textColor={'var(--color-gris-medio)'}
+              text={'Cargar trabajos'}
+              func={(e) => {
+                e.preventDefault()
+                setCargarTrabajos(true)
+              }}
+            />
           )}
+
+          {cargarTrabajos ? (
+            <CargarTrabajos setCargarTrabajos={setCargarTrabajos} user={user} />
+          ) : null}
         </div>
       </form>
     </div>

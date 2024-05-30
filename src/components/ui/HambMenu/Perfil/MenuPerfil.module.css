@@ -25,7 +25,7 @@
   min-height: 100dvh;
   width: 100%;
   padding: 10px 5%;
-  background-color: rgba(0, 0, 0, 0.7);
+
   display: flex !important;
   flex-direction: column;
   gap: 20px;
@@ -87,5 +87,6 @@
 
 .containerButtons {
   display: flex;
+  justify-content: space-around;
   gap: 20px;
 }

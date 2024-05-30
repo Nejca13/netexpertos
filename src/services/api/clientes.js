@@ -153,6 +153,7 @@ export const converToProfesional = async (
         await clearUsers()
         await addUser(responseData)
         setIsLoading(false)
+        window.location.reload()
         return true
       }
     } else {

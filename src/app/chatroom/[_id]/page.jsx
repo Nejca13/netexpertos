@@ -41,20 +41,28 @@ const Chat = () => {
       setUser(user)
       if (user) {
         setUserId(user.user_data._id)
-        await getChats(_id, user.user_data._id).then((response) => {
-          setMessages(
-            response.conversaciones[response.conversaciones.length - 1].mensajes
-          )
-        })
+        await getChats(_id, user.user_data._id)
+          .then((response) => {
+            setMessages(
+              response?.conversaciones
+                .slice(-3)
+                .flatMap((conversations) => conversations.mensajes)
+            )
+          })
+          .catch((error) => console.log(error))
       }
     }
-    fetchUser()
-  }, [])
+    if (!user) {
+      fetchUser()
+    }
+  }, [user, ws])
 
   const handleSend = () => {
     setShowEmojis(false)
     if (currentMessage.trim() !== '') {
-      const messageToSend = `${_id}:${currentMessage}:${user.user_data.foto_perfil}`
+      const messageToSend = `${_id}:${currentMessage}:${btoa(
+        user.user_data.foto_perfil
+      )}:${user.user_data.nombre}:${user.user_data.apellido}`
       ws.send(messageToSend)
       setMessages((prevMessages) => [
         ...prevMessages,
@@ -93,7 +101,7 @@ const Chat = () => {
                 alt='Flecha atras'
                 onClick={() => {
                   localStorage.removeItem(_id)
-                  router.push(`/profile/${user.user_data._id}`)
+                  router.back()
                 }}
               />
               <Image
@@ -141,7 +149,14 @@ const Chat = () => {
             })}
           </div>
           <div className={styles.containerInput}>
+            <button
+              className={styles.botonEnviar}
+              onClick={() => setShowEmojis(!showEmojis)}
+            >
+              <Image src={EMOJI} height={30} alt='icono emojis' />
+            </button>
             <textarea
+              maxLength={300}
               ref={textareaRef}
               className={styles.input}
               cols={18}
@@ -150,17 +165,11 @@ const Chat = () => {
               onChange={(e) => setCurrentMessage(e.target.value)}
               placeholder='Escribe tu mensaje'
             />
-            <div className={styles.containerButtons}>
-              <button className={styles.botonEnviar} onClick={handleSend}>
-                <Image src={SEND} alt='icono enviar' height={30} />
-              </button>
-              <button
-                className={styles.botonEnviar}
-                onClick={() => setShowEmojis(!showEmojis)}
-              >
-                <Image src={EMOJI} height={30} alt='icono emojis' />
-              </button>
-            </div>
+
+            <button className={styles.botonEnviar} onClick={handleSend}>
+              <Image src={SEND} alt='icono enviar' height={30} />
+            </button>
+
             <div className={styles.containerEmojis}>
               <EmojiPicker
                 open={showEmojis}

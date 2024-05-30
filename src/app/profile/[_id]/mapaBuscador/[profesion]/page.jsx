@@ -16,6 +16,8 @@ import ContainerBlanco from '@/components/Containers/ContainerFondoBlanco'
 import Destacados from '@/components/Map/Destacados/Destacados'
 import Image from 'next/image'
 import Lupa from '@/assets/images/LUPA_NEGRA.svg'
+import { useWebSocket } from '@/app/WebSocketContext'
+import NotificacionChat from '@/components/NotificacionChat/NotificacionChat'
 
 const Map = () => {
   const { profesion, _id } = useParams()
@@ -29,10 +31,13 @@ const Map = () => {
   const [isShowPopup, setIsShowPopup] = useState(false)
   const [showMoreInfo, setShowMoreInfo] = useState(false)
   const [kilometrosDeRadio, setKilometrosDeRadio] = useState(15)
+  const { ws, messages, setUserId } = useWebSocket()
+  const [notificationMessages, setNotificationMessages] = useState([])
 
   const setUser = async () => {
     const storageUser = await getUser(_id)
     setUserApp(storageUser.user_data)
+    setUserId(storageUser.user_data._id)
   }
 
   useEffect(() => {
@@ -59,6 +64,16 @@ const Map = () => {
         })
     }
   }, [location])
+  useEffect(() => {
+    if (userApp) {
+      if (messages.length > 0) {
+        setNotificationMessages(messages)
+      }
+      setTimeout(() => {
+        setNotificationMessages([])
+      }, 5000)
+    }
+  }, [messages])
   useEffect(() => {
     if (location) {
       getFilteredAndSortedProfessionalsByDistance(
@@ -157,6 +172,12 @@ const Map = () => {
 
   return (
     <div className={styles.containerMap}>
+      {notificationMessages.length > 0 ? (
+        <NotificacionChat
+          message={notificationMessages}
+          setNotificationMessages={setNotificationMessages}
+        />
+      ) : null}
       {show && <HambMenu userApp={userApp} show={() => setShow(!show)} />}
       <div className={styles.menu}>
         <HambIcon show={() => setShow(!show)} />
@@ -170,7 +191,7 @@ const Map = () => {
       {renderMapComponent()}
       <Destacados setIsShowPopup={setIsShowPopup} />
       <Link href={`/profile/${_id}`} className={styles.button}>
-        <Image src={Lupa} width={20} height={20} /> Buscar
+        <Image src={Lupa} width={20} height={20} alt='icono lupa' /> Buscar
       </Link>
     </div>
   )
