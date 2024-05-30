@@ -2,7 +2,7 @@ import Image from 'next/image'
 import styles from './MessagesCard.module.css'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import SIGNO_MAS from '@/assets/images/SignoMas.png'
+import defaultImage from '@/assets/images/userImage.png'
 
 const MessagesCard = ({ item, index, _id }) => {
   const [unSeenMessage, setUnSeenMessage] = useState(false)
@@ -38,11 +38,13 @@ const MessagesCard = ({ item, index, _id }) => {
   }
 
   useEffect(() => {
-    const mensajesNoLeidos = JSON.parse(
-      localStorage.getItem(getInfo(item.mensajes).remitente_id)
-    )
-    if (mensajesNoLeidos) {
-      setUnSeenMessage(mensajesNoLeidos.length)
+    if (getInfo(item.mensajes)?.remitente_id !== undefined) {
+      const mensajesNoLeidos = JSON.parse(
+        localStorage.getItem(getInfo(item.mensajes).remitente_id)
+      )
+      if (mensajesNoLeidos) {
+        setUnSeenMessage(mensajesNoLeidos.length)
+      }
     }
   }, [item])
 
@@ -55,7 +57,7 @@ const MessagesCard = ({ item, index, _id }) => {
   return (
     <li
       className={styles.li}
-      key={getInfo(item.mensajes).remitente_id}
+      key={index}
       onClick={() => {
         localStorage.setItem(
           getInfo(item.mensajes).remitente_id,

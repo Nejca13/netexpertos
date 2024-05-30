@@ -5,7 +5,6 @@ import { useParams, useRouter } from 'next/navigation'
 import { getAllConversations } from '@/services/api/chat'
 import { useWebSocket } from '@/app/WebSocketContext'
 import Image from 'next/image'
-import defaultImage from '@/assets/images/userImage.png'
 import test from './test.json'
 import MessagesCard from '@/components/MessagesCard/MessagesCard'
 
@@ -75,6 +74,11 @@ const Page = () => {
     }
   }, [messages])
 
+  const getInfo = (mensajes) => {
+    const id = mensajes.filter((mensaje, index) => mensaje.remitente_id !== _id)
+    return id[0]
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.containerTitle}>
@@ -93,9 +97,12 @@ const Page = () => {
       </div>
       <ul className={styles.ul}>
         {conversaciones.length > 0 &&
-          conversaciones.map((item, index) => (
-            <MessagesCard item={item} index={index} _id={_id} key={index} />
-          ))}
+          conversaciones.map(
+            (item, index) =>
+              getInfo(item.mensajes)?.remitente_id !== undefined && (
+                <MessagesCard item={item} index={index} _id={_id} key={index} />
+              )
+          )}
       </ul>
     </div>
   )

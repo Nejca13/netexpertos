@@ -29,6 +29,11 @@ const Page = () => {
   const [notificationMessages, setNotificationMessages] = useState([])
 
   useEffect(() => {
+    Notification.requestPermission(function (permission) {
+      if (permission === 'granted') {
+        console.log('Permiso de notificaciones aceptado')
+      }
+    })
     asd()
   }, [])
 

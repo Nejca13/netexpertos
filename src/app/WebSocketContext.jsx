@@ -33,28 +33,34 @@ export const WebSocketProvider = ({ children }) => {
       console.log('WebSocket connected')
     }
 
-    ws.current.onmessage = (event) => {
-      const data = JSON.parse(event.data)
-      const localMessage = [
-        {
+    const addMessageToLocalStorage = (data) => {
+      try {
+        const storedMessages = JSON.parse(localStorage.getItem(data.id)) || []
+        const newMessage = {
           id: data.id,
           message: data.message,
           name: data.name,
           surname: data.surname,
-        },
-      ]
-      const unSeeMessages = JSON.parse(localStorage.getItem(data.id))
-      if (unSeeMessages) {
-        const otherMessage = [...unSeeMessages, localMessage]
-        console.log(unSeeMessages)
-        localStorage.setItem(data.id, JSON.stringify(otherMessage))
-      } else {
-        localStorage.setItem(data.id, JSON.stringify(localMessage))
+        }
+        const updatedMessages = [...storedMessages, newMessage]
+        localStorage.setItem(data.id, JSON.stringify(updatedMessages))
+        console.log('Message received y guardado en localStorage:', newMessage)
+      } catch (error) {
+        console.error('Error al manejar localStorage:', error)
       }
-
-      console.log('Message received y guardado en localStorage:', localMessage)
-      setMessages((prevMessages) => [...prevMessages, data])
     }
+
+    // Función para manejar el evento de recepción de mensajes
+    const handleMessageEvent = (event) => {
+      try {
+        const data = JSON.parse(event.data)
+        addMessageToLocalStorage(data)
+        setMessages((prevMessages) => [...prevMessages, data])
+      } catch (error) {
+        console.error('Error al procesar el mensaje:', error)
+      }
+    }
+    ws.current.onmessage = handleMessageEvent
 
     ws.current.onclose = () => {
       console.log('WebSocket disconnected')
