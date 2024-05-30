@@ -58,11 +58,25 @@ const Chat = () => {
   }, [user, ws])
 
   const handleSend = () => {
+    const isFotoPerfilValid = (data) => {
+      // Verificar si el campo existe y es un objeto
+      if (
+        (data && typeof data === 'object') ||
+        (typeof data === 'string' && !Array.isArray(data))
+      ) {
+        // Verificar que el objeto no esté vacío
+        return Object.keys(data).length > 0
+      }
+      return false
+    }
+    const image_perfil = isFotoPerfilValid(user.user_data.foto_perfil)
+      ? user.user_data.foto_perfil
+      : user.user_data.foto_base64
     setShowEmojis(false)
     if (currentMessage.trim() !== '') {
-      const messageToSend = `${_id}:${currentMessage}:${btoa(
-        user.user_data.foto_perfil
-      )}:${user.user_data.nombre}:${user.user_data.apellido}`
+      const messageToSend = `${_id}:${currentMessage}:${btoa(image_perfil)}:${
+        user.user_data.nombre
+      }:${user.user_data.apellido}`
       ws.send(messageToSend)
       setMessages((prevMessages) => [
         ...prevMessages,

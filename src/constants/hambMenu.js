@@ -49,6 +49,10 @@ export const hambMenuOptionsClient = [
     icon: USER,
   },
   {
+    name: 'Mensajes',
+    icon: CHAT,
+  },
+  {
     name: 'Configuracion',
     icon: CONFIG,
   },

@@ -85,7 +85,7 @@ const MessagesCard = ({ item, index, _id }) => {
       <div className={styles.containerText}>
         <div className={styles.containerMensaje}>
           <p className={styles.nombre}>
-            {item.mensajes[0].nombre} {item.mensajes[0].apellido}
+            {getInfo(item.mensajes).nombre} {getInfo(item.mensajes).apellido}
           </p>
           <span className={styles.time}>
             {obtenerHoraActual(item.mensajes[0].time)}
