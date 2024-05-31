@@ -28,16 +28,22 @@ const Page = () => {
   const { ws, messages, setUserId } = useWebSocket()
   const [notificationMessages, setNotificationMessages] = useState([])
 
-  function sendNotification() {
-    if (typeof Android !== 'undefined' && Android.showNotification) {
-      Android.showNotification(
-        'Hola!',
-        'Esta es una notificación desde WebView.'
-      )
-    } else {
-      alert('La interfaz de Android no está disponible.')
+  useEffect(() => {
+    // This code will run once when the component mounts
+    const sendNotification = () => {
+      if (typeof Android !== 'undefined' && Android.showNotification) {
+        Android.showNotification(
+          'Hola!',
+          'Esta es una notificación desde WebView.'
+        )
+      } else {
+        alert('La interfaz de Android no está disponible.')
+      }
     }
-  }
+
+    // Expose the function to the global scope
+    window.sendNotification = sendNotification
+  }, [])
 
   useEffect(() => {
     fetchUserData()
@@ -67,7 +73,7 @@ const Page = () => {
   return (
     <ContainerBlanco>
       {typeof window !== 'undefined' && (
-        <button onClick={() => sendNotification()}>Notify me</button>
+        <button onClick={() => window.sendNotification()}>Notify me</button>
       )}
       {notificationMessages.length > 0 ? (
         <NotificacionChat
