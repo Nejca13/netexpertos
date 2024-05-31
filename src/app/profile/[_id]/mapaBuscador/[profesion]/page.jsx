@@ -180,7 +180,13 @@ const Map = () => {
       ) : null}
       {show && <HambMenu userApp={userApp} show={() => setShow(!show)} />}
       <div className={styles.menu}>
-        <HambIcon show={() => setShow(!show)} />
+        <HambIcon
+          userApp={userApp}
+          messages={messages}
+          show={() => {
+            setShow(!show)
+          }}
+        />
       </div>
       {isShowPopup && (
         <ProfesionalCard

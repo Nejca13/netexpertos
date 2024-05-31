@@ -94,6 +94,7 @@
 }
 
 .container .menuConfig .ul .li {
+  position: relative;
   margin-left: 18px;
   height: 37px;
   border-bottom: 1px solid var(--color-negro-transparente);

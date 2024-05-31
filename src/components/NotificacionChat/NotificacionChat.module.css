@@ -2,7 +2,8 @@
   position: absolute;
   border: 3px solid black;
   display: flex;
-  margin: 4px;
+  top: 0;
+  margin: 3px;
   justify-content: center;
   align-items: center;
   background-color: var(--color-amarillo);

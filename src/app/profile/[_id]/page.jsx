@@ -29,7 +29,7 @@ const Page = () => {
   const [notificationMessages, setNotificationMessages] = useState([])
 
   useEffect(() => {
-    asd()
+    fetchUserData()
   }, [])
 
   useEffect(() => {
@@ -47,7 +47,7 @@ const Page = () => {
     }
   }, [messages])
 
-  const asd = async () => {
+  const fetchUserData = async () => {
     const user = await getUser(_id)
     setUserApp(user.user_data)
     setUserId(user.user_data._id)
@@ -68,6 +68,8 @@ const Page = () => {
       <div className={styles.divNavBar}>
         <LogoNetExpertos width={200} height={70} />
         <HambIcon
+          userApp={userApp}
+          messages={messages}
           show={() => {
             setShowMenu(!showMenu)
           }}

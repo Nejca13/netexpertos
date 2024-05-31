@@ -12,6 +12,7 @@ import EmojiPicker from 'emoji-picker-react'
 import { getFirstUser } from '@/utils/indexedDataBase'
 import { getChats } from '@/services/api/chat'
 import { useWebSocket } from '@/app/WebSocketContext'
+import { removeMessagesById } from '@/utils/localStorage'
 
 const Chat = () => {
   const { _id } = useParams()
@@ -36,6 +37,7 @@ const Chat = () => {
   }, [_id])
 
   useEffect(() => {
+    removeMessagesById(_id)
     const fetchUser = async () => {
       const user = await getFirstUser()
       setUser(user)
@@ -114,6 +116,7 @@ const Chat = () => {
                 height={35}
                 alt='Flecha atras'
                 onClick={() => {
+                  removeMessagesById(_id)
                   localStorage.removeItem(_id)
                   router.back()
                 }}

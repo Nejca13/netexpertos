@@ -35,16 +35,25 @@ export const WebSocketProvider = ({ children }) => {
 
     const addMessageToLocalStorage = (data) => {
       try {
-        const storedMessages = JSON.parse(localStorage.getItem(data.id)) || []
+        const storedMessages =
+          JSON.parse(localStorage.getItem('messages')) || {}
+
         const newMessage = {
           id: data.id,
           message: data.message,
           name: data.name,
           surname: data.surname,
         }
-        const updatedMessages = [...storedMessages, newMessage]
-        localStorage.setItem(data.id, JSON.stringify(updatedMessages))
-        console.log('Message received y guardado en localStorage:', newMessage)
+
+        if (storedMessages[data.id]) {
+          // Si ya existen mensajes para este id, añade el nuevo mensaje al array existente
+          storedMessages[data.id].push(newMessage)
+        } else {
+          // Si no existen mensajes para este id, crea un nuevo array con el nuevo mensaje
+          storedMessages[data.id] = [newMessage]
+        }
+
+        localStorage.setItem('messages', JSON.stringify(storedMessages))
       } catch (error) {
         console.error('Error al manejar localStorage:', error)
       }

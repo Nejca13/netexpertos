@@ -11,6 +11,7 @@ import MenuPerfil from './Perfil/MenuPerfil'
 import { useState, useEffect, useRef } from 'react'
 import ConvertiteEnExperto from './ConvertiteEnExperto/ConvertiteEnExperto'
 import { useRouter } from 'next/navigation'
+import NotificationBubble from '../NotificationBubble/NotificationBubble'
 
 const HambMenu = ({ show, userApp }) => {
   const [menuComponent, setMenuComponent] = useState(null)
@@ -101,6 +102,7 @@ const HambMenu = ({ show, userApp }) => {
                       alt={`Icono de ${item.name}`}
                     />{' '}
                     <span>{item.name}</span>
+                    {item.name === 'Mensajes' && <NotificationBubble />}
                   </li>
                 ))
               : hambMenuOptionsClient.map((item, index) => (
@@ -116,7 +118,8 @@ const HambMenu = ({ show, userApp }) => {
                       height={24}
                       alt={`Icono de ${item.name}`}
                     />{' '}
-                    <span>{item.name}</span>
+                    <span>{item.name}</span>{' '}
+                    {item.name === 'Mensajes' && <NotificationBubble />}
                   </li>
                 ))}
           </ul>

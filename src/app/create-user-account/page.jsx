@@ -34,7 +34,7 @@ const Page = () => {
     formData.append('foto_base64', profilePhoto)
     const formDataValues = Object.fromEntries(formData)
     formDataValues.nombre = formDataValues.nombre_apellido.split(' ')[0]
-    formDataValues.apellido = formDataValues.nombre_apellido.split(' ')[0]
+    formDataValues.apellido = formDataValues.nombre_apellido.split(' ')[1]
     createUser(formDataValues, setOnError, setLoading)
       .then((res) => {
         res === true &&

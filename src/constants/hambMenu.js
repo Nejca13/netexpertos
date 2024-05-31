@@ -48,6 +48,11 @@ export const hambMenuOptionsClient = [
     name: 'Perfil',
     icon: USER,
   },
+
+  {
+    name: 'Notificaciones',
+    icon: CAMPANA,
+  },
   {
     name: 'Mensajes',
     icon: CHAT,

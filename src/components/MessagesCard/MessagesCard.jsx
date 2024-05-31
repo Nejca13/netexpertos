@@ -34,16 +34,18 @@ const MessagesCard = ({ item, index, _id }) => {
 
   const getInfo = (mensajes) => {
     const id = mensajes.filter((mensaje, index) => mensaje.remitente_id !== _id)
+    console.log(id[0])
     return id[0]
   }
 
   useEffect(() => {
     if (getInfo(item.mensajes)?.remitente_id !== undefined) {
-      const mensajesNoLeidos = JSON.parse(
-        localStorage.getItem(getInfo(item.mensajes).remitente_id)
-      )
+      const mensajesNoLeidos = JSON.parse(localStorage.getItem('messages'))
       if (mensajesNoLeidos) {
-        setUnSeenMessage(mensajesNoLeidos.length)
+        const id = getInfo(item.mensajes)?.remitente_id
+        const isUnSeedMessage = mensajesNoLeidos[id]
+
+        setUnSeenMessage(mensajesNoLeidos[id]?.length)
       }
     }
   }, [item])
@@ -67,6 +69,7 @@ const MessagesCard = ({ item, index, _id }) => {
             foto_perfil: getValidImageSrc(item.mensajes),
           })
         )
+
         setTimeout(() => {
           router.push(`/chatroom/${getInfo(item.mensajes).remitente_id}`)
         }, 200)
