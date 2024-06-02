@@ -31,6 +31,13 @@ const Page = () => {
   useEffect(() => {
     fetchUserData()
   }, [])
+  const sendAndroidNotification = (title, message, imageUrl) => {
+    if (window.Android && typeof Android.sendNotification === 'function') {
+      Android.sendNotification(title, message, imageUrl)
+    } else {
+      console.log('Android interface not available.')
+    }
+  }
 
   useEffect(() => {
     if (userApp) {
@@ -42,6 +49,14 @@ const Page = () => {
       }, 5000)
     }
     console.log('Mensaje recibido')
+    const data = messages[messages.length - 1]
+    if (data?.message) {
+      sendAndroidNotification(
+        'NetExpertos',
+        `${data.name}: ${data.message}`,
+        atob(data.image)
+      )
+    }
     return () => {
       setNotificationMessages([])
     }
