@@ -12,11 +12,12 @@ const WebSocketContext = createContext(null)
 export const WebSocketProvider = ({ children }) => {
   const [messages, setMessages] = useState([])
   const [userId, setUserId] = useState(null)
+  const [role, setRole] = useState(null)
   const ws = useRef(null)
 
   useEffect(() => {
-    if (userId) {
-      connectWebSocket(userId)
+    if (userId && role) {
+      connectWebSocket(userId, role)
       console.log('conectando')
     }
     return () => {
@@ -26,8 +27,10 @@ export const WebSocketProvider = ({ children }) => {
     }
   }, [userId])
 
-  const connectWebSocket = (id) => {
-    ws.current = new WebSocket(`wss://vps-4057595-x.dattaweb.com/chat/ws/${id}`)
+  const connectWebSocket = (id, role) => {
+    ws.current = new WebSocket(
+      `wss://vps-4057595-x.dattaweb.com/chat/ws/${id}/${role}`
+    )
 
     ws.current.onopen = () => {
       console.log('WebSocket connected')
@@ -85,7 +88,7 @@ export const WebSocketProvider = ({ children }) => {
 
   return (
     <WebSocketContext.Provider
-      value={{ ws: ws.current, messages, setUserId, setMessages }}
+      value={{ ws: ws.current, messages, setUserId, setMessages, setRole }}
     >
       {children}
     </WebSocketContext.Provider>

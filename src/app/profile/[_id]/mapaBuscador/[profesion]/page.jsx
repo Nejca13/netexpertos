@@ -31,13 +31,14 @@ const Map = () => {
   const [isShowPopup, setIsShowPopup] = useState(false)
   const [showMoreInfo, setShowMoreInfo] = useState(false)
   const [kilometrosDeRadio, setKilometrosDeRadio] = useState(15)
-  const { ws, messages, setUserId } = useWebSocket()
+  const { ws, messages, setUserId, setRole } = useWebSocket()
   const [notificationMessages, setNotificationMessages] = useState([])
 
   const setUser = async () => {
     const storageUser = await getUser(_id)
     setUserApp(storageUser.user_data)
     setUserId(storageUser.user_data._id)
+    setRole(storageUser.user_data.rol)
   }
 
   useEffect(() => {

@@ -34,7 +34,7 @@ const HambMenu = ({ show, userApp }) => {
         )
         break
       case 'Mensajes':
-        router.push(`/profile/${userApp._id}/chats`)
+        router.push(`/profile/${userApp._id}/${userApp.rol}/chats`)
         break
       case 'Salir':
         userLogout()

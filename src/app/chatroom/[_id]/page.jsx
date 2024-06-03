@@ -21,7 +21,7 @@ const Chat = () => {
   const router = useRouter()
   const textareaRef = useRef(null)
   const containerRef = useRef(null)
-  const { ws, messages, setUserId, setMessages } = useWebSocket()
+  const { ws, messages, setUserId, setMessages, setRole } = useWebSocket()
   const [user, setUser] = useState(null)
   const [showEmojis, setShowEmojis] = useState(false)
 
@@ -43,6 +43,7 @@ const Chat = () => {
       setUser(user)
       if (user) {
         setUserId(user.user_data._id)
+        setRole(user.user_data.rol)
         await getChats(_id, user.user_data._id)
           .then((response) => {
             setMessages(

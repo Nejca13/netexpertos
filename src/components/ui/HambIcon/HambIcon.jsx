@@ -27,7 +27,7 @@ const HambIcon = ({ show, userApp, messages }) => {
         <span
           className={styles.notifications}
           onClick={() => {
-            router.push(`/profile/${userApp._id}/chats`)
+            router.push(`/profile/${userApp._id}/${userApp.rol}/chats`)
           }}
         >
           <Image

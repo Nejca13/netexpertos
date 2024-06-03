@@ -25,7 +25,7 @@ const Page = () => {
   const [searchItems, setSearchItems] = useState('')
   const { _id } = useParams()
   const [showProfesionalCard, setShowProfesionalCard] = useShowProfesionalCard()
-  const { ws, messages, setUserId } = useWebSocket()
+  const { ws, messages, setUserId, setRole } = useWebSocket()
   const [notificationMessages, setNotificationMessages] = useState([])
 
   useEffect(() => {
@@ -66,6 +66,7 @@ const Page = () => {
     const user = await getUser(_id)
     setUserApp(user.user_data)
     setUserId(user.user_data._id)
+    setRole(user.user_data.rol)
   }
 
   return (
