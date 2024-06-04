@@ -143,7 +143,10 @@ const Chat = () => {
           </div>
           <div className={styles.chats} ref={containerRef}>
             {messages.map((message, index) => {
-              if (message.remitente_id === user.user_data._id) {
+              if (
+                message.id === user.user_data._id ||
+                message.remitente_id === user.user_data._id
+              ) {
                 return (
                   <p key={index} className={styles.mensajeSaliente}>
                     {message.mensaje || message.message}
@@ -154,7 +157,8 @@ const Chat = () => {
                     </span>
                   </p>
                 )
-              } else {
+              }
+              if (message.id === _id || message.remitente_id === _id) {
                 return (
                   <p key={index} className={styles.mensajeEntrante}>
                     {message.mensaje || message.message}

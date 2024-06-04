@@ -111,10 +111,9 @@ export const getFilteredAndSortedProfessionalsByDistance = async (
 }
 
 export const updateProfessional = async (user, updatedData) => {
-  console.log(updatedData)
   try {
     const mailEncode = encodeURIComponent(user.correo.trim())
-    console.log(user.correo)
+
     const response = await fetch(API_URL + `?correo=${mailEncode}`, {
       method: 'PUT',
       headers: {
@@ -126,7 +125,7 @@ export const updateProfessional = async (user, updatedData) => {
     if (response.ok) {
       // La solicitud fue exitosa
       const responseData = await response.json()
-      console.log(responseData.message)
+
       await updateUser(updatedData, user._id)
       window.location.reload()
       return responseData // Puedes retornar los datos actualizados si lo deseas

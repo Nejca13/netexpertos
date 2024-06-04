@@ -9,7 +9,7 @@ export const getChats = async (id1, id2) => {
   })
   if (response.ok) {
     const responseData = await response.json()
-    console.log(responseData)
+
     return responseData
   } else {
     const error = await response.json()

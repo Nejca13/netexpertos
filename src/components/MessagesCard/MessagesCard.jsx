@@ -34,7 +34,7 @@ const MessagesCard = ({ item, index, _id }) => {
 
   const getInfo = (mensajes) => {
     const id = mensajes.filter((mensaje, index) => mensaje.remitente_id !== _id)
-    console.log(id[0])
+
     return id[0]
   }
 
